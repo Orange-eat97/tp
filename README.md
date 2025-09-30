@@ -6,6 +6,8 @@
 # CareLink
 ## Project Overview
 - This is **an application for NGOs to keep records of their beneficiaries and social workers**.
+- The application is optimized for fast typing via a **Command Line Interface (CLI)**
+- The application is additionally a **single-user application**
 
 ## Features
   - add the contact of a beneficiary or social worker
