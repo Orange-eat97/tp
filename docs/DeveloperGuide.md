@@ -267,11 +267,9 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**:
 
-1. Manages a database of social workers and beneficiaries
-2. Ability to find the closest worker to beneficiary
-3. Hierarchical graph for users, like team leads or admin workers
-4. Tags like social worker, beneficiary, counsellor, …
-5. Map views with commands for dispatching people to places and tracking cases
+1. Ability to find the closest worker to beneficiary
+2. Hierarchical graph for users, like team leads or admin workers
+3. Tags like social worker, beneficiary, counsellor, …
 
 ### User stories
 
