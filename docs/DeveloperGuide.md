@@ -380,9 +380,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should run on Windows, macOS, Linux as long as Java17+ is installed, with no OS-specific setup.
+2. Should start up to a usable prompt on a mid-range laptop with ~10k contacts with reasonable latency.
+3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
+4. Should show autocomplete suggestions almost instantly. 
+5. Should display clear error messages that say what went wrong and how to fix it. 
+6. Should validate inputs and keep phone/email unique across contacts. 
+7. Should only be for local use, no internet is required.
+8. Should be tailored towards navigating with keyboard.
 
 *{More to be added}*
 
