@@ -329,9 +329,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 ### Glossary
-
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **API**: Application Programming Interface
+* **Beneficiary**: Person who benefits from the social service.
+* **Social service worker**: Person who provides social service to beneficiaries. May or may 
+not be assigned to a beneficiary.
+* **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
 
 --------------------------------------------------------------------------------------------------------------------
 
