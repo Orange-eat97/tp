@@ -267,24 +267,28 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**:
 
-1. Ability to find the closest worker to beneficiary
-2. Hierarchical graph for users, like team leads or admin workers
-3. Tags like social worker, beneficiary, counsellor, …
+1. Manages a database of social workers and beneficiaries
+2. Ability to find the closest worker to beneficiary
+3. Upgraded Find command with additive filters and a wider range of filters
+4. Sorting for names and locations
+5. Autocomplete for commands
+6. Command Undo to reverse commands
+7. Command history and reusing past commands
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​               | I want to …​                                         | So that I can…​                                                                      |
-|----------|-----------------------|------------------------------------------------------|--------------------------------------------------------------------------------------|
-| `* * *`  | user                  | delete beneficiaries/volunteer                       |                                                                                      |
-| `* * *`  | user                  | add beneficiaries/volunteer                          |                                                                                      |
-| `* * *`  | user                  | update beneficiaries/volunteer                       |                                                                                      |
-| `* * *`  | user                  | view list of beneficiaries/volunteer details         |                                                                                      |
-| `* *`    | careless person       | see a confirmation tab when deleting a contact       | prevent accidentally deleting someone wrongly                                        |
-| `* *`    | social Service Worker | filter people staying in a district or region        | easily identify people to dispatch to that region                                    |
-| `* *`    | social Service Worker | view detailed information about beneficiaries        | inform social workers and provide them a summary of how to approach them effectively |
-| `* *`    | social Service Worker | allow specific social workers to be grouped in teams | assign social workers into groups and search for them easily                         |
+| Priority | As a …​               | I want to …​                                   | So that I can…​                                                                      |
+|----------|-----------------------|------------------------------------------------|--------------------------------------------------------------------------------------|
+| `* * *`  | user                  | delete beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | add beneficiaries/volunteer                    |                                                                                      |
+| `* * *`  | user                  | update beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | view list of beneficiaries/volunteer details   |                                                                                      |
+| `* *`    | careless person       | see a confirmation tab when deleting a contact | prevent accidentally deleting someone wrongly                                        |
+| `* *`    | social Service Worker | filter people staying in a district or region  | easily identify people to dispatch to that region                                    |
+| `* *`    | social Service Worker | view detailed information about beneficiaries  | inform social workers and provide them a summary of how to approach them effectively |
+| `* *`    | social Service Worker | group certain social workers in teams          | search for social workers easily by their groups                                     |
 
 
 
