@@ -292,7 +292,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC01 - Add a person**
 
-**MSS**
+**MSS:**
 
 1.  User requests to add a person with specified details.
 2.  AddressBook adds the person.
@@ -300,12 +300,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Extensions**
+**Extensions:**
 * 1a. The added person's details are invalid/missing.
 
     * 1a1. AddressBook shows an error.
 
       Use case ends.
+  
   
 * 1b. The person to be added already exists in the list.
 
@@ -315,30 +316,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC02 - List persons**
 
-**MSS**
+**MSS:**
 
 1.  User requests to list persons.
 2.  AddressBook shows a list of persons.
 
-**Extensions**
+**Extensions:**
 
 * 2a. The list is empty.
-
     * 2a1. AddressBook tells user list is empty.
-
+      
       Use case ends.
 
-**Use case: UC03 Delete a person**
+**Use case: UC03 - Delete a person**
 
-**MSS**
-
+**MSS:**
 1. User requests to <u>list persons (UC02)</u>.
 2. User requests to delete a specific person in the list.
 3. AddressBook deletes the person.
 
-    Use case ends.
+   Use case ends.
 
-**Extensions**
+**Extensions:**
 
 * 2a. Invalid/missing identifier for person to delete.
 
@@ -355,13 +354,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-
+**Extensions:**
 * 2a. The identifier does not match any existing person, or is missing.
 
     * 2a1. AddressBook shows an error.
 
       Use case resumes from step 2.
+  
   
 * 2b. The new details are invalid.
 
