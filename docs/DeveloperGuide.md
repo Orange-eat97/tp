@@ -290,91 +290,84 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a person**
+**Use case: UC01 - Add a person**
 
 **MSS**
 
-1.  User requests to add a person with specified details
-2.  AddressBook adds the person
-3.  AddressBook adds the person to list of persons.
-4.  Success message shown to user.
+1.  User requests to add a person with specified details.
+2.  AddressBook adds the person.
+3.  AddressBook adds the person to list of persons. 
 
     Use case ends.
 
 **Extensions**
-* 1a. The given details are invalid/missing.
+* 1a. The added person's details are invalid/missing.
 
-    * 1a1. AddressBook shows an error message.
+    * 1a1. AddressBook shows an error.
 
       Use case ends.
   
 * 1b. The person to be added already exists in the list.
 
-    * 1b1. AddressBook shows an error message.
+    * 1b1. AddressBook shows an error.
 
       Use case ends.
 
-**Use case: List persons**
+**Use case: UC02 - List persons**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
+1.  User requests to list persons.
+2.  AddressBook shows a list of persons.
 
 **Extensions**
 
 * 2a. The list is empty.
 
-    * 2a1. AddressBook states that the list is empty.
+    * 2a1. AddressBook tells user list is empty.
 
       Use case ends.
 
-**Use case: Delete a person**
+**Use case: UC03 Delete a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to <u>list persons (UC02)</u>.
+2. User requests to delete a specific person in the list.
+3. AddressBook deletes the person.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. Invalid/missing identifier for person to delete.
 
-    * 2a1. AddressBook states that the list is empty.
+    * 2a1. AddressBook shows an error.
 
-      Use case ends.
+      Use case resumes from step 2.
 
-* 3a. The given identifier is invalid/missing.
+**Use case: UC04 - Update person's details**
 
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: Update person's details**
-
-1. User requests to update person with specified identifier and new details
-2. AddressBook updates the person's details
-3. AddressBook shows the updated details
+1. User requests to <u>list persons (UC02)</u>.
+2. User requests to update person with new details.
+3. AddressBook updates the person's details.
+4. AddressBook shows the updated details.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. The identifier does not match any existing person, or is missing.
+* 2a. The identifier does not match any existing person, or is missing.
 
-    * 1a1. AddressBook shows an error message.
+    * 2a1. AddressBook shows an error.
 
-      Use case ends.
+      Use case resumes from step 2.
   
-* 1b. The new details are invalid.
+* 2b. The new details are invalid.
 
-    * 1b1. AddressBook shows an error message.
+    * 2b1. AddressBook shows an error.
 
-      Use case ends.
+      Use case resumes from step 2.
   
 *{More to be added}*
 
