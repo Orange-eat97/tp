@@ -260,29 +260,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target User profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+1. Social services dispatcher or coordinator that prefer CLI over GUI
+2. They enjoy shortcuts so commands can be performed quickly even while on a call
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
 
+1. Manages a database of social workers and beneficiaries
+2. Ability to find the closest worker to beneficiary
+3. Upgraded Find command with additive filters and a wider range of filters
+4. Sorting for names and locations
+5. Autocomplete for commands
+6. Command Undo to reverse commands
+7. Command history and reusing past commands
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​               | I want to …​                                   | So that I can…​                                                                      |
+|----------|-----------------------|------------------------------------------------|--------------------------------------------------------------------------------------|
+| `* * *`  | user                  | delete beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | add beneficiaries/volunteer                    |                                                                                      |
+| `* * *`  | user                  | update beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | view list of beneficiaries/volunteer details   |                                                                                      |
+| `* *`    | careless person       | see a confirmation tab when deleting a contact | prevent accidentally deleting someone wrongly                                        |
+| `* *`    | social Service Worker | filter people staying in a district or region  | easily identify people to dispatch to that region                                    |
+| `* *`    | social Service Worker | view detailed information about beneficiaries  | inform social workers and provide them a summary of how to approach them effectively |
+| `* *`    | social Service Worker | group certain social workers in teams          | search for social workers easily by their groups                                     |
+
+
 
 *{More to be added}*
 
