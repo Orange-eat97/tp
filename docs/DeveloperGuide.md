@@ -332,9 +332,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **CLI**: Command Line Interface
 * **GUI**: Graphical User Interface
 * **API**: Application Programming Interface
-* **Beneficiary**: Person who benefits from the social service.
-* **Social service worker**: Person who provides social service to beneficiaries. May or may 
-not be assigned to a beneficiary.
+* **Beneficiary**: Person who benefits from the social service. Zero or more social service workers 
+may be assigned to a beneficiary.
+* **Social service worker**: Person who provides social service to beneficiaries. May be assigned to 
+zero or more beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
 
 --------------------------------------------------------------------------------------------------------------------
