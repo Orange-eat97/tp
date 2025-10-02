@@ -295,8 +295,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS:**
 
 1.  User requests to add a person with specified details.
-2.  AddressBook adds the person.
-3.  AddressBook adds the person to list of persons. 
+2.  AddressBook adds the person to list of persons. 
 
     Use case ends.
 
