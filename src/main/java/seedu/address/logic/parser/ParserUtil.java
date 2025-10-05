@@ -43,10 +43,7 @@ public class ParserUtil {
      * @throws ParseException if any specified index is invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndices(String oneBasedIndices) throws ParseException {
-        // separate the indices in their string form
         String[] separatedIndices = StringUtil.getAllElements(oneBasedIndices.trim());
-
-        // actually convert them to type Index
         List<Index> actualIndices = new ArrayList<>();
         for (String index : separatedIndices) {
             actualIndices.add(parseIndex(index));
