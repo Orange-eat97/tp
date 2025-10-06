@@ -84,4 +84,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * has the same functionality as updateFilteredPersonList as above, but returns the size of the new list
+     * @param predicate
+     * @return int size of the updated list
+     */
+    int updateFilteredPersonListSize(Predicate<Person> predicate);
 }

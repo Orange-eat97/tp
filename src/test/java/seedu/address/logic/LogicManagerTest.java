@@ -67,8 +67,13 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        int count = model.getFilteredPersonList().size();
+        String expectedMessage = String.format("%s %d contacts found",
+                ListCommand.MESSAGE_SUCCESS, count);
+        assertCommandSuccess(listCommand, expectedMessage, model);
     }
+
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
@@ -94,12 +99,13 @@ public class LogicManagerTest {
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
      * @see #assertCommandFailure(String, Class, String, Model)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel)
+            throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
+
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.

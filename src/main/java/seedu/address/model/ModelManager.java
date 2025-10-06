@@ -129,6 +129,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int updateFilteredPersonListSize(Predicate<Person> predicate) {
+        filteredPersons.setPredicate(predicate);
+        return filteredPersons.size();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

@@ -14,11 +14,11 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        int x = model.updateFilteredPersonListSize(PREDICATE_SHOW_ALL_PERSONS);
+        String feedback = MESSAGE_SUCCESS + " " + x + " contacts found";
+        return new CommandResult(feedback);
     }
 }
