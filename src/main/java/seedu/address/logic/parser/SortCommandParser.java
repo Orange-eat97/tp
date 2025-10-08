@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SortCommand;
@@ -37,7 +38,10 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        List<Prefix> prefixList = argMultimap.getAllPrefixes();
+        List<Prefix> prefixList = argMultimap.getAllPrefixes().stream()
+                .filter(p -> !p.getPrefix().isEmpty())
+                .collect(Collectors.toList());
+
         Comparator<Person> personComparator = null;
         for (int i = 0; i < prefixList.size(); i++) {
             Prefix prefix = prefixList.get(i);
@@ -68,6 +72,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         case "a/":
             return person -> person.getAddress().value;
         default:
+            System.out.println("hello");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
 
         }
