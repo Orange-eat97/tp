@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.parser.Prefix;
+import java.util.Comparator;
+
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.util.Comparator;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -14,6 +13,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+/**
+ * Sorts people according to specified category
+ */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
@@ -32,6 +34,10 @@ public class SortCommand extends Command {
 
     private final Comparator<Person> personComparator;
 
+    /**
+     * Creates a SortCommand to sort according to the category
+     * @param comparator
+     */
     public SortCommand(Comparator<Person> comparator) {
         this.personComparator = comparator;
 
