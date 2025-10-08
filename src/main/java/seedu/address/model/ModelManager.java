@@ -145,4 +145,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    //=========== Sorted Person List Accessors =============================================================
+
+
 }

@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -35,12 +34,12 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Person> personComparator = null;
         for (int i = 0; i < prefixList.size(); i++) {
             Prefix prefix = prefixList.get(i);
+            Function<Person, String> personPrefixValue = getPersonPrefixValue(prefix);
             if (i == 0) {
-                personComparator = firstComparator(prefix);
+                personComparator = Comparator.comparing(personPrefixValue);
 
             } else {
-                nextComparator(prefix, personComparator);
-
+                personComparator = personComparator.thenComparing(personPrefixValue);
             }
 
         }
@@ -49,41 +48,24 @@ public class SortCommandParser implements Parser<SortCommand> {
 
     }
 
-    private Comparator<Person> firstComparator(Prefix prefix) throws ParseException {
+    private Function<Person, String> getPersonPrefixValue(Prefix prefix) throws ParseException {
         switch (prefix.getPrefix()) {
-            case "n/":
-                return Comparator.comparing(person -> person.getName().fullName);
-            case "p/":
-                return Comparator.comparing(person -> person.getPhone().value);
-            case "e/":
-                return Comparator.comparing(person -> person.getEmail().value);
-            case "t/":
-               return Comparator.comparing(person -> person.getTags().iterator().next().tagName);
-            case "a/":
-                return Comparator.comparing(person -> person.getName().fullName);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        case "n/":
+            return person -> person.getName().fullName;
+        case "p/":
+            return person -> person.getPhone().value;
+        case "e/":
+            return person -> person.getEmail().value;
+        case "t/":
+            return person -> person.getTags().iterator().next().tagName;
+        case "a/":
+            return person -> person.getAddress().value;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
 
         }
     }
 
-    private Comparator<Person> nextComparator(Prefix prefix, Comparator<Person> comparator) throws ParseException {
-        switch (prefix.getPrefix()) {
-            case "n/":
-                return comparator.thenComparing(person -> person.getName().fullName);
-            case "p/":
-                return comparator.thenComparing(person -> person.getPhone().value);
-            case "e/":
-                return comparator.thenComparing(person -> person.getEmail().value);
-            case "t/":
-                return comparator.thenComparing(person -> person.getTags().iterator().next().tagName);
-            case "a/":
-                return comparator.thenComparing(person -> person.getName().fullName);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-
-        }
-    }
 
     /**
      * Returns true if any prefixes are present in the given

@@ -28,12 +28,12 @@ public class SortCommand extends Command {
             + PREFIX_EMAIL + " "
             + PREFIX_ADDRESS + " "
             + PREFIX_TAG + " \n"
-            + "Example: " + COMMAND_WORD + " /n";
+            + "Example: " + COMMAND_WORD + " n/";
 
-    private final Comparator<Person> comparator;
+    private final Comparator<Person> personComparator;
 
     public SortCommand(Comparator<Person> comparator) {
-        this.comparator = comparator;
+        this.personComparator = comparator;
 
     }
 
