@@ -17,7 +17,8 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        int x = model.updateFilteredPersonListSize(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        int x = model.getPersonListSize();
         String feedback = MESSAGE_SUCCESS + " " + x + " contacts found";
         return new CommandResult(feedback);
     }

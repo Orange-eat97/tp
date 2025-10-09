@@ -129,8 +129,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int updateFilteredPersonListSize(Predicate<Person> predicate) {
-        filteredPersons.setPredicate(predicate);
+    public int getPersonListSize() {
         return filteredPersons.size();
     }
 
