@@ -18,8 +18,8 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        int x = model.getPersonListSize();
-        String feedback = MESSAGE_SUCCESS + " " + x + " contacts found";
+        int contactCount = model.getPersonListSize();
+        String feedback = MESSAGE_SUCCESS + " " + contactCount + " contacts found";
         return new CommandResult(feedback);
     }
 }
