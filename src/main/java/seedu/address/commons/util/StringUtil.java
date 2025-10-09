@@ -65,4 +65,14 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns an array of strings if {@code s} represents a string of space-separated sub-strings
+     * e.g. "1 2 3" or "a b c" <br>
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static String[] getAllElements(String s) {
+        requireNonNull(s);
+        return s.split("\\s+");
+    }
 }
