@@ -63,7 +63,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (tags.isPresent()) {
             Set<Tag> tagSet = tags.get();
             if (!tagSet.contains(new Tag("volunteer")) && !tagSet.contains(new Tag("beneficiary"))) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
             editPersonDescriptor.setTags(tagSet);
         }
