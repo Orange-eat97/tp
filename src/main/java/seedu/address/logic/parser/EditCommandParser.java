@@ -58,7 +58,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        Optional<Set<Tag>> tags = parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG));
+        if (tags.isPresent()) {
+            Set<Tag> tagSet = tags.get();
+            if (!tagSet.contains(new Tag("volunteer")) && !tagSet.contains(new Tag("beneficiary"))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+            editPersonDescriptor.setTags(tagSet);
+        }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
