@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -41,6 +42,8 @@ public class Person {
     public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
     public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
+    public static final Function<Person, String> TAG_STR_GETTER =
+            person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
 
     public Name getName() {
         return name;

@@ -37,7 +37,8 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
         }
 
         StrAttrContainsKeywords otherStrAttrContainsKeywords = (StrAttrContainsKeywords) other;
-        return keywords.equals(otherStrAttrContainsKeywords.keywords);
+        return keywords.equals(otherStrAttrContainsKeywords.keywords)
+                && attributeGetter.equals(otherStrAttrContainsKeywords.attributeGetter);
     }
 
     @Override
