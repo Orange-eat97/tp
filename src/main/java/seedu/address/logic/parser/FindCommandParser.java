@@ -35,17 +35,18 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // build predicate for each attribute
         Predicate<Person> namePredicate = argMultimap.getValue(PREFIX_NAME)
-                .map( keywordStr -> buildPredicate(keywordStr, person -> person.getName().fullName))
+                .map( keywordStr -> buildPredicate(keywordStr, Person.NAME_STR_GETTER))
                 .orElse(PREDICATE_FALSE);
         Predicate<Person> phonePredicate = argMultimap.getValue(PREFIX_PHONE)
-                .map( keywordStr -> buildPredicate(keywordStr, person -> person.getPhone().value))
+                .map( keywordStr -> buildPredicate(keywordStr, Person.PHONE_STR_GETTER))
                 .orElse(PREDICATE_FALSE);
         Predicate<Person> emailPredicate = argMultimap.getValue(PREFIX_EMAIL)
-                .map( keywordStr -> buildPredicate(keywordStr, person -> person.getEmail().value))
+                .map( keywordStr -> buildPredicate(keywordStr, Person.EMAIL_STR_GETTER))
                 .orElse(PREDICATE_FALSE);
         Predicate<Person> addressPredicate = argMultimap.getValue(PREFIX_ADDRESS)
-                .map( keywordStr -> buildPredicate(keywordStr, person -> person.getAddress().value))
+                .map( keywordStr -> buildPredicate(keywordStr, Person.ADDRESS_STR_GETTER))
                 .orElse(PREDICATE_FALSE);
+
         // TODO: use a different predicate for tags since it's a set of Tag objects
         Predicate<Person> tagPredicate = argMultimap.getValue(PREFIX_TAG)
                 .map( keywordStr -> buildPredicate(keywordStr, person -> person.getTags().toString()))
