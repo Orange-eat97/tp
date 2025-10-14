@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -36,6 +37,10 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
     }
+    public static final Function<Person, String> NAME_STR_GETTER = person -> person.getName().fullName;
+    public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
+    public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
+    public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
 
     public Name getName() {
         return name;
