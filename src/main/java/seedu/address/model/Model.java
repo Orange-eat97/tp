@@ -94,4 +94,10 @@ public interface Model {
     void updateSortedPersonList(Comparator<Person> comparator);
 
     ObservableList<Person> getSortedPersonList();
+
+    void updateDisplayList(Comparator<Person> comparator);
+
+    void updateDisplayList(Predicate<Person> predicate);
+
+    ObservableList<Person> getDisplayList();
 }

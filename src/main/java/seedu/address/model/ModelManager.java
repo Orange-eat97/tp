@@ -105,7 +105,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -166,4 +166,20 @@ public class ModelManager implements Model {
         return sortedPersons;
     }
 
+    @Override
+    public void updateDisplayList(Predicate<Person> predicate) {
+        updateFilteredPersonList(predicate);
+
+    }
+
+    @Override
+    public void updateDisplayList(Comparator<Person> comparator) {
+        updateSortedPersonList(comparator);
+
+    }
+    @Override
+    public ObservableList<Person> getDisplayList() {
+        return sortedPersons;
+
+    }
 }

@@ -30,10 +30,9 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered and sorted list of persons */
 
-    ObservableList<Person> getSortedPersonList();
+    ObservableList<Person> getDisplayList();
 
     /**
      * Returns the user prefs' address book file path.
@@ -49,4 +48,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }
