@@ -91,7 +91,11 @@ Examples:
 
 Shows a list of all persons in the address book.
 
+* At the panel below the command box, AB3 tells you the total number of contacts you have.
+
 Format: `list`
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
 
 ### Editing a person : `edit`
 
