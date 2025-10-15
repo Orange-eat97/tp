@@ -155,6 +155,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Sorted Person List Accessors =============================================================
+    @Override
     public void updateSortedPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
         sortedPersons.setComparator(comparator);

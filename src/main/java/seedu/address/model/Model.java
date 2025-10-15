@@ -91,13 +91,27 @@ public interface Model {
      */
     int getPersonListSize();
 
+    /**
+     * Updates the comparator of the sorted person list to sort by the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
     void updateSortedPersonList(Comparator<Person> comparator);
 
+    /** Returns an unmodifiable view of the sorted person list */
     ObservableList<Person> getSortedPersonList();
 
+    /**
+     * Updates the comparator of the person list to sort by the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
     void updateDisplayList(Comparator<Person> comparator);
 
+    /**
+     * Updates the predicate of the person list to sort by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateDisplayList(Predicate<Person> predicate);
 
+    /** Returns an unmodifiable view of the person list */
     ObservableList<Person> getDisplayList();
 }
