@@ -19,14 +19,19 @@ public class StrAttrContainsKeywordsTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        StrAttrContainsKeywords firstPredicate = new StrAttrContainsKeywords(firstPredicateKeywordList);
-        StrAttrContainsKeywords secondPredicate = new StrAttrContainsKeywords(secondPredicateKeywordList);
+        StrAttrContainsKeywords firstPredicate =
+                new StrAttrContainsKeywords(firstPredicateKeywordList, Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords secondPredicate =
+                new StrAttrContainsKeywords(secondPredicateKeywordList, Person.PHONE_STR_GETTER);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        StrAttrContainsKeywords firstPredicateCopy = new StrAttrContainsKeywords(firstPredicateKeywordList);
+        StrAttrContainsKeywords firstPredicateCopy = new StrAttrContainsKeywords(
+                firstPredicateKeywordList,
+                Person.NAME_STR_GETTER
+        );
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -35,41 +40,44 @@ public class StrAttrContainsKeywordsTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different keywords -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(Collections.singletonList("Alice"));
+        StrAttrContainsKeywords predicate =
+                new StrAttrContainsKeywords(Collections.singletonList("Alice"), Person.NAME_STR_GETTER);
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
-        predicate = new StrAttrContainsKeywords(Arrays.asList("Alice", "Bob"));
+        predicate = new StrAttrContainsKeywords(Arrays.asList("Alice", "Bob"), Person.NAME_STR_GETTER);
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new StrAttrContainsKeywords(Arrays.asList("Bob", "Carol"));
+        predicate = new StrAttrContainsKeywords(Arrays.asList("Bob", "Carol"), Person.NAME_STR_GETTER);
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new StrAttrContainsKeywords(Arrays.asList("aLIce", "bOB"));
+        predicate = new StrAttrContainsKeywords(Arrays.asList("aLIce", "bOB"), Person.NAME_STR_GETTER);
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(Collections.emptyList());
+        StrAttrContainsKeywords predicate =
+                new StrAttrContainsKeywords(Collections.emptyList(), Person.NAME_STR_GETTER);
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
 
         // Non-matching keyword
-        predicate = new StrAttrContainsKeywords(Arrays.asList("Carol"));
+        predicate = new StrAttrContainsKeywords(Arrays.asList("Carol"), Person.NAME_STR_GETTER);
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
-        predicate = new StrAttrContainsKeywords(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+        predicate = new StrAttrContainsKeywords(
+                Arrays.asList("12345", "alice@email.com", "Main", "Street"), Person.NAME_STR_GETTER);
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
@@ -77,7 +85,7 @@ public class StrAttrContainsKeywordsTest {
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(keywords);
+        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(keywords, Person.NAME_STR_GETTER);
 
         String expected = StrAttrContainsKeywords.class.getCanonicalName() + "{keywords=" + keywords + "}";
         assertEquals(expected, predicate.toString());

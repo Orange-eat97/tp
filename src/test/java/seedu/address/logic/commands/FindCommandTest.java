@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.StrAttrContainsKeywords;
 
 /**
@@ -30,9 +31,9 @@ public class FindCommandTest {
     @Test
     public void equals() {
         StrAttrContainsKeywords firstPredicate =
-                new StrAttrContainsKeywords(Collections.singletonList("first"));
+                new StrAttrContainsKeywords(Collections.singletonList("first"), Person.NAME_STR_GETTER);
         StrAttrContainsKeywords secondPredicate =
-                new StrAttrContainsKeywords(Collections.singletonList("second"));
+                new StrAttrContainsKeywords(Collections.singletonList("second"), Person.NAME_STR_GETTER);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -50,7 +51,7 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different keywords -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
@@ -76,16 +77,19 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
-        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(Arrays.asList("keyword"));
+        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(Arrays.asList("keyword"), Person.NAME_STR_GETTER);
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate.
      */
     private StrAttrContainsKeywords preparePredicate(String userInput) {
-        return new StrAttrContainsKeywords(Arrays.asList(userInput.split("\\s+")));
+        return new StrAttrContainsKeywords(
+                Arrays.asList(userInput.split("\\s+")),
+                Person.NAME_STR_GETTER
+        );
     }
 }
