@@ -46,6 +46,7 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        model.addCommand(commandText);
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
@@ -85,4 +86,15 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public String getPreviousCommand() {
+        return model.getPreviousCommand();
+    }
+
+    @Override
+    public String getNextCommand() {
+        return model.getNextCommand();
+    }
+
 }
