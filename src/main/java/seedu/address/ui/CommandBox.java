@@ -3,10 +3,14 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import java.util.function.Supplier;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -17,6 +21,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final Supplier<String> getPreviousCommand;
+    private final Supplier<String> getNextCommand;
 
     @FXML
     private TextField commandTextField;
@@ -24,9 +30,13 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor,
+                      Supplier<String> getPreviousCommand,
+                      Supplier<String> getNextCommand) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.getPreviousCommand = getPreviousCommand;
+        this.getNextCommand = getNextCommand;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -48,6 +58,22 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
         }
     }
+
+    @FXML
+    private void handleArrowKeys(KeyEvent event) {
+        if (event.getCode() == KeyCode.UP) {
+            String previousCommand = getPreviousCommand.get();
+            System.out.println(previousCommand);
+            commandTextField.setText(previousCommand);
+            commandTextField.positionCaret(previousCommand.length());
+        } else if (event.getCode() == KeyCode.DOWN) {
+            String nextCommand = getNextCommand.get();
+            System.out.println(nextCommand);
+            commandTextField.setText(nextCommand);
+            commandTextField.positionCaret(nextCommand.length());
+        }
+    }
+
 
     /**
      * Sets the command box style to use the default style.
@@ -81,5 +107,4 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
-
 }
