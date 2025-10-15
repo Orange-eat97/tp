@@ -33,13 +33,15 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD + " n/";
 
     private final Comparator<Person> personComparator;
+    private final String description;
 
     /**
      * Creates a SortCommand to sort according to the category
      * @param comparator
      */
-    public SortCommand(Comparator<Person> comparator) {
+    public SortCommand(Comparator<Person> comparator, String description) {
         this.personComparator = comparator;
+        this.description = description;
 
     }
 
@@ -47,7 +49,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(personComparator);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + description));
 
     }
 }
