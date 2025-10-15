@@ -16,11 +16,21 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
     private final Set<String> keywords;
     private final Function<Person, String> attributeGetter;
 
+    /**
+     * Creates a StrAttrContainsKeywords predicate.
+     * @param keywords Keywords to search for.
+     * @param attributeGetter Function to get the attribute in String form to search from a Person.
+     */
     public StrAttrContainsKeywords(List<String> keywords, Function<Person, String> attributeGetter) {
         this.keywords = new HashSet<>(keywords);
         this.attributeGetter = attributeGetter;
     }
 
+    /**
+     * Tests that a {@code Person}'s attribute matches any of the keywords given.
+     * @param person the person to be tested
+     * @return true if any of the keywords match the attribute, false otherwise
+     */
     @Override
     public boolean test(Person person) {
         return keywords.stream()

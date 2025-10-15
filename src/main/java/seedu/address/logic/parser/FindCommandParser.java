@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +32,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         if (!atLeastOnePrefixPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty() ) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -36,20 +40,20 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
         // build predicate for each attribute
         argMultimap.getValue(PREFIX_NAME)
-                .map( keywordStr -> buildPredicate(keywordStr, Person.NAME_STR_GETTER))
+                .map(keywordStr -> buildPredicate(keywordStr, Person.NAME_STR_GETTER))
                 .ifPresent(predicates::add);
         argMultimap.getValue(PREFIX_PHONE)
-                .map( keywordStr -> buildPredicate(keywordStr, Person.PHONE_STR_GETTER))
+                .map(keywordStr -> buildPredicate(keywordStr, Person.PHONE_STR_GETTER))
                 .ifPresent(predicates::add);
         argMultimap.getValue(PREFIX_EMAIL)
-                .map( keywordStr -> buildPredicate(keywordStr, Person.EMAIL_STR_GETTER))
+                .map(keywordStr -> buildPredicate(keywordStr, Person.EMAIL_STR_GETTER))
                 .ifPresent(predicates::add);
         argMultimap.getValue(PREFIX_ADDRESS)
-                .map( keywordStr -> buildPredicate(keywordStr, Person.ADDRESS_STR_GETTER))
+                .map(keywordStr -> buildPredicate(keywordStr, Person.ADDRESS_STR_GETTER))
                 .ifPresent(predicates::add);
 
         argMultimap.getValue(PREFIX_TAG)
-                .map( keywordStr -> buildPredicate(keywordStr, Person.TAG_STR_GETTER))
+                .map(keywordStr -> buildPredicate(keywordStr, Person.TAG_STR_GETTER))
                 .ifPresent(predicates::add);
 
         if (predicates.isEmpty()) {
@@ -64,7 +68,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @param keywordString containing keywords to search for
      * @return predicate that evaluates to true if at least one of the keywords is found in the attribute
      */
-    private static StrAttrContainsKeywords buildPredicate(String keywordString, Function<Person, String> attributeGetter) {
+    private static StrAttrContainsKeywords buildPredicate(
+            String keywordString, Function<Person, String> attributeGetter) {
         String[] nameKeywords = keywordString.trim().split("\\s+");
         return new StrAttrContainsKeywords(Arrays.asList(nameKeywords), attributeGetter);
     }

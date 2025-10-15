@@ -17,6 +17,12 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    public static final Function<Person, String> NAME_STR_GETTER = person -> person.getName().fullName;
+    public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
+    public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
+    public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
+    public static final Function<Person, String> TAG_STR_GETTER =
+            person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
 
     // Identity fields
     private final Name name;
@@ -38,12 +44,6 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
     }
-    public static final Function<Person, String> NAME_STR_GETTER = person -> person.getName().fullName;
-    public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
-    public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
-    public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
-    public static final Function<Person, String> TAG_STR_GETTER =
-            person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
 
     public Name getName() {
         return name;

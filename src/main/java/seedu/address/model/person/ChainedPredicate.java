@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +16,11 @@ public class ChainedPredicate implements Predicate<Person> {
         this.predicates = new HashSet<>(predicates);
     }
 
+    /**
+     * Tests that a {@code Person} matches all the given predicates, works like a logical AND.
+     * @param person the person to be tested
+     * @return true if all predicates match the person, false otherwise
+     */
     @Override
     public boolean test(Person person) {
         return predicates.stream().allMatch(predicate -> predicate.test(person));
