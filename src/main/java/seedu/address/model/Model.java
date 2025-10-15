@@ -86,6 +86,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * @return int size of the updated list
+     */
+    int getPersonListSize();
+
     void updateSortedPersonList(Comparator<Person> comparator);
 
     ObservableList<Person> getSortedPersonList();

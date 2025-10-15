@@ -1,17 +1,27 @@
 ---
 layout: page
-title: AddressBook Level-3
+title: CareLink
 ---
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
-[![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
+[![Java CI](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml)
+[![codecov](https://codecov.io/gh/AY2526-CS2103T-W13-1/tp/graph/badge.svg?token=086BE9RVL0)](https://codecov.io/gh/AY2526-CS2103T-W13-1/tp)
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+# CareLink
+## Project Overview
+- This is **an application for NGOs to keep records of their beneficiaries and social workers**.
+- The application is optimized for fast typing via a **Command Line Interface (CLI)**
+- The application is additionally a **single-user application**
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+## Features
+  - add the contact of a beneficiary or social worker
+  - retrieve a contact
+  - update a contact
+  - delete a contact
+
+## Credits
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 
 **Acknowledgements**

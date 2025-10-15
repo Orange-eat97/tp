@@ -260,29 +260,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target User profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+1. Social services dispatcher or coordinator that prefer CLI over GUI
+2. They enjoy shortcuts so commands can be performed quickly even while on a call
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
 
+1. Manages a database of social workers and beneficiaries
+2. Ability to find the closest worker to beneficiary
+3. Upgraded Find command with additive filters and a wider range of filters
+4. Sorting for names and locations
+5. Autocomplete for commands
+6. Command Undo to reverse commands
+7. Command history and reusing past commands
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​               | I want to …​                                   | So that I can…​                                                                      |
+|----------|-----------------------|------------------------------------------------|--------------------------------------------------------------------------------------|
+| `* * *`  | user                  | delete beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | add beneficiaries/volunteer                    |                                                                                      |
+| `* * *`  | user                  | update beneficiaries/volunteer                 |                                                                                      |
+| `* * *`  | user                  | view list of beneficiaries/volunteer details   |                                                                                      |
+| `* *`    | careless person       | see a confirmation tab when deleting a contact | prevent accidentally deleting someone wrongly                                        |
+| `* *`    | social Service Worker | filter people staying in a district or region  | easily identify people to dispatch to that region                                    |
+| `* *`    | social Service Worker | view detailed information about beneficiaries  | inform social workers and provide them a summary of how to approach them effectively |
+| `* *`    | social Service Worker | group certain social workers in teams          | search for social workers easily by their groups                                     |
+
+
 
 *{More to be added}*
 
@@ -290,43 +298,107 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Add a person**
 
-**MSS**
+**MSS:**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a person with specified details.
+2.  AddressBook adds the person to list of persons. 
 
     Use case ends.
 
-**Extensions**
+**Extensions:**
+* 1a. The added person's details are invalid/missing.
+
+    * 1a1. AddressBook shows an error.
+
+      Use case ends.
+  
+  
+* 1b. The person to be added already exists in the list.
+
+    * 1b1. AddressBook shows an error.
+
+      Use case ends.
+
+**Use case: UC02 - List persons**
+
+**MSS:**
+
+1.  User requests to list persons.
+2.  AddressBook shows a list of persons.
+
+**Extensions:**
 
 * 2a. The list is empty.
+    * 2a1. AddressBook tells user list is empty.
+      
+      Use case ends.
 
-  Use case ends.
+**Use case: UC03 - Delete a person**
 
-* 3a. The given index is invalid.
+**MSS:**
+1. User requests to <u>list persons (UC02)</u>.
+2. User requests to delete a specific person in the list.
+3. AddressBook deletes the person.
 
-    * 3a1. AddressBook shows an error message.
+   Use case ends.
 
-      Use case resumes at step 2.
+**Extensions:**
 
+* 2a. Invalid/missing identifier for person to delete.
+
+    * 2a1. AddressBook shows an error.
+
+      Use case resumes from step 2.
+
+**Use case: UC04 - Update person's details**
+
+1. User requests to <u>list persons (UC02)</u>.
+2. User requests to update person with new details.
+3. AddressBook updates the person's details.
+4. AddressBook shows the updated details.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. The identifier does not match any existing person, or is missing.
+
+    * 2a1. AddressBook shows an error.
+
+      Use case resumes from step 2.
+  
+  
+* 2b. The new details are invalid.
+
+    * 2b1. AddressBook shows an error.
+
+      Use case resumes from step 2.
+  
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should run on Windows, macOS, Linux as long as Java17+ is installed, with no OS-specific setup.
+2. Should start up to a usable prompt on a mid-range laptop with ~10k contacts with reasonable latency.
+3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
+4. Should show autocomplete suggestions almost instantly. 
+5. Should display clear error messages that say what went wrong and how to fix it. 
+6. Should validate inputs and keep phone/email unique across contacts. 
+7. Should only be for local use, no internet is required.
+8. Should be tailored towards navigating with keyboard.
 
 *{More to be added}*
 
 ### Glossary
-
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **API**: Application Programming Interface
+* **Beneficiary**: Person who benefits from the social service. Zero or more social service workers 
+may be assigned to a beneficiary.
+* **Social service worker**: Person who provides social service to beneficiaries. May be assigned to 
+zero or more beneficiaries.
+* **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
 
 --------------------------------------------------------------------------------------------------------------------
 
