@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -11,11 +13,11 @@ import seedu.address.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class StrAttrContainsKeywords implements Predicate<Person> {
-    private final List<String> keywords;
+    private final Set<String> keywords;
     private final Function<Person, String> attributeGetter;
 
     public StrAttrContainsKeywords(List<String> keywords, Function<Person, String> attributeGetter) {
-        this.keywords = keywords;
+        this.keywords = new HashSet<>(keywords);
         this.attributeGetter = attributeGetter;
     }
 
@@ -39,6 +41,11 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
         StrAttrContainsKeywords otherStrAttrContainsKeywords = (StrAttrContainsKeywords) other;
         return keywords.equals(otherStrAttrContainsKeywords.keywords)
                 && attributeGetter.equals(otherStrAttrContainsKeywords.attributeGetter);
+    }
+
+    @Override
+    public int hashCode() {
+        return keywords.hashCode() + attributeGetter.hashCode();
     }
 
     @Override

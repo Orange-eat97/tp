@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -12,9 +13,8 @@ import java.util.function.Predicate;
 public class ChainedPredicate implements Predicate<Person> {
     private Set<Predicate<Person>> predicates;
 
-    @SafeVarargs
-    public ChainedPredicate(Predicate<Person>... predicates) {
-        this.predicates = new HashSet<>(Arrays.asList(predicates));
+    public ChainedPredicate(List<Predicate<Person>> predicates) {
+        this.predicates = new HashSet<>(predicates);
     }
 
     @Override
