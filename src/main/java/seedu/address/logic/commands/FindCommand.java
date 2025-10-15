@@ -21,15 +21,15 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified case-insensitive keywords for each attribute, matching only complete words.\n"
-            + "Displays matching persons in a numbered list\n"
-            + "Parameters:"
+            + "Displays matching persons in a numbered list.\n"
+            + "Parameters: "
             + "[" + PREFIX_NAME + "NAME_KEYWORDS] "
             + "[" + PREFIX_PHONE + "PHONE_KEYWORDS] "
             + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
             + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_NAME + "Alice Bob Charlie"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Alice Bob Charlie" + " "
             + PREFIX_TAG + "beneficiary";
 
     private final Predicate<Person> predicate;
