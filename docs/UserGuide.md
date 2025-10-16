@@ -28,7 +28,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -52,11 +52,16 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
+* Items in with `|` are valid inputs.<br>
+  e.g `t/volunteer|beneficiary` can be used as `t/volunteer` or as `t/beneficiary`.
+
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  Note: For sort command, the order of parameters defines the order of sorting.
+  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -77,15 +82,15 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/volunteer|beneficiary [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags, but must have a tag that is either volunteer or beneficiary
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/beneficiary`
 
 ### Listing all persons : `list`
 
@@ -123,7 +128,7 @@ Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
-* Matching persons must match all the given prefixes (i.e. `AND` search). 
+* Matching persons must match all the given prefixes (i.e. `AND` search).
   * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` **and** whose phone number is `1234`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
