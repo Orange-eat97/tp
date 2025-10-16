@@ -120,7 +120,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
 
-### Locating persons by name: `find`
+### Locating persons: `find`
 
 Finds persons whose fields contain any of the given keywords under that prefix.
 
@@ -139,6 +139,15 @@ Examples:
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 * `find n/irfan bernice t/volunteer` returns all persons named Bernice/Irfan AND tagged as `volunteer`<br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
+
+### Sorting persons: `sort`
+
+Sorts persons by the fields in the order of the parameters
+
+Format: `sort [n/] [p/] [e/] [a/] [t/]`
+
+* Order of parameters defines the order of sorting.
+  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 
 ### Deleting a person : `delete`
 
