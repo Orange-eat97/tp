@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Comparator;
 
@@ -20,7 +19,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_SUCCESS = "Sorted accordingly";
+    public static final String MESSAGE_SUCCESS = "Sorted according to %s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons according to your "
             + "specified category.\n"
@@ -33,21 +32,23 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD + " n/";
 
     private final Comparator<Person> personComparator;
+    private final String description;
 
     /**
      * Creates a SortCommand to sort according to the category
      * @param comparator
      */
-    public SortCommand(Comparator<Person> comparator) {
+    public SortCommand(Comparator<Person> comparator, String description) {
         this.personComparator = comparator;
+        this.description = description;
 
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.updateDisplayList(personComparator);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
 
     }
 }

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -42,10 +43,13 @@ public class SortCommandParser implements Parser<SortCommand> {
                 .filter(p -> !p.getPrefix().isEmpty())
                 .collect(Collectors.toList());
 
+        List<String> labels = new ArrayList<>();
+
         Comparator<Person> personComparator = null;
         for (int i = 0; i < prefixList.size(); i++) {
             Prefix prefix = prefixList.get(i);
             Function<Person, String> personPrefixValue = getPersonPrefixValue(prefix);
+            labels.add(getPrefixLabel(prefix));
             if (i == 0) {
                 personComparator = Comparator.comparing(personPrefixValue);
 
@@ -55,7 +59,9 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         }
 
-        return new SortCommand(personComparator);
+        String description = String.join(", ", labels);
+        System.out.println(description);
+        return new SortCommand(personComparator, description);
 
     }
 
@@ -71,6 +77,24 @@ public class SortCommandParser implements Parser<SortCommand> {
             return person -> person.getTags().iterator().next().tagName;
         case "a/":
             return person -> person.getAddress().value;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+
+        }
+    }
+
+    private String getPrefixLabel(Prefix prefix) throws ParseException {
+        switch (prefix.getPrefix()) {
+        case "n/":
+            return "name";
+        case "p/":
+            return "phone";
+        case "e/":
+            return "email";
+        case "t/":
+            return "tag";
+        case "a/":
+            return "address";
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
 
