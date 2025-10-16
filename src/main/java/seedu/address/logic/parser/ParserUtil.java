@@ -52,6 +52,14 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code Prefix prefix} into a {@code List<String>} (keywords) and returns it.
+     */
+    public static List<String> parseKeywords(String keywords) {
+        requireNonNull(keywords);
+        String[] separatedArgs = StringUtil.getAllElements(keywords.trim());
+        return List.of(separatedArgs);
+    }
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
