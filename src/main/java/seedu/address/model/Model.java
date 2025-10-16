@@ -89,4 +89,17 @@ public interface Model {
      * @return int size of the updated list
      */
     int getPersonListSize();
+
+    /** Adds the command {@code commandText} to the command history. */
+    void addCommand(String commandText);
+
+    /**
+     * Returns the previous command
+     */
+    String getPreviousCommand();
+
+    /**
+     * Returns the next command
+     */
+    String getNextCommand();
 }
