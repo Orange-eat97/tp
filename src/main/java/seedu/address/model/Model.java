@@ -107,7 +107,7 @@ public interface Model {
     void updateDisplayList(Comparator<Person> comparator);
 
     /**
-     * Updates the predicate of the person list to sort by the given {@code predicate}.
+     * Updates the predicate of the person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateDisplayList(Predicate<Person> predicate);

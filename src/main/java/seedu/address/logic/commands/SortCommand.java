@@ -19,7 +19,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_SUCCESS = "Sorted according to ";
+    public static final String MESSAGE_SUCCESS = "Sorted according to %s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons according to your "
             + "specified category.\n"
@@ -48,7 +48,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(personComparator);
-        return new CommandResult(String.format(MESSAGE_SUCCESS + description));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
 
     }
 }
