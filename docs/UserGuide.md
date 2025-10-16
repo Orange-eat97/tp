@@ -28,7 +28,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -52,11 +52,16 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
+* Items in with `|` are valid inputs.<br>
+  e.g `t/volunteer|beneficiary` can be used as `t/volunteer` or as `t/beneficiary`.
+
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  Note: For sort command, the order of parameters defines the order of sorting.
+  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -77,15 +82,15 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/volunteer|beneficiary [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags, but must have a tag that is either volunteer or beneficiary
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/beneficiary`
 
 ### Listing all persons : `list`
 
@@ -105,6 +110,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
+* If tags are edited, must include a tag indicating volunteer or beneficiary.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
@@ -112,9 +118,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
 
-### Locating persons by name: `find`
+### Locating persons: `find`
 
 Finds persons whose fields contain any of the given keywords under that prefix.
 
@@ -123,7 +129,7 @@ Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
-* Matching persons must match all the given prefixes (i.e. `AND` search). 
+* Matching persons must match all the given prefixes (i.e. `AND` search).
   * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` **and** whose phone number is `1234`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -133,6 +139,15 @@ Examples:
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 * `find n/irfan bernice t/volunteer` returns all persons named Bernice/Irfan AND tagged as `volunteer`<br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
+
+### Sorting persons: `sort`
+
+Sorts persons by the fields in the order of the parameters
+
+Format: `sort [n/] [p/] [e/] [a/] [t/]`
+
+* Order of parameters defines the order of sorting.
+  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 
 ### Deleting a person : `delete`
 
@@ -197,10 +212,11 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/volunteer|beneficiary [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX [INDEX]...`<br> e.g., `delete 1 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [prefix/KEYWORDS]`<br> e.g., `find n/James p/92813321`
+**Sort** | `sort [prefixes]` <br> e.g, `sort n/ p/`
 **List** | `list`
 **Help** | `help`
