@@ -63,12 +63,10 @@ public class CommandBox extends UiPart<Region> {
     private void handleArrowKeys(KeyEvent event) {
         if (event.getCode() == KeyCode.UP) {
             String previousCommand = getPreviousCommand.get();
-            System.out.println(previousCommand);
             commandTextField.setText(previousCommand);
             commandTextField.positionCaret(previousCommand.length());
         } else if (event.getCode() == KeyCode.DOWN) {
             String nextCommand = getNextCommand.get();
-            System.out.println(nextCommand);
             commandTextField.setText(nextCommand);
             commandTextField.positionCaret(nextCommand.length());
         }
