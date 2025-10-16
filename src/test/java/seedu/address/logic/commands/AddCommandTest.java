@@ -193,6 +193,21 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
 
         }
+
+        @Override
+        public void addCommand(String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getPreviousCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getNextCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

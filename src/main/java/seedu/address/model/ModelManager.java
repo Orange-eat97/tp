@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SortedList<Person> sortedPersons;
+    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         sortedPersons = new SortedList<>(filteredPersons);
+        this.commandHistory = new CommandHistory();
     }
 
     public ModelManager() {
@@ -183,4 +185,21 @@ public class ModelManager implements Model {
         return sortedPersons;
 
     }
+
+    //=========== Command History =============================================================
+    @Override
+    public void addCommand(String commandText) {
+        commandHistory.addCommand(commandText);
+    }
+
+    @Override
+    public String getPreviousCommand() {
+        return commandHistory.getPreviousCommand();
+    }
+
+    @Override
+    public String getNextCommand() {
+        return commandHistory.getNextCommand();
+    }
+
 }

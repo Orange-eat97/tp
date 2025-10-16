@@ -31,7 +31,6 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered and sorted list of persons */
-
     ObservableList<Person> getDisplayList();
 
     /**
@@ -48,5 +47,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    String getPreviousCommand();
+
+    String getNextCommand();
 
 }
