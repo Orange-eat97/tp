@@ -38,7 +38,7 @@ public class Ghost {
     /**
      * A helper function that reads the starting and ending position of the text input. Returns a length-2 array
      * containining the position of start and end of the word being tpyed
-     * @param commandTextField textfield at the current state
+     * @param
      */
     public int[] acCurrentTokenBounds(TextField commandTextField) {
         String t = commandTextField.getText();
