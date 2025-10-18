@@ -121,7 +121,37 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED,
+                event -> handleUpDownKeyPress(event, commandBox));
     }
+
+    /**
+     * Handles UP and DOWN arrow key presses to navigate the command history.
+     *
+     * <p>If UP is pressed, retrieves the previous command; if DOWN is pressed, retrieves the next command.
+     * Updates the given {@code commandBox} with the retrieved command and updates {@code resultDisplay}
+     * with the full command history and the current command.</p>
+     *
+     * @param event the KeyEvent representing the key press
+     * @param commandBox the CommandBox to update with the retrieved command
+     */
+
+    private void handleUpDownKeyPress(KeyEvent event, CommandBox commandBox) {
+        String command = switch (event.getCode()) {
+            case UP -> logic.getPreviousCommand();
+            case DOWN -> logic.getNextCommand();
+            default -> null;
+        };
+
+        if (command != null) {
+            commandBox.setCommandText(command);
+            String commandHistory = logic.getCommandHistory();
+            resultDisplay.setFeedbackToUser(commandHistory);
+            event.consume();
+        }
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
