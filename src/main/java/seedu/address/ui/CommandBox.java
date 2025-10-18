@@ -92,17 +92,14 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    @FXML
-    private void handleArrowKeys(KeyEvent event) {
-        if (event.getCode() == KeyCode.UP) {
-            String previousCommand = getPreviousCommand.get();
-            commandTextField.setText(previousCommand);
-            commandTextField.positionCaret(previousCommand.length());
-        } else if (event.getCode() == KeyCode.DOWN) {
-            String nextCommand = getNextCommand.get();
-            commandTextField.setText(nextCommand);
-            commandTextField.positionCaret(nextCommand.length());
-        }
+    /**
+     * Sets the given text in the command box and moves the caret to the end.
+     *
+     * @param commandText the text to display in the command box
+     */
+    public void setCommandText(String commandText) {
+        commandTextField.setText(commandText);
+        commandTextField.positionCaret(commandText.length());
     }
 
 
