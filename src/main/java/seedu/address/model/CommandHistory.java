@@ -1,9 +1,9 @@
 package seedu.address.model;
 
-import seedu.address.commons.util.StringUtil;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Keeps track of all commands entered in the current session

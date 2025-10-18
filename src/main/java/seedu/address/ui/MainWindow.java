@@ -139,9 +139,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleUpDownKeyPress(KeyEvent event, CommandBox commandBox) {
         String command = switch (event.getCode()) {
-            case UP -> logic.getPreviousCommand();
-            case DOWN -> logic.getNextCommand();
-            default -> null;
+        case UP -> logic.getPreviousCommand();
+        case DOWN -> logic.getNextCommand();
+        default -> null;
         };
 
         if (command != null) {
