@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.util.StringUtil;
 
 /**
