@@ -3,6 +3,8 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalCommandHistory.ONE_COMMAND_COMMAND_HISTORY;
+import static seedu.address.testutil.TypicalCommandHistory.THREE_COMMANDS_COMMAND_HISTORY;
 import static seedu.address.testutil.TypicalCommands.ADD_PERSON_COMMAND;
 import static seedu.address.testutil.TypicalCommands.DELETE_PERSON_COMMAND;
 import static seedu.address.testutil.TypicalCommands.LIST_COMMAND;
@@ -98,5 +100,19 @@ public class CommandHistoryTest {
         assertEquals(ADD_PERSON_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getNextCommand());
         assertEquals(LIST_COMMAND, commandHistory.getNextCommand());
+    }
+
+    @Test
+    public void getCommandHistory_singleCommand_returnCommandHistory() {
+        commandHistory.addCommand(ADD_PERSON_COMMAND);
+        assertEquals(ONE_COMMAND_COMMAND_HISTORY, commandHistory.getCommandHistory());
+    }
+
+    @Test
+    public void getCommandHistory_multipleCommand_returnCommandHistory() {
+        for (String commandText : LIST_OF_COMMANDS) {
+            commandHistory.addCommand(commandText);
+        }
+        assertEquals(THREE_COMMANDS_COMMAND_HISTORY, commandHistory.getCommandHistory());
     }
 }
