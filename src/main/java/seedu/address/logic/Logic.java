@@ -52,4 +52,6 @@ public interface Logic {
 
     String getNextCommand();
 
+    String getCommandHistory();
+
 }
