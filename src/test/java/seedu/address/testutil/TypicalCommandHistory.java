@@ -11,6 +11,9 @@ public class TypicalCommandHistory {
 
     private static final String COMMAND_HISTORY_HEADING = "Command History:\n";
 
+    public static final String NO_COMMAND_COMMAND_HISTORY =
+            COMMAND_HISTORY_HEADING + "No commands yet";
+
     public static final String ONE_COMMAND_COMMAND_HISTORY =
             COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(
                     List.of(TypicalCommands.ADD_PERSON_COMMAND), 0);

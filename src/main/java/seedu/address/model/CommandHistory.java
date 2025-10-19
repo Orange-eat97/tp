@@ -99,6 +99,9 @@ public class CommandHistory {
      * @return the list of all commands in the command history
      */
     public String getCommandHistory() {
+        if (commandHistory == null || commandHistory.isEmpty()) {
+            return COMMAND_HISTORY_HEADING + "No commands yet";
+        }
         return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistory, currentIndex);
     }
 }
