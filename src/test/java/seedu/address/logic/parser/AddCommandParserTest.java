@@ -110,6 +110,10 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
+        // invalid region
+        assertParseFailure(parser, INVALID_REGION_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REGION));
+
         // valid value followed by invalid value
 
         // invalid name
@@ -127,6 +131,10 @@ public class AddCommandParserTest {
         // invalid address
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
+
+        // invalid region
+        assertParseFailure(parser, validExpectedPersonString + INVALID_REGION_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REGION));
     }
 
     @Test

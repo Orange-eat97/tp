@@ -19,6 +19,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -167,6 +168,23 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseRegion_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRegion((String) null));
+    }
+
+    @Test
+    public void parseRegion_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRegion("UNKNOWN_REGION"));
+    }
+
+    @Test
+    public void parseRegion_validValueWithoutWhitespace_returnsRegion() throws Exception {
+        String validRegion = "WOODLANDS";
+        Region expectedRegion = new Region(validRegion);
+        assertEquals(expectedRegion, ParserUtil.parseRegion(validRegion));
     }
 
     @Test
