@@ -23,7 +23,8 @@ public class Person {
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
     public static final Function<Person, String> TAG_STR_GETTER =
             person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
-
+    public static final Function<Person, String> REGION_STR_GETTER =
+            person -> person.getRegion().value.getDisplayName();
     // Identity fields
     private final Name name;
     private final Phone phone;
