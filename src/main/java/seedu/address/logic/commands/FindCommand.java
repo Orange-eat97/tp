@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.function.Predicate;
 
@@ -30,6 +26,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE_KEYWORDS] "
             + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
             + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
+            + "[" + PREFIX_REGION + "REGION_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Alice Bob Charlie" + " "
