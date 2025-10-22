@@ -116,6 +116,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        javafx.scene.layout.VBox.setVgrow(resultDisplayPlaceholder, javafx.scene.layout.Priority.ALWAYS);
+        StackPane.setAlignment(resultDisplayPlaceholder, javafx.geometry.Pos.CENTER);
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
