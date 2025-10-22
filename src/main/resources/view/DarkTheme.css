@@ -67,8 +67,6 @@
     -fx-text-fill: #56CFE1;
 }
 
-}
-
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
 }
@@ -96,12 +94,24 @@
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #3CB371;
+    -fx-background-color: #4c584c;
+    /* muted volunteer green */
     -fx-text-fill: white;
 }
 
-.list-cell .label {
-    -fx-text-fill: #EAEAEA;
+.cell_header_label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #ababab;
+}
+
+.cell_big_label {
+    -fx-font-weight: normal;
+    -fx-text-fill: #ffffff;
+}
+
+.cell_small_label {
+    -fx-font-weight: normal;
+    -fx-text-fill: #e5e5e5;
 }
 
 .stack-pane,

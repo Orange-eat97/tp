@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -49,9 +50,17 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        name.setTooltip(new Tooltip(person.getName().fullName));
+
         phone.setText(person.getPhone().value);
+        phone.setTooltip(new Tooltip(person.getPhone().value));
+
         address.setText(person.getAddress().value);
+        address.setTooltip(new Tooltip(person.getAddress().value));
+
         email.setText(person.getEmail().value);
+        email.setTooltip(new Tooltip(person.getEmail().value));
+
         person.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> {
