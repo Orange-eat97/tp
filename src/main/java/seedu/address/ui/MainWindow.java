@@ -181,7 +181,13 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (commandResult.getSortStatusText() != null) {
+                logger.info("Sort Status updated: " + commandResult.getSortStatusText());
+            }
             statusBarFooter.setSortStatus(commandResult.getSortStatusText());
+            if (commandResult.getFindStatusText() != null) {
+                logger.info("Find Status updated: " + commandResult.getFindStatusText());
+            }
             statusBarFooter.setFindStatus(commandResult.getFindStatusText());
 
             if (commandResult.isShowHelp()) {
