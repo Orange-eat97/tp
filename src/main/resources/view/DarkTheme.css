@@ -136,21 +136,18 @@
     -fx-text-fill: black !important;
 }
 
-.status-bar .label {
+.footer-header-label {
+    -fx-text-fill: #797979;
+    -fx-font-family: "Segoe UI Light";
+    -fx-padding: 2px;
+    -fx-pref-height: 20px;
+}
+
+.footer-content-label {
     -fx-text-fill: #A8A8A8;
     -fx-font-family: "Segoe UI Light";
-    -fx-padding: 4px;
-    -fx-pref-height: 30px;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
+    -fx-padding: 2px;
+    -fx-pref-height: 20px;
 }
 
 .grid-pane {

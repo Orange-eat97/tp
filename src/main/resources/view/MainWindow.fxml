@@ -44,7 +44,9 @@
               <padding><Insets top="5" right="10" bottom="5" left="10"/></padding>
             </StackPane>
 
-            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            <StackPane fx:id="statusbarPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding><Insets top="5" right="10" bottom="5" left="10"/></padding>
+            </StackPane>
           </VBox>
 
           <VBox fx:id="personListContainer" styleClass="pane-with-border" prefWidth="340" VBox.vgrow="ALWAYS">

@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -119,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         javafx.scene.layout.VBox.setVgrow(resultDisplayPlaceholder, javafx.scene.layout.Priority.ALWAYS);
         StackPane.setAlignment(resultDisplayPlaceholder, javafx.geometry.Pos.CENTER);
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
@@ -180,6 +181,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            statusBarFooter.setSortStatus(commandResult.getSortStatusText());
+            statusBarFooter.setFindStatus(commandResult.getFindStatusText());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
