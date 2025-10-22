@@ -137,6 +137,7 @@ Filters persons whose fields match the keywords.
 > - The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
 > - Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`
 > - Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
+{: .alert .alert-info}
 
 **Expected Outcome:**
 * Displays all persons who matches at least one keyword in each given field.
