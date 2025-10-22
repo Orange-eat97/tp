@@ -65,13 +65,11 @@ public class PersonCard extends UiPart<Region> {
 
         List<String> priorityOrder = List.of("beneficiary", "volunteer");
 
-        Comparator<Tag> tagComparator = Comparator.comparingInt(
-                (Tag tag) -> {
-                    String name = tag.tagName.toLowerCase().strip();
-                    int index = priorityOrder.indexOf(name);
-                    return index == -1 ? Integer.MAX_VALUE : index;
-                }
-            ).thenComparing(tag -> tag.tagName.toLowerCase());
+        Comparator<Tag> tagComparator = Comparator.comparingInt((Tag tag) -> {
+            String name = tag.tagName.toLowerCase().strip();
+            int index = priorityOrder.indexOf(name);
+            return index == -1 ? Integer.MAX_VALUE : index;
+        }).thenComparing(tag -> tag.tagName.toLowerCase());
 
         person.getTags().stream()
             .sorted(tagComparator)

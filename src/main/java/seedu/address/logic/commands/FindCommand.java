@@ -46,7 +46,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateDisplayList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getDisplayList().size()), false, false, null, null);
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getDisplayList().size()),
+                false, false, null, null);
     }
 
     @Override

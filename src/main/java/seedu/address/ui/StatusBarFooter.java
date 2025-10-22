@@ -33,13 +33,17 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     public void setSortStatus(String sortStatusText) {
-        if (sortStatusText == null) return;
+        if (sortStatusText == null) {
+            return;
+        }
         sortStatus.setText(sortStatusText);
         sortStatus.setTooltip(new Tooltip(sortStatusText));
     }
 
     public void setFindStatus(String findStatusText) {
-        if (findStatusText == null) return;
+        if (findStatusText == null) {
+            return;
+        }
         findStatus.setText(findStatusText);
         findStatus.setTooltip(new Tooltip(findStatusText));
     }

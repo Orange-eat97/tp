@@ -24,7 +24,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields and Status Text
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String sortStatusText, String findStatusText) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+            String sortStatusText, String findStatusText) {
         this(feedbackToUser, showHelp, exit);
         this.sortStatusText = sortStatusText;
         this.findStatusText = findStatusText;
