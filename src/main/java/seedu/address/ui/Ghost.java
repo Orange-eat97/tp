@@ -1,6 +1,13 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.scene.control.TextField;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.SortCommand;
+
+
 
 /**
  * class responsible for building the ghost of auto-complete
@@ -97,11 +104,19 @@ public class Ghost {
         int start = bounds[0];
         int end = bounds[1];
         int caret = commandTextField.getCaretPosition();
-        boolean addOrSort = text.contains("add") || text.contains("sort");
+        boolean addSortEdit = text.contains("add") || text.contains("sort") || text.contains("edit");
 
-        if (caret > 0 && text.charAt(caret - 1) == ' ' && addOrSort) { //case of having a space after add or sort
-            assert(text.contains("add") || text.contains("sort"));
-            String next = autoCompleteSupplier.giveParam(text); //get the suggested next param
+        if (caret > 0 && text.charAt(caret - 1) == ' ' && addSortEdit) { //case of having a space after add or sort
+            assert (text.contains("add") || text.contains("sort") || text.contains("edit"));
+            List<String> params = null;
+            if (text.contains("add")) {
+                params = AddCommand.PARAMS;
+            } else if (text.contains("sort")) {
+                params = SortCommand.PARAMS;
+            } else {
+                params = EditCommand.PARAMS;
+            }
+            String next = autoCompleteSupplier.giveParam(text, params); //get the suggested next param
 
             if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
                 acLastSuggestion = next;
@@ -111,32 +126,34 @@ public class Ghost {
                 ghostShow(commandTextField);
                 return null;
             }
+
         } else if (caret == 1) { //case of suggesting for command: must be at 1 cuz only 1 letter has been typed
             if (start >= end) { // empty token
                 acGhostHide();
                 return null;
             }
-        }
 
-        String prefix = text.substring(start, end);
+            String prefix = text.substring(start, end);
 
-        String suggestion = null;
-        if (start != end) { //added guarding rail so space at the end won't suggest "add"
-            suggestion = autoCompleteSupplier.findBestMatch(prefix);
-        }
+            String suggestion = null;
+            if (start != end) { //added guarding rail so space at the end won't suggest "add"
+                suggestion = autoCompleteSupplier.findBestMatch(prefix);
+            }
 
-        if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
-            acGhostHide();
+            if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
+                acGhostHide();
+                return null;
+            }
+
+            acLastSuggestion = suggestion;
+            acTokenStart = start;
+            String tail = suggestion.substring(prefix.length());
+
+            javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+            label.setText(tail);
+            ghostShow(commandTextField);
             return null;
         }
-
-        acLastSuggestion = suggestion;
-        acTokenStart = start;
-        String tail = suggestion.substring(prefix.length());
-
-        javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-        label.setText(tail);
-        ghostShow(commandTextField);
         return null;
     }
 
@@ -202,6 +219,7 @@ public class Ghost {
             acGhost.hide();
         }
     }
+
 
 
 

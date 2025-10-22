@@ -27,7 +27,6 @@ public class AutoCompleteSupplier {
             HelpCommand.COMMAND_WORD,
             SortCommand.COMMAND_WORD);
 
-    private static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "t/");
 
     /**
      * returns the match in the list of commands for ghost
@@ -38,13 +37,6 @@ public class AutoCompleteSupplier {
         return COMMANDS.stream().filter(x->x.startsWith(input)).findFirst().orElse("");
     }
 
-    /**
-     * method called to return list of params
-     * @return current version of param list
-     */
-    public static List<String> paramList() {
-        return PARAMS;
-    }
 
     /**
      * public method fed into ghost to retrieve the param signature.
@@ -52,14 +44,22 @@ public class AutoCompleteSupplier {
      * @param text
      * @return string of next param signature
      */
-    public String giveParam(String text) {
+    public String giveParam(String text, List<String> params) {
         String result = null;
-        for (int i = 0; i < PARAMS.size(); i++) {
-            if (!text.contains(PARAMS.get(i))) {
-                result = PARAMS.get(i);
+        int prefixContaied = 0;
+        for (int i = 0; i < params.size(); i++) {
+            if (!text.contains(" " + params.get(i))) { //only finds prefix with a space leading it
+                result = params.get(i);
                 break;
+            } else {
+                prefixContaied += 1;
             }
         }
-        return result;
+
+        if (prefixContaied == params.size()) {
+            return "t/";
+        } else {
+            return result;
+        }
     }
 }
