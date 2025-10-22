@@ -96,9 +96,14 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-* At the panel below the command box, AB3 tells you the total number of contacts you have.
+**Format**:                  
+`list`
 
-Format: `list`
+**Expected Outcome:**
+* Displays all persons' contact details in the address book.
+* At the panel below the command box, you can see the total number of contacts.
+
+_Example_:
 <br>
 ![result for 'find alex david'](images/list-success-screenshot.png)
 
@@ -122,22 +127,27 @@ Examples:
 
 ### Locating persons: `find`
 
-Finds persons whose fields contain any of the given keywords under that prefix.
+Filters persons whose fields match the keywords.
 
-Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
+**Format**:  
+`find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
-* Matching persons must match all the given prefixes (i.e. `AND` search).
+>⚠️**Important Note:** 
+> - The search is case-insensitive. e.g `n/hans` will match `Hans`
+> - The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
+> - Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`
+> - Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
+
+**Expected Outcome:**
+* Displays all persons who matches at least one keyword in each given field.
   * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` **and** whose phone number is `1234`.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
+**Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-* `find n/irfan bernice t/volunteer` returns all persons named Bernice/Irfan AND tagged as `volunteer`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)  
+  
+
+* `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
 
 ### Sorting persons: `sort`
