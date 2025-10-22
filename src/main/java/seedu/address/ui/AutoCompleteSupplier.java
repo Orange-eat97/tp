@@ -27,6 +27,8 @@ public class AutoCompleteSupplier {
             HelpCommand.COMMAND_WORD,
             SortCommand.COMMAND_WORD);
 
+    private static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "t/");
+
     /**
      * returns the match in the list of commands for ghost
      * @param input
@@ -34,6 +36,30 @@ public class AutoCompleteSupplier {
      **/
     public static String findBestMatch(String input) {
         return COMMANDS.stream().filter(x->x.startsWith(input)).findFirst().orElse("");
+    }
 
+    /**
+     * method called to return list of params
+     * @return current version of param list
+     */
+    public static List<String> paramList() {
+        return PARAMS;
+    }
+
+    /**
+     * public method fed into ghost to retrieve the param signature.
+     * assertion: only called when command word is add or sort
+     * @param text
+     * @return string of next param signature
+     */
+    public String giveParam(String text) {
+        String result = null;
+        for (int i = 0; i < PARAMS.size(); i++) {
+            if (!text.contains(PARAMS.get(i))) {
+                result = PARAMS.get(i);
+                break;
+            }
+        }
+        return result;
     }
 }

@@ -96,15 +96,35 @@ public class Ghost {
         int[] bounds = acCurrentTokenBounds(commandTextField);
         int start = bounds[0];
         int end = bounds[1];
+        int caret = commandTextField.getCaretPosition();
+        boolean addOrSort = text.contains("add") || text.contains("sort");
 
-        if (start >= end) { // empty token
-            acGhostHide();
-            return null;
+        if (caret > 0 && text.charAt(caret - 1) == ' ' && addOrSort) { //case of having a space after add or sort
+            assert(text.contains("add") || text.contains("sort"));
+            String next = autoCompleteSupplier.giveParam(text); //get the suggested next param
+
+            if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
+                acLastSuggestion = next;
+                acTokenStart = caret;
+                javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+                label.setText(next);
+                ghostShow(commandTextField);
+                return null;
+            }
+        } else if (caret == 1) { //case of suggesting for command: must be at 1 cuz only 1 letter has been typed
+            if (start >= end) { // empty token
+                acGhostHide();
+                return null;
+            }
         }
 
         String prefix = text.substring(start, end);
 
-        String suggestion = autoCompleteSupplier.findBestMatch(prefix);
+        String suggestion = null;
+        if (start != end) { //added guarding rail so space at the end won't suggest "add"
+            suggestion = autoCompleteSupplier.findBestMatch(prefix);
+        }
+
         if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
             acGhostHide();
             return null;
@@ -112,12 +132,19 @@ public class Ghost {
 
         acLastSuggestion = suggestion;
         acTokenStart = start;
-
         String tail = suggestion.substring(prefix.length());
 
         javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
         label.setText(tail);
+        ghostShow(commandTextField);
+        return null;
+    }
 
+    /**
+     * logic for showing the suggestion, abstracted out
+     * @param commandTextField
+     */
+    private void ghostShow(TextField commandTextField) {
         if (!acGhost.isShowing()) {
             javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
             if (b != null) {
@@ -132,7 +159,6 @@ public class Ghost {
                 acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
             }
         }
-        return null;
     }
 
     /**
@@ -176,5 +202,7 @@ public class Ghost {
             acGhost.hide();
         }
     }
+
+
 
 }
