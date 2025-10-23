@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Comparator;
@@ -29,6 +30,7 @@ public class SortCommand extends Command {
             + PREFIX_PHONE + " "
             + PREFIX_EMAIL + " "
             + PREFIX_ADDRESS + " "
+            + PREFIX_REGION + " "
             + PREFIX_TAG + " \n"
             + "Example: " + COMMAND_WORD + " n/";
 
