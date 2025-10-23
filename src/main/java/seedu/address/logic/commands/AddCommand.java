@@ -5,13 +5,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.List;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+
 
 /**
  * Adds a person to the address book.
@@ -27,6 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_REGION + "REGION "
             + PREFIX_TAG + "volunteer|beneficiary "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -34,13 +39,17 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_REGION + "Clementi "
             + PREFIX_TAG + "volunteer "
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
 
     private final Person toAdd;
+
+
 
     /**
      * Creates an AddCommand to add the specified {@code Person}

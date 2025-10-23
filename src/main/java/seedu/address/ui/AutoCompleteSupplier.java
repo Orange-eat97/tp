@@ -27,6 +27,7 @@ public class AutoCompleteSupplier {
             HelpCommand.COMMAND_WORD,
             SortCommand.COMMAND_WORD);
 
+
     /**
      * returns the match in the list of commands for ghost
      * @param input
@@ -34,6 +35,31 @@ public class AutoCompleteSupplier {
      **/
     public static String findBestMatch(String input) {
         return COMMANDS.stream().filter(x->x.startsWith(input)).findFirst().orElse("");
+    }
 
+
+    /**
+     * public method fed into ghost to retrieve the param signature.
+     * assertion: only called when command word is add or sort
+     * @param text
+     * @return string of next param signature
+     */
+    public String giveParam(String text, List<String> params) {
+        String result = null;
+        int prefixContaied = 0;
+        for (int i = 0; i < params.size(); i++) {
+            if (!text.contains(" " + params.get(i))) { //only finds prefix with a space leading it
+                result = params.get(i);
+                break;
+            } else {
+                prefixContaied += 1;
+            }
+        }
+
+        if (prefixContaied == params.size()) {
+            return "t/";
+        } else {
+            return result;
+        }
     }
 }

@@ -115,7 +115,7 @@ public enum ValidRegion {
         }
 
         for (ValidRegion region : values()) {
-            if (region.displayName.toLowerCase().equals(name.toLowerCase())) {
+            if (region.displayName.equalsIgnoreCase(name)) {
                 return region;
             }
         }
@@ -135,7 +135,7 @@ public enum ValidRegion {
         }
 
         for (ValidRegion region : values()) {
-            if (region.displayName.toLowerCase().equals(name.toLowerCase())) {
+            if (region.displayName.equalsIgnoreCase(name)) {
                 return true;
             }
         }
@@ -301,7 +301,6 @@ public enum ValidRegion {
 
     /**
      * Assert that all region have adjacencies set
-     *
      * Should be called after all adjacents are initialized.
      */
     private static void assertAdjacencyInitialised() {
@@ -313,7 +312,6 @@ public enum ValidRegion {
 
     /**
      * Assert that all region adjacencies are bidirectional.
-     *
      * Should be called after all adjacents are initialized.
      */
     private static void assertAdjacencySymmetry() {
