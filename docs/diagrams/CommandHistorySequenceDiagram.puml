@@ -3,37 +3,88 @@
 skinparam ArrowFontStyle plain
 
 Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
+Participant ":MainWindow" as mainWindow UI_COLOR
+Participant ":CommandBox" as commandBox UI_COLOR_T1
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
-Participant ":Storage" as storage STORAGE_COLOR
+Participant ":CommandHistory" as commandHistory MODEL_COLOR_T1
+Participant ":ResultDisplay" as resultDisplay UI_COLOR_T2
 
-user -[USER_COLOR]> ui : "delete 1"
-activate ui UI_COLOR
+user -> mainWindow : handleUpDownKeyPress(event, commandBox)
+activate mainWindow
 
-ui -[UI_COLOR]> logic : execute("delete 1")
-activate logic LOGIC_COLOR
+alt UP key pressed
+    mainWindow -> logic : getPreviousCommand()
+    activate logic
 
-logic -[LOGIC_COLOR]> model : deletePerson(p)
-activate model MODEL_COLOR
+    logic -> model : getPreviousCommand()
+    activate model
 
-model -[MODEL_COLOR]-> logic
+    model -> commandHistory : getPreviousCommand()
+    activate commandHistory
+
+    commandHistory --> model : previousCommand
+    deactivate commandHistory
+
+    model --> logic : previousCommand
+    deactivate model
+
+    logic --> mainWindow : command
+    deactivate logic
+
+else DOWN key pressed
+    mainWindow -> logic : getNextCommand()
+    activate logic
+
+    logic -> model : getNextCommand()
+    activate model
+
+    model -> commandHistory : getNextCommand()
+    activate commandHistory
+
+    commandHistory --> model : nextCommand
+    deactivate commandHistory
+
+    model --> logic : nextCommand
+    deactivate model
+
+    logic --> mainWindow : command
+    deactivate logic
+end
+
+
+
+mainWindow -> commandBox : setCommandText(command)
+activate commandBox
+commandBox --> mainWindow
+deactivate commandBox
+
+mainWindow -> logic : getCommandHistory()
+activate logic
+
+logic -> model : getCommandHistory()
+activate model
+
+model -> commandHistory : toString()
+activate commandHistory
+
+commandHistory --> model : formattedCommandHistory
+deactivate commandHistory
+
+model --> logic : formattedCommandHistory
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
-activate storage STORAGE_COLOR
-
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-storage --[STORAGE_COLOR]> storage
-deactivate storage
-
-storage --[STORAGE_COLOR]> logic
-deactivate storage
-
-logic --[LOGIC_COLOR]> ui
+logic --> mainWindow : formattedCommandHistory
 deactivate logic
 
-ui--[UI_COLOR]> user
-deactivate ui
+mainWindow -> resultDisplay : setFeedbackToUser(formattedCommandHistory)
+activate resultDisplay
+resultDisplay --> mainWindow
+deactivate resultDisplay
+
+mainWindow -> mainWindow : event.consume()
+
+mainWindow --> user
+deactivate mainWindow
+
 @enduml
