@@ -204,6 +204,6 @@ public class ModelManager implements Model {
 
     @Override
     public String getCommandHistory() {
-        return commandHistory.getCommandHistory();
+        return commandHistory.toString();
     }
 }

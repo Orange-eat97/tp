@@ -104,21 +104,21 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getCommandHistory_noCommand_returnCommandHistory() {
-        assertEquals(NO_COMMAND_COMMAND_HISTORY, commandHistory.getCommandHistory());
+    public void toString_noCommand_returnCommandHistory() {
+        assertEquals(NO_COMMAND_COMMAND_HISTORY, commandHistory.toString());
     }
 
     @Test
-    public void getCommandHistory_singleCommand_returnCommandHistory() {
+    public void toString_singleCommand_returnCommandHistory() {
         commandHistory.addCommand(ADD_PERSON_COMMAND);
-        assertEquals(ONE_COMMAND_COMMAND_HISTORY, commandHistory.getCommandHistory());
+        assertEquals(ONE_COMMAND_COMMAND_HISTORY, commandHistory.toString());
     }
 
     @Test
-    public void getCommandHistory_multipleCommand_returnCommandHistory() {
+    public void toString_multipleCommand_returnCommandHistory() {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
-        assertEquals(THREE_COMMANDS_COMMAND_HISTORY, commandHistory.getCommandHistory());
+        assertEquals(THREE_COMMANDS_COMMAND_HISTORY, commandHistory.toString());
     }
 }

@@ -98,7 +98,7 @@ public class CommandHistory {
      * Neatly arranges all commands in a numbered list, with an asterisk next to the current command
      * @return the list of all commands in the command history
      */
-    public String getCommandHistory() {
+    public String toString() {
         if (commandHistory == null || commandHistory.isEmpty()) {
             return COMMAND_HISTORY_HEADING + "No commands yet";
         }
