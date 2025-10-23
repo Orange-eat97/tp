@@ -15,8 +15,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Sorts people according to natural ordering of words.
- * Sorts tags only according to volunteer and beneficiary.
+ * Sorts people according to its categories.
+ * Groups tags according to volunteer and beneficiary.
  *
  */
 public class SortCommand extends Command {
