@@ -133,7 +133,7 @@ Filters persons whose fields match the keywords.
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 >⚠️**Important Note:** 
-> - The search is case-insensitive. e.g `n/hans` will match `Hans`
+> - The search is <u>case-insensitive</u> e.g `n/hans` will match `Hans`
 > - The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`
 > - Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`
 > - Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`
@@ -141,7 +141,7 @@ Filters persons whose fields match the keywords.
 
 **Expected Outcome:**
 * Displays all persons who matches at least one keyword in each given field.
-  * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` **and** whose phone number is `1234`.
+  * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` <u>and</u> whose phone number is `1234`.
 
 **📘Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
@@ -206,9 +206,16 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
+**Q**: Where are my data files stored?<br>
+**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`. 
+Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file (`addressbook.json`) it creates with the original data file.
+If the data folder does not exist yet, you can simply copy over the entire `data` folder from your previous AddressBook home folder.
+
+**Q**: What do I do if the command box says "Unknown command"?<br>
+**A**: This means that the command you entered is not recognized by the application. Please ensure that you have typed the command correctly according to the formats specified in this user guide. You can type `help` to view the help window for reference.
 
 --------------------------------------------------------------------------------------------------------------------
 
