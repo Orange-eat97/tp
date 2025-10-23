@@ -32,7 +32,7 @@ public class SortCommand extends Command {
             + PREFIX_TAG + " \n"
             + "Example: " + COMMAND_WORD + " n/";
 
-    public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "t/");
+    public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
 
     private final Comparator<Person> personComparator;
     private final String description;

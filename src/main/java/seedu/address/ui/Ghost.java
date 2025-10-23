@@ -127,7 +127,7 @@ public class Ghost {
                 return null;
             }
 
-        } else if (caret == 1) { //case of suggesting for command: must be at 1 cuz only 1 letter has been typed
+        } else if (!text.contains(" ")) { //case of suggesting for command: assertion text has no " "
             if (start >= end) { // empty token
                 acGhostHide();
                 return null;
