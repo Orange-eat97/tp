@@ -6,6 +6,8 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -94,5 +96,38 @@ public class PersonCard extends UiPart<Region> {
                 }
                 tags.getChildren().add(tagLabel);
             });
+    }
+
+    @FXML
+    private void copyPhone() {
+        copyToClipboard(person.getPhone().value);
+    }
+
+    @FXML
+    private void copyAddress() {
+        copyToClipboard(person.getAddress().value);
+    }
+
+    @FXML
+    private void copyRegion() {
+        copyToClipboard(person.getRegion().value.getDisplayName());
+    }
+
+    @FXML
+    private void copyEmail() {
+        copyToClipboard(person.getEmail().value);
+    }
+
+    /**
+     * Helper method to copy text to system clipboard.
+     */
+    private void copyToClipboard(String text) {
+        if (text == null || text.isBlank()) {
+            return;
+        }
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
     }
 }
