@@ -6,6 +6,19 @@
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
 
+#markdown-toc > li > a { font-weight: 700; }              /* H2 */
+#markdown-toc > li ul > li > a { font-weight: 600; }      /* H3 group titles */
+#markdown-toc a { text-decoration: none; }
+#markdown-toc a:hover { text-decoration: underline; }
+#markdown-toc ul { margin-left: 1rem; }
+
+#markdown-toc { counter-reset: item; }
+#markdown-toc li { counter-increment: item; }
+#markdown-toc li::before {
+  content: counters(item, ".") ". ";
+  color: #6b7280; margin-right: .25rem;
+}
+
 .icon {
     height: 21px;
     width: 21px

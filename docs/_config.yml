@@ -7,6 +7,9 @@ header_pages:
   - AboutUs.md
 
 markdown: kramdown
+kramdown:
+  toc_levels: 2..4
+  auto_ids: true
 
 repository: "se-edu/addressbook-level3"
 github_icon: "images/github-icon.png"
