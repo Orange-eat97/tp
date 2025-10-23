@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 /**
  * Comparator that compares strings in a natural order instead of lexicographical order.
+ * Natural order for alphanumeric strings is a human-friendly sorting method
+ * that treats numbers as whole values instead of individual digits.
  * For example, "4th" comes before "10th".
  */
 public class NaturalOrderComparator implements Comparator<String> {
