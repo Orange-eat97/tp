@@ -15,7 +15,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Sorts people according to specified category
+ * Sorts people according to its categories.
+ * Groups tags according to volunteer and beneficiary.
+ *
  */
 public class SortCommand extends Command {
 
@@ -32,7 +34,15 @@ public class SortCommand extends Command {
             + PREFIX_ADDRESS + " "
             + PREFIX_REGION + " "
             + PREFIX_TAG + " \n"
-            + "Example: " + COMMAND_WORD + " n/";
+            + "Example: " + COMMAND_WORD + " n/"
+            + "[" + PREFIX_NAME + "NAME_KEYWORDS] "
+            + "[" + PREFIX_PHONE + "PHONE_KEYWORDS] "
+            + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
+            + "[" + PREFIX_REGION + "REGION_KEYWORDS] "
+            + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + " " + PREFIX_PHONE;
 
     public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
 
@@ -55,6 +65,22 @@ public class SortCommand extends Command {
         requireNonNull(model);
         model.updateDisplayList(personComparator);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description));
+
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SortCommand)) {
+            return false;
+        }
+
+        SortCommand otherSortCommand = (SortCommand) other;
+        return description.equals(description);
 
     }
 }
