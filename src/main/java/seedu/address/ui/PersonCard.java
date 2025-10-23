@@ -1,13 +1,18 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -51,12 +56,78 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        name.setTooltip(new Tooltip(person.getName().fullName));
+
         phone.setText(person.getPhone().value);
+        phone.setTooltip(new Tooltip(person.getPhone().value));
+
         address.setText(person.getAddress().value);
+        address.setTooltip(new Tooltip(person.getAddress().value));
+
         region.setText(person.getRegion().value.getDisplayName());
+        address.setTooltip(new Tooltip(person.getRegion().value.getDisplayName()));
+
         email.setText(person.getEmail().value);
+        email.setTooltip(new Tooltip(person.getEmail().value));
+
+        List<String> priorityOrder = List.of("beneficiary", "volunteer");
+
+        Comparator<Tag> tagComparator = Comparator.comparingInt((Tag tag) -> {
+            String name = tag.tagName.toLowerCase().strip();
+            int index = priorityOrder.indexOf(name);
+            return index == -1 ? Integer.MAX_VALUE : index;
+        }).thenComparing(tag -> tag.tagName.toLowerCase());
+
         person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .sorted(tagComparator)
+            .forEach(tag -> {
+                Label tagLabel = new Label(tag.tagName);
+                tagLabel.getStyleClass().add("tag-label"); // base style
+                switch (tag.tagName.toLowerCase().strip()) {
+                case "volunteer":
+                    tagLabel.getStyleClass().add("tag-volunteer");
+                    break;
+                case "beneficiary":
+                    tagLabel.getStyleClass().add("tag-beneficiary");
+                    break;
+                default:
+                    tagLabel.getStyleClass().add("tag-default");
+                    break;
+                }
+                tags.getChildren().add(tagLabel);
+            });
+    }
+
+    @FXML
+    private void copyPhone() {
+        copyToClipboard(person.getPhone().value);
+    }
+
+    @FXML
+    private void copyAddress() {
+        copyToClipboard(person.getAddress().value);
+    }
+
+    @FXML
+    private void copyRegion() {
+        copyToClipboard(person.getRegion().value.getDisplayName());
+    }
+
+    @FXML
+    private void copyEmail() {
+        copyToClipboard(person.getEmail().value);
+    }
+
+    /**
+     * Helper method to copy text to system clipboard.
+     */
+    private void copyToClipboard(String text) {
+        if (text == null || text.isBlank()) {
+            return;
+        }
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
     }
 }
