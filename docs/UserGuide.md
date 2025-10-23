@@ -134,7 +134,7 @@ Filters persons whose fields match the keywords.
 
 <div markdown="block" class="alert alert-info">
 
-:information_source:**Important Note:** <br>
+:information_source: **Important Note:** <br>
 * The search is <u>case-insensitive</u> e.g `n/hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`.
  Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`.
