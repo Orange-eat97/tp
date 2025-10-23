@@ -40,6 +40,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label region;
+    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
@@ -59,6 +61,9 @@ public class PersonCard extends UiPart<Region> {
 
         address.setText(person.getAddress().value);
         address.setTooltip(new Tooltip(person.getAddress().value));
+
+        region.setText(person.getRegion().value.getDisplayName());
+        address.setTooltip(new Tooltip(person.getRegion().value.getDisplayName()));
 
         email.setText(person.getEmail().value);
         email.setTooltip(new Tooltip(person.getEmail().value));

@@ -35,13 +35,16 @@
         </columnConstraints>
 
         <Label text="📞 Phone:" styleClass="cell_header_label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <Label fx:id="phone" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="0" GridPane.columnIndex="1" />
+        <Label fx:id="phone" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="0" GridPane.columnIndex="1" text="\$phone" />
 
         <Label text="🏠 Address:" styleClass="cell_header_label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-        <Label fx:id="address" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="1" GridPane.columnIndex="1" />
+        <Label fx:id="address" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="1" GridPane.columnIndex="1" text="\$address" />
 
-        <Label text="📧 Email:" styleClass="cell_header_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <Label fx:id="email" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="2" GridPane.columnIndex="1" />
+        <Label text="📍 Region:" styleClass="cell_header_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <Label fx:id="region" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="2" GridPane.columnIndex="1"  text="\$region" />
+
+        <Label text="📧 Email:" styleClass="cell_header_label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <Label fx:id="email" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." GridPane.rowIndex="3" GridPane.columnIndex="1" text="\$email" />
     </GridPane>
     </VBox>
   </GridPane>
