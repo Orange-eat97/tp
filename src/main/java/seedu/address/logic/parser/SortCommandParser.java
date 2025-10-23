@@ -110,6 +110,4 @@ public class SortCommandParser implements Parser<SortCommand> {
     private static boolean checkPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
-
 }
