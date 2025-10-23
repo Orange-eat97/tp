@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,7 +117,10 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        javafx.scene.layout.VBox.setVgrow(resultDisplayPlaceholder, javafx.scene.layout.Priority.ALWAYS);
+        StackPane.setAlignment(resultDisplayPlaceholder, javafx.geometry.Pos.CENTER);
+
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
@@ -207,6 +211,14 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (commandResult.getSortStatusText() != null) {
+                logger.info("Sort Status updated: " + commandResult.getSortStatusText());
+            }
+            statusBarFooter.setSortStatus(commandResult.getSortStatusText());
+            if (commandResult.getFindStatusText() != null) {
+                logger.info("Find Status updated: " + commandResult.getFindStatusText());
+            }
+            statusBarFooter.setFindStatus(commandResult.getFindStatusText());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -64,7 +64,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(personComparator);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description), false, false, null, null);
 
     }
 

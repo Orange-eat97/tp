@@ -20,6 +20,6 @@ public class ListCommand extends Command {
         model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
         int contactCount = model.getPersonListSize();
         String feedback = MESSAGE_SUCCESS + " " + contactCount + " contacts found";
-        return new CommandResult(feedback);
+        return new CommandResult(feedback, false, false, null, null);
     }
 }
