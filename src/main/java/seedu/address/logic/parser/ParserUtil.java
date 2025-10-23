@@ -15,6 +15,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
 
 
@@ -50,6 +51,8 @@ public class ParserUtil {
         }
         return actualIndices;
     }
+
+
 
     /**
      * Parses a {@code Prefix prefix} into a {@code List<String>} (keywords) and returns it.
@@ -117,6 +120,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String regionName} into a {@code Region}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code regionName} is invalid.
+     */
+    public static Region parseRegion(String regionName) throws ParseException {
+        requireNonNull(regionName);
+        String trimmedRegionName = regionName.trim();
+        if (!Region.isValidRegion(trimmedRegionName)) {
+            throw new ParseException(Region.MESSAGE_CONSTRAINTS);
+        }
+        return new Region(trimmedRegionName);
     }
 
     /**

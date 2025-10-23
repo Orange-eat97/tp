@@ -16,9 +16,9 @@ public class Region {
     public final ValidRegion value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Region}.
      *
-     * @param address A valid address.
+     * @param regionName A valid region's name.
      */
     public Region(String regionName) {
         requireNonNull(regionName);

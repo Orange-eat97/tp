@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REGION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -16,6 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.REGION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BENEFICIARY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_VOLUNTEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -41,6 +43,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -53,19 +56,20 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_BENEFICIARY, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + REGION_DESC_BOB + TAG_DESC_BENEFICIARY, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_BENEFICIARY, VALID_TAG_VOLUNTEER)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, new AddCommand(expectedPersonMultipleTags));
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
+                new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_BENEFICIARY;
+                + REGION_DESC_BOB + TAG_DESC_BENEFICIARY;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedPersonString,
@@ -85,8 +89,7 @@ public class AddCommandParserTest {
 
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + ADDRESS_DESC_AMY
-                        + validExpectedPersonString,
+                validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + ADDRESS_DESC_AMY,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE));
 
         // invalid value followed by valid value
@@ -107,6 +110,10 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
+        // invalid region
+        assertParseFailure(parser, INVALID_REGION_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REGION));
+
         // valid value followed by invalid value
 
         // invalid name
@@ -124,6 +131,10 @@ public class AddCommandParserTest {
         // invalid address
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
+
+        // invalid region
+        assertParseFailure(parser, validExpectedPersonString + INVALID_REGION_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_REGION));
     }
 
     @Test
@@ -155,33 +166,39 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Name.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_VOLUNTEER + REGION_DESC_BOB + TAG_DESC_BENEFICIARY, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Phone.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Email.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Address.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Address.MESSAGE_CONSTRAINTS);
+
+        // invalid region
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_REGION_DESC + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
+                Region.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + INVALID_TAG_DESC
-                + VALID_TAG_BENEFICIARY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + REGION_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_BENEFICIARY, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser,
-                INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC + TAG_DESC_BENEFICIARY,
+                INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
+                        + REGION_DESC_BOB + TAG_DESC_BENEFICIARY,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser,
                 PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
+                        + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
