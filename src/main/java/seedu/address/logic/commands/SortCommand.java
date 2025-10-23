@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Comparator;
+import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -33,8 +34,11 @@ public class SortCommand extends Command {
             + PREFIX_TAG + " \n"
             + "Example: " + COMMAND_WORD + " n/";
 
+    public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
+
     private final Comparator<Person> personComparator;
     private final String description;
+
 
     /**
      * Creates a SortCommand to sort according to the category
