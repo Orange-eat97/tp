@@ -170,6 +170,7 @@ Clears all entries from the address book.
 Format: `clear`
 
 ### Cycling between commands
+
 Cycles between commands in the command history.
 
 `UP Key`: Goes to the previous command in history
