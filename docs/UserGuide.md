@@ -103,7 +103,7 @@ Shows a list of all persons in the address book.
 * Displays all persons' contact details in the address book.
 * At the panel below the command box, you can see the total number of contacts.
 
-_Example_:
+**Example**:
 <br>
 ![result for 'find alex david'](images/list-success-screenshot.png)
 
@@ -143,7 +143,7 @@ Filters persons whose fields match the keywords.
 * Displays all persons who matches at least one keyword in each given field.
   * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` **and** whose phone number is `1234`.
 
-**Examples:**
+**📘Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)  
   
