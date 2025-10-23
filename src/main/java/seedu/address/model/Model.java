@@ -127,4 +127,9 @@ public interface Model {
      * Returns the next command
      */
     String getNextCommand();
+
+    /**
+     * Returns the command history
+     */
+    String getCommandHistory();
 }

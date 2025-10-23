@@ -23,6 +23,9 @@ public class Person {
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
     public static final Function<Person, String> TAG_STR_GETTER =
             person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
+    public static final Function<Person, String> ROLE_TAG_STR_GETTER =
+            person -> TAG_STR_GETTER.apply(person).contains("beneficiary") ? "beneficiary" : "volunteer";
+
     public static final Function<Person, String> REGION_STR_GETTER =
             person -> person.getRegion().value.getDisplayName();
     // Identity fields
