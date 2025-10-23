@@ -172,7 +172,7 @@ Format: `clear`
 ### Cycling between commands
 Cycles between commands in the command history.
 
-`UP Key`: Goes to the next command in history
+`UP Key`: Goes to the previous command in history
 
 `DOWN Key`: Goes to the next command in history
 
