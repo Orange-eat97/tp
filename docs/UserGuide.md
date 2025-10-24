@@ -3,16 +3,16 @@ layout: page
 title: User Guide
 ---
 
-**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.
+**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.🤝✨
 
-By consolidating beneficiary and worker data into a single, efficient system, CareLink empowers dispatchers to:
+By consolidating beneficiary and worker data into a single, efficient system 📚⚡, CareLink empowers dispatchers to:
 
-* Create and update records for beneficiaries and social workers
-* Access information quickly using **optimized find and sort commands**
-* Automatically identify the **closest available social worker**
-* Reduce errors and delays caused by manual lookups or outdated records
+* 📝 Create and update records for beneficiaries and social workers
+* 🔍 Access information quickly using **optimized find and sort commands**
+* 📍 Automatically identify the **closest available social worker**
+* 🛡️ Reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively.
+In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 🚑💙
 
 * Table of Contents
 {:toc}
@@ -120,7 +120,7 @@ Adds a person to the address book.
 
 Shows a list of all persons in the address book.
 
-**Format**:                  
+**Format**:
 `list`
 
 **Expected Outcome:**
@@ -163,7 +163,7 @@ Edits an existing person in the address book.
 
 Filters persons whose fields match the keywords.
 
-**Format**:  
+**Format**:
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
@@ -182,8 +182,8 @@ Filters persons whose fields match the keywords.
 
 **📘Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)  
-  
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
@@ -341,7 +341,7 @@ Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
-**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`. 
+**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
