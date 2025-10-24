@@ -149,7 +149,8 @@ Format: `sort [n/] [p/] [e/] [a/] [t/]`
 * Order of sorting follows the natural order. e.g. 4th comes before 10th
 * Order of parameters defines the order of sorting.
   e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
-* Sorting by **tags** will only sort according to **beneficiary** and **volunteer**
+* Sorting by **tags** will group the tags by **beneficiary** and **volunteer**
+* Calling sort after any command will sort the current displayed list
 
 ### Deleting a person : `delete`
 
