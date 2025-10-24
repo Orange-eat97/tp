@@ -3,7 +3,16 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.
+
+By consolidating beneficiary and worker data into a single, efficient system, CareLink empowers dispatchers to:
+
+* Create and update records for beneficiaries and social workers
+* Access information quickly using **optimized find and sort commands**
+* Automatically identify the **closest available social worker**
+* Reduce errors and delays caused by manual lookups or outdated records
+
+In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively.
 
 * Table of Contents
 {:toc}
