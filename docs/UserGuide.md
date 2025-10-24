@@ -89,7 +89,7 @@ Shows a message explaining how to access the help page.
 * Opens a window that allows you to copy the link to the User Guide website
 
 **📘Examples:**
-* ![help message](images/helpMessage.png)
+![help message](images/helpMessage.png)
 
 
 ### Adding a person: `add`
