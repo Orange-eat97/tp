@@ -5,8 +5,57 @@ title: User Guide
 
 AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+## Table of Contents
+
+- [Quick start](#quick-start)
+
+
+- <details class="toc-md"><summary><a href="#features">Features</a></summary>
+
+    - <details><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
+      
+      - [Adding a person: `add`](#adding-a-person-add)
+      - [Editing a person : `edit`](#editing-a-person--edit)
+      - [Locating persons: `find`](#locating-persons-find)
+      - [Sorting persons: `sort`](#sorting-persons-sort)
+      - [Deleting a person : `delete`](#deleting-a-person--delete)
+      
+      </details>
+
+    - <details><summary>👥<a href="#group-operations">Group Operations</a></summary>
+      
+      - [Listing all persons : `list`](#listing-all-persons--list)
+      - [Clearing all entries : `clear`](#clearing-all-entries--clear)
+      
+      </details>
+
+    - <details><summary>🛠<a href="#support-functions">Support Functions</a></summary>
+      
+      - [Viewing help : `help`](#viewing-help--help)
+      - [Exiting the program : `exit`](#exiting-the-program--exit)
+      - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
+      - [Autocomplete : `TAB_Key`](#autocomplete)
+      - [Saving the data](#saving-the-data)
+      - [Editing the data file](#editing-the-data-file)
+      - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
+      
+      </details>
+  
+  </details>
+
+
+- [FAQ](#faq)
+
+
+- [Known issues](#known-issues)
+
+
+- [Command summary](#command-summary)
+
+
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -40,11 +89,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
-
-### Individual Operations
-### Group Operations
-### Support Functions
+## Feature
 
 <div markdown="block" class="alert alert-info">
 
@@ -211,10 +256,12 @@ Cycles between commands in the command history.
 
 ### Autocomplete
  
-AddressBook offers possible complements of your input text. It helps you auto-complete command words, and reminds you of the 
-possible tags of personal information, like `n/` for name.
+Carelink offers possible complements of your input text. It helps you autocomplete command words, and reminds you of tags of personal information, like `n/` for name.
 
 Format: `tab`: Auto-complete with the complement that appears below command box.  
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Press "Tab" then continue typing the information, without entering space for best typing speed increment.
+</div>
 
 ### Saving the data
 
