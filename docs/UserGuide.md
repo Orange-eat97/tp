@@ -7,8 +7,6 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Table of Contents
 
-<div class="toc-plain">
-
 - [Quick start](#quick-start)
 
 
@@ -52,10 +50,6 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 
 - [Command summary](#command-summary)
-
-</div>
-
-
 
 
 --------------------------------------------------------------------------------------------------------------------
