@@ -10,7 +10,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 - [Quick start](#quick-start)
 
 
-  - <details markdown = 1><summary><a href="#features">Features</a></summary>
+- <details markdown = 1><summary><a href="#features">Features</a></summary>
 
     - <details markdown = 1><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
       
@@ -40,8 +40,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
       - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
       
       </details>
-
- </details>
+      </details>
 
 
 - [FAQ](#faq)
