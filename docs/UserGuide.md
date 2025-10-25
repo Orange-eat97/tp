@@ -117,8 +117,6 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 </div>
 
 
-### Individual Operations
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
@@ -213,7 +211,6 @@ Examples:
 
 [Table of Contents](#table-of-contents)
 
-### Group Operations
 
 ### Listing all persons : `list`
 
@@ -239,8 +236,6 @@ Clears all entries from the address book.
 Format: `clear`
 
 [Table of Contents](#table-of-contents)
-
-### Support Functions
 
 ### Viewing help : `help`
 
