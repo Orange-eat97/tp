@@ -42,10 +42,6 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Features
 
-### Individual Operations
-### Group Operations
-### Support Functions
-
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
@@ -73,8 +69,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+### Viewing help : `help`
 
-### Individual Operations
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
 
 ### Adding a person: `add`
 
@@ -89,6 +91,21 @@ A person can have any number of tags, but must have a tag that is either volunte
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/beneficiary`
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+**Format**:                  
+`list`
+
+**Expected Outcome:**
+* Displays all persons' contact details in the address book.
+* At the panel below the command box, you can see the total number of contacts.
+
+**📘Example**:
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
 
 ### Editing a person : `edit`
 
@@ -160,46 +177,11 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
 
-### Group Operations
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-**Format**:                  
-`list`
-
-**Expected Outcome:**
-* Displays all persons' contact details in the address book.
-* At the panel below the command box, you can see the total number of contacts.
-
-**📘Example**:
-<br>
-![result for 'find alex david'](images/list-success-screenshot.png)
-
-
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-
-
-### Support Functions
-
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
 
 ### Cycling between commands
 
@@ -209,12 +191,11 @@ Cycles between commands in the command history.
 
 `DOWN Key`: Goes to the next command in history
 
-### Autocomplete
- 
-AddressBook offers possible complements of your input text. It helps you auto-complete command words, and reminds you of the 
-possible tags of personal information, like `n/` for name.
+### Exiting the program : `exit`
 
-Format: `tab`: Auto-complete with the complement that appears below command box.  
+Exits the program.
+
+Format: `exit`
 
 ### Saving the data
 
