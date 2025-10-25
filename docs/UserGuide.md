@@ -264,7 +264,7 @@ Cycles between commands in the command history.
 
 ### Autocomplete
  
-Carelink offers possible complements of your input text. It helps you autocomplete command words, and reminds you of tags of personal information, like `n/` for name.
+CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
 
 Format: `tab`: Auto-complete with the complement that appears below command box.
 > Pressing **Tab** manages spacing as well, just type as normal!
