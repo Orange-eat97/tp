@@ -3,18 +3,16 @@
 skinparam ArrowFontStyle plain
 
 Actor User as user USER_COLOR
-Participant ":MainWindow" as mainWindow UI_COLOR
-Participant ":CommandBox" as commandBox UI_COLOR_T1
+Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":CommandHistory" as commandHistory MODEL_COLOR_T1
-Participant ":ResultDisplay" as resultDisplay UI_COLOR_T2
 
-user -> mainWindow : handleUpDownKeyPress(event, commandBox)
-activate mainWindow
+user -> ui : handleUpDownKeyPress(event, commandBox)
+activate ui
 
 alt UP key pressed
-    mainWindow -> logic : getPreviousCommand()
+    ui -> logic : getPreviousCommand()
     activate logic
 
     logic -> model : getPreviousCommand()
@@ -29,11 +27,11 @@ alt UP key pressed
     model --> logic : previousCommand
     deactivate model
 
-    logic --> mainWindow : command
+    logic --> ui : command
     deactivate logic
 
 else DOWN key pressed
-    mainWindow -> logic : getNextCommand()
+    ui -> logic : getNextCommand()
     activate logic
 
     logic -> model : getNextCommand()
@@ -48,18 +46,12 @@ else DOWN key pressed
     model --> logic : nextCommand
     deactivate model
 
-    logic --> mainWindow : command
+    logic --> ui : command
     deactivate logic
 end
 
 
-
-mainWindow -> commandBox : setCommandText(command)
-activate commandBox
-commandBox --> mainWindow
-deactivate commandBox
-
-mainWindow -> logic : getCommandHistory()
+ui -> logic : getCommandHistory()
 activate logic
 
 logic -> model : getCommandHistory()
@@ -74,17 +66,12 @@ deactivate commandHistory
 model --> logic : formattedCommandHistory
 deactivate model
 
-logic --> mainWindow : formattedCommandHistory
+logic --> ui : formattedCommandHistory
 deactivate logic
 
-mainWindow -> resultDisplay : setFeedbackToUser(formattedCommandHistory)
-activate resultDisplay
-resultDisplay --> mainWindow
-deactivate resultDisplay
+ui -> ui : event.consume()
 
-mainWindow -> mainWindow : event.consume()
-
-mainWindow --> user
-deactivate mainWindow
+ui --> user
+deactivate ui
 
 @enduml
