@@ -266,9 +266,12 @@ Cycles between commands in the command history.
  
 CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
 
-Format: `tab`: Auto-complete with the complement that appears below command box.
+Format: `tab`: press `tab` to autocomplete with the complement that appears below command box.
 > Pressing **Tab** manages spacing as well, just type as normal!
 
+**📘Example**:
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
 
 [Table of Contents](#table-of-contents)
 
