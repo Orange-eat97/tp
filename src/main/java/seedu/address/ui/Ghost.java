@@ -1,6 +1,13 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.scene.control.TextField;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.SortCommand;
+
+
 
 /**
  * class responsible for building the ghost of auto-complete
@@ -96,28 +103,65 @@ public class Ghost {
         int[] bounds = acCurrentTokenBounds(commandTextField);
         int start = bounds[0];
         int end = bounds[1];
+        int caret = commandTextField.getCaretPosition();
+        boolean addSortEdit = text.contains("add") || text.contains("sort") || text.contains("edit");
 
-        if (start >= end) { // empty token
-            acGhostHide();
+        if (caret > 0 && text.charAt(caret - 1) == ' ' && addSortEdit) { //case of having a space after add or sort
+            assert (text.contains("add") || text.contains("sort") || text.contains("edit"));
+            List<String> params = null;
+            if (text.contains("add")) {
+                params = AddCommand.PARAMS;
+            } else if (text.contains("sort")) {
+                params = SortCommand.PARAMS;
+            } else {
+                params = EditCommand.PARAMS;
+            }
+            String next = autoCompleteSupplier.giveParam(text, params); //get the suggested next param
+
+            if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
+                acLastSuggestion = next;
+                acTokenStart = caret;
+                javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+                label.setText(next);
+                ghostShow(commandTextField);
+                return null;
+            }
+
+        } else if (!text.contains(" ")) { //case of suggesting for command: assertion text has no " "
+            if (start >= end) { // empty token
+                acGhostHide();
+                return null;
+            }
+
+            String prefix = text.substring(start, end);
+
+            String suggestion = null;
+            if (start != end) { //added guarding rail so space at the end won't suggest "add"
+                suggestion = autoCompleteSupplier.findBestMatch(prefix);
+            }
+
+            if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
+                acGhostHide();
+                return null;
+            }
+
+            acLastSuggestion = suggestion;
+            acTokenStart = start;
+            String tail = suggestion.substring(prefix.length());
+
+            javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+            label.setText(tail);
+            ghostShow(commandTextField);
             return null;
         }
+        return null;
+    }
 
-        String prefix = text.substring(start, end);
-
-        String suggestion = autoCompleteSupplier.findBestMatch(prefix);
-        if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
-            acGhostHide();
-            return null;
-        }
-
-        acLastSuggestion = suggestion;
-        acTokenStart = start;
-
-        String tail = suggestion.substring(prefix.length());
-
-        javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-        label.setText(tail);
-
+    /**
+     * logic for showing the suggestion, abstracted out
+     * @param commandTextField
+     */
+    private void ghostShow(TextField commandTextField) {
         if (!acGhost.isShowing()) {
             javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
             if (b != null) {
@@ -132,7 +176,6 @@ public class Ghost {
                 acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
             }
         }
-        return null;
     }
 
     /**
@@ -176,5 +219,8 @@ public class Ghost {
             acGhost.hide();
         }
     }
+
+
+
 
 }

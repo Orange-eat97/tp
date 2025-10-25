@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.NaturalOrderComparator.NATURAL_ORDER_COMPARATOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -29,15 +31,17 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REGION, PREFIX_TAG);
 
-        if (!checkPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG)
+        if (!checkPrefixesPresent(
+                argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_REGION, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        argMultimap.verifyNoDuplicatePrefixesFor(
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REGION, PREFIX_TAG);
 
         List<Prefix> prefixList = argMultimap.getAllPrefixes().stream()
                 .filter(p -> !p.getPrefix().isEmpty())
@@ -51,16 +55,15 @@ public class SortCommandParser implements Parser<SortCommand> {
             Function<Person, String> personPrefixValue = getPersonPrefixValue(prefix);
             labels.add(getPrefixLabel(prefix));
             if (i == 0) {
-                personComparator = Comparator.comparing(personPrefixValue);
+                personComparator = Comparator.comparing(personPrefixValue, NATURAL_ORDER_COMPARATOR);
 
             } else {
-                personComparator = personComparator.thenComparing(personPrefixValue);
+                personComparator = personComparator.thenComparing(personPrefixValue, NATURAL_ORDER_COMPARATOR);
             }
 
         }
 
         String description = String.join(", ", labels);
-        System.out.println(description);
         return new SortCommand(personComparator, description);
 
     }
@@ -68,15 +71,17 @@ public class SortCommandParser implements Parser<SortCommand> {
     private Function<Person, String> getPersonPrefixValue(Prefix prefix) throws ParseException {
         switch (prefix.getPrefix()) {
         case "n/":
-            return person -> person.getName().fullName;
+            return Person.NAME_STR_GETTER;
         case "p/":
-            return person -> person.getPhone().value;
+            return Person.PHONE_STR_GETTER;
         case "e/":
-            return person -> person.getEmail().value;
+            return Person.EMAIL_STR_GETTER;
         case "t/":
-            return person -> person.getTags().iterator().next().tagName;
+            return Person.ROLE_TAG_STR_GETTER;
         case "a/":
-            return person -> person.getAddress().value;
+            return Person.ADDRESS_STR_GETTER;
+        case "r/":
+            return Person.REGION_STR_GETTER;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
 
@@ -95,6 +100,8 @@ public class SortCommandParser implements Parser<SortCommand> {
             return "tag";
         case "a/":
             return "address";
+        case "r/":
+            return "region";
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
 

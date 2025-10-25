@@ -1,6 +1,6 @@
-
 .error {
-    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
+    -fx-text-fill: #d06651 !important;
+    /* The error class should always override the default text-fill style */
 }
 
 .list-cell:empty {
@@ -17,4 +17,23 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.copyable-field {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 5;
+}
+
+.copy-button {
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #777;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-padding: 0 3 0 3;
+    -fx-transition: opacity 0.2s ease-in-out;
+}
+
+.copyable-field:hover .copy-button {
+    -fx-opacity: 1;
 }

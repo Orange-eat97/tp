@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -25,12 +27,55 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label" textOverrun="ELLIPSIS" ellipsisString="..."/>
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <GridPane hgap="10" alignment="CENTER_LEFT">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" minWidth="20" prefWidth="20" />
+          <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+
+        <Label text="📞" styleClass="cell_header_label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <AnchorPane styleClass="copyable-field"
+          GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Label fx:id="phone" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." text="\$phone" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="35.0" />
+            <Button fx:id="copyPhoneButton"
+                text="📋"
+                onAction="#copyPhone"
+                styleClass="copy-button" AnchorPane.rightAnchor="0.0" />
+        </AnchorPane>
+
+        <Label text="🏠" styleClass="cell_header_label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <AnchorPane styleClass="copyable-field"
+          GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <Label fx:id="address" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." text="\$address" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="35.0" />
+            <Button fx:id="copyAddressButton"
+                text="📋"
+                onAction="#copyAddress"
+                styleClass="copy-button" AnchorPane.rightAnchor="0.0" />
+        </AnchorPane>
+
+        <Label text="📍" styleClass="cell_header_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <AnchorPane styleClass="copyable-field"
+          GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <Label fx:id="region" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." text="\$region" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="35.0" />
+            <Button fx:id="copyRegionButton"
+                text="📋"
+                onAction="#copyRegion"
+                styleClass="copy-button" AnchorPane.rightAnchor="0.0" />
+        </AnchorPane>
+
+        <Label text="📧" styleClass="cell_header_label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <AnchorPane styleClass="copyable-field"
+          GridPane.rowIndex="3" GridPane.columnIndex="1">
+            <Label fx:id="email" styleClass="cell_small_label" textOverrun="ELLIPSIS" ellipsisString="..." text="\$email" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="35.0" />
+            <Button fx:id="copyEmailButton"
+                text="📋"
+                onAction="#copyEmail"
+                styleClass="copy-button" AnchorPane.rightAnchor="0.0" />
+        </AnchorPane>
+    </GridPane>
     </VBox>
   </GridPane>
 </HBox>

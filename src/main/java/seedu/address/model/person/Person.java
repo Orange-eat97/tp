@@ -23,7 +23,11 @@ public class Person {
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
     public static final Function<Person, String> TAG_STR_GETTER =
             person -> person.getTags().stream().map(t -> t.tagName).collect(Collectors.joining(" "));
+    public static final Function<Person, String> ROLE_TAG_STR_GETTER =
+            person -> TAG_STR_GETTER.apply(person).contains("beneficiary") ? "beneficiary" : "volunteer";
 
+    public static final Function<Person, String> REGION_STR_GETTER =
+            person -> person.getRegion().value.getDisplayName();
     // Identity fields
     private final Name name;
     private final Phone phone;
@@ -32,16 +36,17 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final Region region;
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Region region, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, region, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.region = region;
         this.tags.addAll(tags);
     }
 
@@ -61,6 +66,9 @@ public class Person {
         return address;
     }
 
+    public Region getRegion() {
+        return region;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

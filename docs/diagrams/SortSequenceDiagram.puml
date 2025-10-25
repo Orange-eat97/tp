@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box SortCommandParser Process LOGIC_COLOR_T1
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "<<class>>\n Comparator" as Comparator LOGIC_COLOR
+participant ":personComparator" as personComparator LOGIC_COLOR
+end box
+
+[-> SortCommandParser : parse("n/ p/ a/")
+activate SortCommandParser
+
+loop for each prefix in prefixList
+    alt first prefix
+        SortCommandParser -> Comparator : comparing
+        activate Comparator
+        create personComparator
+        Comparator -> personComparator
+        activate personComparator
+        return personComparator
+        return personComparator
+
+    else subsequent prefixes
+        SortCommandParser -> personComparator:thenComparing
+        activate personComparator
+        return personComparator
+    end
+end
+return personComparator
+destroy SortCommandParser
+
+@enduml

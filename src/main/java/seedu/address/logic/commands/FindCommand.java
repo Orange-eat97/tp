@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
@@ -30,6 +31,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE_KEYWORDS] "
             + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
             + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
+            + "[" + PREFIX_REGION + "REGION_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Alice Bob Charlie" + " "
@@ -46,7 +48,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateDisplayList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getDisplayList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getDisplayList().size()),
+                false, false, null, null);
     }
 
     @Override
