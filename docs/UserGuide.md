@@ -6,14 +6,13 @@ title: User Guide
 AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
-
 {: .toc-plain}
 - [Quick start](#quick-start)
 
 
-  - <details class="toc-md"><summary><a href="#features">Features</a></summary>
+  - <details markdown = 1><summary><a href="#features">Features</a></summary>
 
-    - <details><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
+    - <details markdown = 1><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
       
       - [Adding a person: `add`](#adding-a-person-add)
       - [Editing a person : `edit`](#editing-a-person--edit)
@@ -23,14 +22,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
       
       </details>
 
-    - <details><summary>👥<a href="#group-operations">Group Operations</a></summary>
+    - <details markdown = 1><summary>👥<a href="#group-operations">Group Operations</a></summary>
       
       - [Listing all persons : `list`](#listing-all-persons--list)
       - [Clearing all entries : `clear`](#clearing-all-entries--clear)
       
       </details>
 
-    - <details><summary>🛠<a href="#support-functions">Support Functions</a></summary>
+    - <details markdown = 1><summary>🛠<a href="#support-functions">Support Functions</a></summary>
       
       - [Viewing help : `help`](#viewing-help--help)
       - [Exiting the program : `exit`](#exiting-the-program--exit)
