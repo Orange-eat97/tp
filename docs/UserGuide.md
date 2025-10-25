@@ -161,6 +161,8 @@ Sorts persons by the fields in the order of the parameters
 **Format**:\
 `sort [n/] [p/] [e/] [a/] [t/]`
 
+<div markdown="block" class="alert alert-info">
+
 :information_source: **Important Note:**
 * Order of sorting follows the natural order. e.g. 4th comes before 10th.
 * Order of parameters defines the order of sorting.
@@ -168,9 +170,12 @@ Sorts persons by the fields in the order of the parameters
 * Sorting by **tags** will group the tags by **beneficiary** and **volunteer**.
 * Calling sort after any command will sort the current displayed list.
 
+</div>
+
 **Expected Outcome**:
 * Displays all persons in the specified sorted order
   * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
