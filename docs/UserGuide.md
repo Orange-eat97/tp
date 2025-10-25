@@ -271,7 +271,7 @@ Format: `tab`: press `tab` to autocomplete with the complement that appears belo
 
 **📘Example**:
 <br>
-![result for 'find alex david'](images/list-success-screenshot.png)
+![result for autoComplete](images/autoComplete-success.png)
 
 [Table of Contents](#table-of-contents)
 
