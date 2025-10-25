@@ -167,13 +167,24 @@ Format: `sort [n/] [p/] [e/] [a/] [t/]`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX [INDEX]...`
+**Format**: 
+`delete INDEX [INDEX]...`
 
-* Deletes the person(s) at the specified `INDEX` and `[INDEX]...`.
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* A minimum of one index must be specified
+* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
+* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts 
+* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two 
+contacts
+</div>
+
+**Expected Outcome**:
+* Deletes the person(s) at the specified `INDEX` and `[INDEX]...` (if specified).
 * Each index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
+**Examples**:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
 
