@@ -6,52 +6,19 @@
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
 
-#markdown-toc > li > a { font-weight: 700; }              /* H2 */
-#markdown-toc > li ul > li > a { font-weight: 600; }      /* H3 group titles */
-#markdown-toc a { text-decoration: none; }
-#markdown-toc a:hover { text-decoration: underline; }
-#markdown-toc ul { margin-left: 1rem; }
+/* Remove bullets + tidy spacing for this TOC only */
+ul.toc-plain,
+ul.toc-plain ul { list-style: none; padding-left: 0; margin: 0; }
+ul.toc-plain > li { margin: .30rem 0; }
+ul.toc-plain ul { padding-left: 1rem; } /* indent child items */
+li > details { margin: .25rem 0; }
 
-#markdown-toc { counter-reset: item; }
-#markdown-toc li { counter-increment: item; }
-#markdown-toc li::before {
-  content: counters(item, ".") ". ";
-  color: #6b7280; margin-right: .25rem;
-}
+/* Chevrons for collapsibles */
+ul.toc-plain details > summary { cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; }
+ul.toc-plain details > summary::-webkit-details-marker { display: none; }
+ul.toc-plain details > summary::before { content: "▸"; margin-right: .25rem; transition: transform .15s ease; color: #6e7781; }
+ul.toc-plain details[open] > summary::before { transform: rotate(90deg); }
 
-#markdown-toc {
-  margin: 1rem 0 2rem;
-  padding-left: 1.25rem;
-  line-height: 1.45;
-  font-size: 0.98rem;
-}
-#markdown-toc > li { margin: .25rem 0; }
-
-details.toc, details.toc-sub { margin: .25rem 0 .25rem 0; }
-details.toc > summary,
-details.toc-sub > summary { cursor: pointer; list-style: none; }
-details.toc > summary::-webkit-details-marker,
-details.toc-sub > summary::-webkit-details-marker { display: none; }
-
-details.toc > summary::before,
-details.toc-sub > summary::before {
-  content: "▸";
-  display: inline-block;
-  margin-right: .4rem;
-  transition: transform .15s ease;
-}
-details.toc[open] > summary::before,
-details.toc-sub[open] > summary::before { transform: rotate(90deg); }
-
-details.toc-sub { margin-left: 1rem; }
-
-
-ul + details { margin-top: 0; }
-details + ul { margin-top: 0; }
-details { margin: .25rem 0; }
-
-
-.icon {
-    height: 21px;
-    width: 21px
-}
+/* Links */
+ul.toc-plain a { text-decoration: none; }
+ul.toc-plain a:hover { text-decoration: underline; }
