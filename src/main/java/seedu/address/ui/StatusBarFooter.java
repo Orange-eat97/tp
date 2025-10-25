@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 
 /**
@@ -17,6 +18,12 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
+    @FXML
+    private Label sortStatus;
+
+    @FXML
+    private Label findStatus;
+
     /**
      * Creates a {@code StatusBarFooter} with the given {@code Path}.
      */
@@ -25,4 +32,19 @@ public class StatusBarFooter extends UiPart<Region> {
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
+    public void setSortStatus(String sortStatusText) {
+        if (sortStatusText == null) {
+            return;
+        }
+        sortStatus.setText(sortStatusText);
+        sortStatus.setTooltip(new Tooltip(sortStatusText));
+    }
+
+    public void setFindStatus(String findStatusText) {
+        if (findStatusText == null) {
+            return;
+        }
+        findStatus.setText(findStatusText);
+        findStatus.setTooltip(new Tooltip(findStatusText));
+    }
 }

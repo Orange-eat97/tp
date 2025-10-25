@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
@@ -74,5 +75,22 @@ public class StringUtil {
     public static String[] getAllElements(String s) {
         requireNonNull(s);
         return s.split("\\s+");
+    }
+
+    /**
+     * Returns a string representing a list of strings in numbered point form
+     * The current list element in focus has an asterisk (*) next to it
+     * @throws NullPointerException if {@code listOfStrings} is null.
+     */
+    public static String formatNumberedListWithHighlight(List<String> strings, int currIndex) {
+        requireNonNull(strings);
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < strings.size(); i++) {
+            String string = strings.get(i);
+            String prefix = i == currIndex ? "*" + i : " " + i;
+            String listItem = prefix + " " + string + "\n";
+            result.append(listItem);
+        }
+        return result.toString();
     }
 }

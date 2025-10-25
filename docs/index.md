@@ -4,7 +4,7 @@ title: CareLink
 ---
 
 [![Java CI](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml)
-[![codecov](https://codecov.io/gh/AY2526-CS2103T-W13-1/tp/graph/badge.svg?token=086BE9RVL0)](https://codecov.io/gh/AY2526-CS2103T-W13-1/tp)
+[![codecov](https://codecov.io/github/AY2526S1-CS2103T-W13-1/tp/graph/badge.svg?token=086BE9RVL0)](https://codecov.io/github/AY2526S1-CS2103T-W13-1/tp)
 
 ![Ui](images/Ui.png)
 

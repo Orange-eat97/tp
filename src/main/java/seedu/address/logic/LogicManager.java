@@ -98,4 +98,8 @@ public class LogicManager implements Logic {
         return model.getNextCommand();
     }
 
+    @Override
+    public String getCommandHistory() {
+        return model.getCommandHistory();
+    }
 }

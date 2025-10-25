@@ -12,12 +12,24 @@ import seedu.address.commons.util.ToStringBuilder;
 public class CommandResult {
 
     private final String feedbackToUser;
+    private String sortStatusText;
+    private String findStatusText;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
     /** The application should exit. */
     private final boolean exit;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields and Status Text
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+            String sortStatusText, String findStatusText) {
+        this(feedbackToUser, showHelp, exit);
+        this.sortStatusText = sortStatusText;
+        this.findStatusText = findStatusText;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -46,6 +58,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public String getSortStatusText() {
+        return sortStatusText;
+    }
+
+    public String getFindStatusText() {
+        return findStatusText;
     }
 
     @Override
