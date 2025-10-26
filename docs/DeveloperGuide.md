@@ -243,6 +243,8 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Command History
+<img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
 --------------------------------------------------------------------------------------------------------------------
 
