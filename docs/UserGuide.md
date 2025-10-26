@@ -286,7 +286,7 @@ contacts
 
 Deletes all contacts in the address book.
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-warning">
 
 :information_source: **Important Note:** <br>
 * This command will permanently delete **all** contacts in the address book.
