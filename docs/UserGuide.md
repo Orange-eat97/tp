@@ -64,7 +64,7 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed in your Computer. If not, download it [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html). <br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W13-1/tp/releases).
@@ -72,16 +72,12 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 3. Copy the file to the folder you want to use as the `home_folder` for your CareLink.
 
 4. Open a command terminal, run the following commands:
-
-``` bash
-cd path/to/home_folder
-java -jar addressbook.jar
-```
-
-<div markdown="block" class="alert alert-info">
+    1. `cd path/to/home_folder` <br>
+    Your command terminal should now point to home_folder like this: `C:path/to/home_folder>`.
+    2. `java -jar addressbook.jar`
+    <br>
 A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data
 ![Ui](images/Ui.png)
-</div>
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
