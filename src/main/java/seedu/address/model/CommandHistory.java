@@ -2,11 +2,15 @@ package seedu.address.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Keeps track of all commands entered in the current session
  */
 public class CommandHistory {
+
+    private static final String COMMAND_HISTORY_HEADING = "Command History:\n";
+
     private final ObservableList<String> commandHistory;
     private int currentIndex;
 
@@ -87,5 +91,17 @@ public class CommandHistory {
         }
 
         return this.commandHistory.get(currentIndex);
+    }
+
+    /**
+     * Returns all commands in the command history in a single string
+     * Neatly arranges all commands in a numbered list, with an asterisk next to the current command
+     * @return the list of all commands in the command history
+     */
+    public String toString() {
+        if (commandHistory == null || commandHistory.isEmpty()) {
+            return COMMAND_HISTORY_HEADING + "No commands yet";
+        }
+        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistory, currentIndex);
     }
 }

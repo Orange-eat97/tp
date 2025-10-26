@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,12 +117,45 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        javafx.scene.layout.VBox.setVgrow(resultDisplayPlaceholder, javafx.scene.layout.Priority.ALWAYS);
+        StackPane.setAlignment(resultDisplayPlaceholder, javafx.geometry.Pos.CENTER);
+
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED,
+                event -> handleUpDownKeyPress(event, commandBox));
     }
+
+    /**
+     * Handles UP and DOWN arrow key presses to navigate the command history.
+     *
+     * <p>If UP is pressed, retrieves the previous command; if DOWN is pressed, retrieves the next command.
+     * Updates the given {@code commandBox} with the retrieved command and updates {@code resultDisplay}
+     * with the full command history and the current command.</p>
+     *
+     * @param event the KeyEvent representing the key press
+     * @param commandBox the CommandBox to update with the retrieved command
+     */
+
+    private void handleUpDownKeyPress(KeyEvent event, CommandBox commandBox) {
+        String command = switch (event.getCode()) {
+        case UP -> logic.getPreviousCommand();
+        case DOWN -> logic.getNextCommand();
+        default -> null;
+        };
+
+        if (command != null) {
+            commandBox.setCommandText(command);
+            String commandHistory = logic.getCommandHistory();
+            resultDisplay.setFeedbackToUser(commandHistory);
+            event.consume();
+        }
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -177,6 +211,14 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (commandResult.getSortStatusText() != null) {
+                logger.info("Sort Status updated: " + commandResult.getSortStatusText());
+            }
+            statusBarFooter.setSortStatus(commandResult.getSortStatusText());
+            if (commandResult.getFindStatusText() != null) {
+                logger.info("Find Status updated: " + commandResult.getFindStatusText());
+            }
+            statusBarFooter.setFindStatus(commandResult.getFindStatusText());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
