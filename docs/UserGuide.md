@@ -96,7 +96,7 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-**Format**:                  
+**Format**:
 `list`
 
 **Expected Outcome:**
@@ -129,7 +129,7 @@ Examples:
 
 Filters persons whose fields match the keywords.
 
-**Format**:  
+**Format**:
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
@@ -148,8 +148,8 @@ Filters persons whose fields match the keywords.
 
 **📘Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)  
-  
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
@@ -158,10 +158,23 @@ Filters persons whose fields match the keywords.
 
 Sorts persons by the fields in the order of the parameters
 
-Format: `sort [n/] [p/] [e/] [a/] [t/]`
+**Format**:
+`sort [n/] [p/] [e/] [a/] [t/]`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:**
+* Order of sorting follows the natural order. e.g. 4th comes before 10th.
 * Order of parameters defines the order of sorting.
   e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
+* Sorting by **tags** will group the tags by **beneficiary** and **volunteer**.
+* Calling sort after any command will sort the current displayed list.
+
+</div>
+
+**Expected Outcome**:
+* Displays all persons in the specified sorted order
+  * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
 
 ### Deleting a person : `delete`
 
@@ -218,7 +231,7 @@ _Details coming soon ..._
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
-**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`. 
+**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
