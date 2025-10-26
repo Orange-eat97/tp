@@ -21,7 +21,7 @@ activate ghost
     return param tag
 
     else command
-    ghost -> autocompleteSupplier: findBestMarch(text)
+    ghost -> autocompleteSupplier: findBestMatch(text)
     activate autocompleteSupplier
     return command tail
     end
