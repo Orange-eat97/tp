@@ -4,32 +4,43 @@ skinparam ArrowFontStyle plain
 
 box Autocomplete Process LOGIC_COLOR_T1
 participant ":CommandBox" as commandbox LOGIC_COLOR
-participant ":Ghost" as ghost LOGIC_COLOR
-participant ":AutocompleteSupplier" as autocompleteSupplier LOGIC_COLOR
+participant "ghost:Ghost" as ghost LOGIC_COLOR
+participant "autocompleteSupplier:AutocompleteSupplier" as autocompleteSupplier LOGIC_COLOR
 participant ":javaFx" as javaFx LOGIC_COLOR
 end box
 
 [-> commandbox : types
 activate commandbox
 
-commandbox -> ghost: acRefreshGhost()
+commandbox -> ghost: acRefreshGhostPreview(commandField)
 activate ghost
 
-alt param
-ghost -> AutocompleteSupplier: giveParam()
-activate autocompleteSupplier
-else command
-ghost -> autocompleteSupplier: findBestMarch()
-end
+    alt param
+    ghost -> autocompleteSupplier: giveParam(text, list of params)
+    activate autocompleteSupplier
+    return param tag
 
-ghost -> javaFx: label.setText(tail)
-activate javaFx
+    else command
+    ghost -> autocompleteSupplier: findBestMarch(text)
+    activate autocompleteSupplier
+    return command tail
+    end
+
+    ghost -> javaFx: label.setText(command tail)
+    activate javaFx
+
+return new label content
+
 ghost -> ghost: ghostShow()
+return
 
-[-> commandBox: tab
-commandbox -> ghost: acCommitSUggestion()
 
-destroy commandbox
+[-> commandbox : tab
+commandbox -> ghost: acCommitSUggestion(commandField)
+activate ghost
+return modified commandField
+return
+
 
 @enduml
 
