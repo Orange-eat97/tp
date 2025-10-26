@@ -16,71 +16,107 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 
 ## Table of Contents
 
-- [Quick start](#quick-start)
+- 🔹 [Quick start](#quick-start)
 
-- <details markdown = 1><summary><a href="#features">Features</a></summary>
+- <details open markdown = 1><summary><a href="#features">Features</a></summary>
 
-    - <details markdown = 1><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
+    - [Command Format](#command-format)
+
+    - [Viewing help : `help`](#viewing-help--help)
+
+    - <details open markdown = 1><summary>👤 <a href="#contacts-management">Contacts Management</a></summary>
 
       - [Adding a person: `add`](#adding-a-person-add)
+
       - [Editing a person : `edit`](#editing-a-person--edit)
-      - [Locating persons: `find`](#locating-persons-find)
-      - [Sorting persons: `sort`](#sorting-persons-sort)
+
       - [Deleting a person : `delete`](#deleting-a-person--delete)
 
-      </details>
-
-    - <details markdown = 1><summary>👥<a href="#group-operations">Group Operations</a></summary>
-
-      - [Listing all persons : `list`](#listing-all-persons--list)
       - [Clearing all entries : `clear`](#clearing-all-entries--clear)
 
       </details>
 
-    - <details markdown = 1><summary>🛠<a href="#support-functions">Support Functions</a></summary>
+    - <details markdown = 1><summary>👥 <a href="#display-and-searching">Display and Searching</a></summary>
 
-      - [Viewing help : `help`](#viewing-help--help)
-      - [Exiting the program : `exit`](#exiting-the-program--exit)
+      - [Listing all persons : `list`](#listing-all-persons--list)
+
+      - [Locating persons: `find`](#locating-persons-find)
+
+      - [Sorting persons: `sort`](#sorting-persons-sort)
+
+      </details>
+
+    - <details markdown = 1><summary>🛠 <a href="#advanced-features">Advanced Features</a></summary>
+
       - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
+
       - [Autocomplete : `TAB_Key`](#autocomplete)
+
       - [Saving the data](#saving-the-data)
+
       - [Editing the data file](#editing-the-data-file)
+
       - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
 
       </details>
+
+    - [Exiting the program : `exit`](#exiting-the-program--exit)
+
+    - [Valid Attributes for person](#valid-attributes)
+
     </details>
 
+- ❓ [FAQ](#faq)
 
-- [FAQ](#faq)
+- ⚠️ [Known issues](#known-issues)
 
-
-- [Known issues](#known-issues)
-
-
-- [Command summary](#command-summary)
+- 📦 [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer. If not, download it [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html). <br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+#### 1️⃣ Install Java (if you haven’t already)
 
-2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W13-1/tp/releases).
+CareLink requires **Java 17 or above** to run.
 
-3. Copy the file to the folder you want to use as the `home_folder` for your CareLink.
+• Download Java [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
-4. Open a command terminal, run the following commands:
-    1. `cd path/to/home_folder` <br>
-    Your command terminal should now point to home_folder like this: `C:path/to/home_folder>`.
-    2. `java -jar addressbook.jar`
-    <br>
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data
+**Mac users:** Please follow the specific installation instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to avoid version issues
+
+#### 2️⃣ Download CareLink
+
+Download the latest **CareLink `.jar` file** from our [Releases page](https://github.com/AY2526S1-CS2103T-W13-1/tp/releases)
+
+#### 3️⃣ Choose a Home Folder
+
+Move the downloaded `.jar` file to a folder where you want CareLink to store your volunteer and organization data.
+You get to choose the location. Treat it as your _CareLink Home Folder_.
+
+#### 4️⃣ Launch CareLink
+
+1.  Open your **Command Prompt / Terminal**
+
+2.  Navigate to your CareLink Home folder:
+
+    `cd path/to/home_folder`
+
+    Your terminal should now show you are inside that folder.
+
+3.  Run CareLink:
+
+    `java -jar addressbook.jar`
+
+
+A few seconds later, the CareLink interface will greet you with sample volunteer data so you can explore comfortably.
 ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+#### 5️⃣ Try Out Some Commands
+
+In the command box at the bottom, type a command and hit **Enter** to execute.
+
+Some useful examples for volunteer admin staff:
 
    * `list` : Lists all contacts.
 
@@ -92,12 +128,16 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
    * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+#### 6️⃣ Learn More
 
---------------------------------------------------------------------------------------------------------------------
+Details of every feature and command can be found in the [Features](#features) section below. You will soon explore assigning roles, tracking participation, and keeping volunteer info updated effortlessly!
+
+-----
 
 ## Features
+-----
 
+### Command Format
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
@@ -125,6 +165,30 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+------
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+**Format**:
+`help`
+
+**Expected Outcome:**
+* Opens a window that allows you to copy the link to the User Guide website
+
+**📘Examples:**
+![help message](images/helpMessage.png)
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
+## Contacts Management
+-----
+
 ### Adding a person: `add`
 
 Adds a person to the address book.
@@ -149,22 +213,11 @@ Adds a person to the address book.
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
 * `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
 
-### Listing all persons : `list`
+<br><br>
 
-Shows a list of all persons in the address book.
+[▲ Back to Table of Contents](#table-of-contents)
 
-**Format**:
-`list`
-
-**Expected Outcome:**
-* Displays all persons' contact details in the address book.
-* At the panel below the command box, you can see the total number of contacts.
-
-**📘Example**:
-<br>
-![result for 'find alex david'](images/list-success-screenshot.png)
-
-[Table of Contents](#table-of-contents)
+------
 
 ### Editing a person : `edit`
 
@@ -194,7 +247,89 @@ Edits an existing person in the address book.
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
 
-[Table of Contents](#table-of-contents)
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+### Deleting a person : `delete`
+
+Deletes one or more specified persons from the address book.
+
+**Format**:
+`delete INDEX [MORE_INDEXES]...`
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* Each index refers to the index number shown in the displayed person list.
+* A minimum of one index must be specified
+* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
+* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
+* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
+contacts
+</div>
+
+**Expected Outcome**:
+* Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
+
+**Examples**:
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
+### Clearing all entries : `clear`
+
+Deletes all contacts in the address book.
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* This command will permanently delete **all** contacts in the address book.
+* Please think carefully before executing this **irreversible** action.
+* No extra input is needed
+</div>
+
+**Format**:
+`clear`
+
+**Expected Outcome**:
+* Deletes all persons in CareLink.
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
+## Display and Searching
+-----
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+**Format**:
+`list`
+
+**Expected Outcome:**
+* Displays all persons' contact details in the address book.
+* At the panel below the command box, you can see the total number of contacts.
+
+**📘Example**:
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ### Locating persons: `find`
 
@@ -225,7 +360,11 @@ Filters persons whose fields match the keywords.
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
 
-[Table of Contents](#table-of-contents)
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ### Sorting persons: `sort`
 
@@ -249,98 +388,14 @@ Sorts persons by the fields in the order of the parameters
 * Displays all persons in the specified sorted order
   * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
 
-[Table of Contents](#table-of-contents)
+<br><br>
 
-### Deleting a person : `delete`
+[▲ Back to Table of Contents](#table-of-contents)
 
-Deletes one or more specified persons from the address book.
+------
 
-**Format**:
-`delete INDEX [MORE_INDEXES]...`
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Important Note:** <br>
-* Each index refers to the index number shown in the displayed person list.
-* A minimum of one index must be specified
-* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
-* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
-contacts
-</div>
-
-**Expected Outcome**:
-* Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
-
-**Examples**:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
-
-[Table of Contents](#table-of-contents)
-
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-**Format**:
-`list`
-
-**Expected Outcome:**
-* Displays all persons' contact details in the address book.
-* At the panel below the command box, you can see the total number of contacts.
-
-**📘Example**:
-<br>
-![result for 'find alex david'](images/list-success-screenshot.png)
-
-[Table of Contents](#table-of-contents)
-
-### Clearing all entries : `clear`
-
-Deletes all contacts in the address book.
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Important Note:** <br>
-* This command will permanently delete **all** contacts in the address book.
-* Please think carefully before executing this **irreversible** action.
-* No extra input is needed
-</div>
-
-**Format**:
-`clear`
-
-[Table of Contents](#table-of-contents)
-
-
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-**Format**:
-`help`
-
-**Expected Outcome:**
-* Opens a window that allows you to copy the link to the User Guide website
-
-**📘Examples:**
-![help message](images/helpMessage.png)
-
-[Table of Contents](#table-of-contents)
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-**Format**:  
-`exit`
-
-**Expected Outcome:**
-* The display window closes and CareLink stops running.
-
-
-[Table of Contents](#table-of-contents)
+## Advanced Features
+-----
 
 ### Cycling between commands
 
@@ -350,7 +405,11 @@ Cycles between commands in the command history.
 
 `DOWN Key`: Goes to the next command in history
 
-[Table of Contents](#table-of-contents)
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ### Autocomplete
 
@@ -365,7 +424,11 @@ After pressing **Tab**, continue typing in the attribute, no need to press "spac
 <br>
 ![result for autoComplete](images/autoComplete-success.png)
 
-[Table of Contents](#table-of-contents)
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ### Saving the data
 
@@ -380,11 +443,34 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
---------------------------------------------------------------------------------------------------------------------
+------
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+**Format**:
+`exit`
+
+**Expected Outcome:**
+* The display window closes and CareLink stops running.
+
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ## Valid Attributes
 ### 👤 Name
@@ -473,7 +559,11 @@ Address can be any non-blank string.
 
 Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
 
---------------------------------------------------------------------------------------------------------------------
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
@@ -487,14 +577,22 @@ If the data folder does not exist yet, you can simply copy over the entire `data
 **Q**: What do I do if the command box says "Unknown command"?<br>
 **A**: This means that the command you entered is not recognized by the application. Please ensure that you have typed the command correctly according to the formats specified in this user guide. You can type `help` to view the help window for reference.
 
---------------------------------------------------------------------------------------------------------------------
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ## :warning:Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
---------------------------------------------------------------------------------------------------------------------
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
 
 ## Command summary
 
@@ -508,3 +606,9 @@ Action | Format, Examples
 **Sort** | `sort [prefixes]` <br> e.g, `sort n/ p/`
 **List** | `list`
 **Help** | `help`
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
