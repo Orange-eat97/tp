@@ -14,8 +14,52 @@ By consolidating beneficiary and worker data into a single, efficient system �
 
 In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 🚑💙
 
-* Table of Contents
-{:toc}
+## Table of Contents
+
+- [Quick start](#quick-start)
+
+
+- <details markdown = 1><summary><a href="#features">Features</a></summary>
+
+    - <details markdown = 1><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
+
+      - [Adding a person: `add`](#adding-a-person-add)
+      - [Editing a person : `edit`](#editing-a-person--edit)
+      - [Locating persons: `find`](#locating-persons-find)
+      - [Sorting persons: `sort`](#sorting-persons-sort)
+      - [Deleting a person : `delete`](#deleting-a-person--delete)
+
+      </details>
+
+    - <details markdown = 1><summary>👥<a href="#group-operations">Group Operations</a></summary>
+
+      - [Listing all persons : `list`](#listing-all-persons--list)
+      - [Clearing all entries : `clear`](#clearing-all-entries--clear)
+
+      </details>
+
+    - <details markdown = 1><summary>🛠<a href="#support-functions">Support Functions</a></summary>
+
+      - [Viewing help : `help`](#viewing-help--help)
+      - [Exiting the program : `exit`](#exiting-the-program--exit)
+      - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
+      - [Autocomplete : `TAB_Key`](#autocomplete)
+      - [Saving the data](#saving-the-data)
+      - [Editing the data file](#editing-the-data-file)
+      - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
+
+      </details>
+    </details>
+
+
+- [FAQ](#faq)
+
+
+- [Known issues](#known-issues)
+
+
+- [Command summary](#command-summary)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -78,20 +122,6 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-**Format**:
-`help`
-
-**Expected Outcome:**
-* Opens a window that allows you to copy the link to the User Guide website
-
-**📘Examples:**
-![help message](images/helpMessage.png)
-
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
@@ -131,6 +161,8 @@ Shows a list of all persons in the address book.
 <br>
 ![result for 'find alex david'](images/list-success-screenshot.png)
 
+[Table of Contents](#table-of-contents)
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -158,6 +190,8 @@ Edits an existing person in the address book.
 **📘Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
+
+[Table of Contents](#table-of-contents)
 
 ### Locating persons: `find`
 
@@ -188,6 +222,8 @@ Filters persons whose fields match the keywords.
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
 
+[Table of Contents](#table-of-contents)
+
 ### Sorting persons: `sort`
 
 Sorts persons by the fields in the order of the parameters
@@ -210,11 +246,13 @@ Sorts persons by the fields in the order of the parameters
 * Displays all persons in the specified sorted order
   * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
 
+[Table of Contents](#table-of-contents)
+
 ### Deleting a person : `delete`
 
 Deletes one or more specified persons from the address book.
 
-**Format**: 
+**Format**:
 `delete INDEX [MORE_INDEXES]...`
 
 <div markdown="block" class="alert alert-info">
@@ -223,8 +261,8 @@ Deletes one or more specified persons from the address book.
 * Each index refers to the index number shown in the displayed person list.
 * A minimum of one index must be specified
 * Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts 
-* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two 
+* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
+* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
 contacts
 </div>
 
@@ -234,6 +272,26 @@ contacts
 **Examples**:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
+
+[Table of Contents](#table-of-contents)
+
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+**Format**:
+`list`
+
+**Expected Outcome:**
+* Displays all persons' contact details in the address book.
+* At the panel below the command box, you can see the total number of contacts.
+
+**📘Example**:
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
+
+[Table of Contents](#table-of-contents)
 
 ### Clearing all entries : `clear`
 
@@ -250,6 +308,32 @@ Deletes all contacts in the address book.
 **Format**:
 `clear`
 
+[Table of Contents](#table-of-contents)
+
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+**Format**:
+`help`
+
+**Expected Outcome:**
+* Opens a window that allows you to copy the link to the User Guide website
+
+**📘Examples:**
+![help message](images/helpMessage.png)
+
+[Table of Contents](#table-of-contents)
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+[Table of Contents](#table-of-contents)
+
 ### Cycling between commands
 
 Cycles between commands in the command history.
@@ -258,11 +342,22 @@ Cycles between commands in the command history.
 
 `DOWN Key`: Goes to the next command in history
 
-### Exiting the program : `exit`
+[Table of Contents](#table-of-contents)
 
-Exits the program.
+### Autocomplete
 
-Format: `exit`
+CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
+
+**Format**: `tab`: press `tab` to autocomplete with the complement that appears below command box.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After pressing **Tab**, continue typing in the attribute, no need to press "space". Press "space" when you have finished typing the current attribute, and the next attribute tag will be suggested.
+</div>
+
+**📘Example**:
+<br>
+![result for autoComplete](images/autoComplete-success.png)
+
+[Table of Contents](#table-of-contents)
 
 ### Saving the data
 
