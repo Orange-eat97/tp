@@ -84,7 +84,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Feature
+## Features
 
 <div markdown="block" class="alert alert-info">
 
