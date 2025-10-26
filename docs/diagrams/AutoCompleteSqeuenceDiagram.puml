@@ -3,13 +3,14 @@
 skinparam ArrowFontStyle plain
 
 box Autocomplete Process LOGIC_COLOR_T1
+actor "user" as user
 participant ":CommandBox" as commandbox LOGIC_COLOR
 participant "ghost:Ghost" as ghost LOGIC_COLOR
 participant "autocompleteSupplier:AutocompleteSupplier" as autocompleteSupplier LOGIC_COLOR
 participant ":javaFx" as javaFx LOGIC_COLOR
 end box
 
-[-> commandbox : types
+user-> commandbox : type
 activate commandbox
 
 commandbox -> ghost: acRefreshGhostPreview(commandField)
@@ -35,7 +36,7 @@ ghost -> ghost: ghostShow()
 return
 
 
-[-> commandbox : tab
+user-> commandbox : tab
 commandbox -> ghost: acCommitSUggestion(commandField)
 activate ghost
 return modified commandField
