@@ -267,7 +267,9 @@ Cycles between commands in the command history.
 CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
 
 Format: `tab`: press `tab` to autocomplete with the complement that appears below command box.
-> Pressing **Tab** manages spacing as well, just type as normal!
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Pressing **Tab** manages spacing as well, just type as normal!
+</div>
 
 **📘Example**:
 <br>
