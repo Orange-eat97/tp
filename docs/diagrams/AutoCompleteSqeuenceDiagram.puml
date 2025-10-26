@@ -37,7 +37,7 @@ return
 
 
 user-> commandbox : tab
-commandbox -> ghost: acCommitSUggestion(commandField)
+commandbox -> ghost: acCommitSuggestion(commandField)
 activate ghost
 return modified commandField
 return
