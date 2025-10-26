@@ -212,23 +212,43 @@ Sorts persons by the fields in the order of the parameters
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes one or more specified persons from the address book.
 
-Format: `delete INDEX [INDEX]...`
+**Format**: 
+`delete INDEX [MORE_INDEXES]...`
 
-* Deletes the person(s) at the specified `INDEX` and `[INDEX]...`.
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
 * Each index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* A minimum of one index must be specified
+* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
+* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts 
+* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two 
+contacts
+</div>
 
-Examples:
+**Expected Outcome**:
+* Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
+
+**Examples**:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Deletes all contacts in the address book.
 
-Format: `clear`
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* This command will permanently delete **all** contacts in the address book.
+* Please think carefully before executing this **irreversible** action.
+* No extra input is needed
+</div>
+
+**Format**:
+`clear`
 
 ### Cycling between commands
 
