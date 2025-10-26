@@ -155,6 +155,15 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+## Find command
+
+### Current Implementation
+A case-insensitive search is performed with each additional field added to the find command narrowing down the results.
+Below is a given sequence diagram illustrating how the find command is executed through the Logic component.
+
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
