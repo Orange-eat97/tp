@@ -3,16 +3,16 @@ layout: page
 title: User Guide
 ---
 
-**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.🤝✨
+**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.🤝
 
-By consolidating beneficiary and worker data into a single, efficient system 📚⚡, CareLink empowers dispatchers to:
+By consolidating beneficiary and worker data into a single, efficient system 📚, CareLink empowers dispatchers to:
 
 * 📝 Create and update records for beneficiaries and social workers
 * 🔍 Access information quickly using **optimized find and sort commands**
 * 📍 Automatically identify the **closest available social worker**
-* 🛡️ Reduce errors and delays caused by manual lookups or outdated records
+* 📈 Reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 🚑💙
+In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 💙
 
 ## Table of Contents
 
@@ -36,7 +36,7 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 
       </details>
 
-    - <details markdown = 1><summary>👥 <a href="#display-and-searching">Display and Searching</a></summary>
+    - <details markdown = 1><summary>🔍 <a href="#display-and-searching">Display and Searching</a></summary>
 
       - [Listing all persons : `list`](#listing-all-persons--list)
 
@@ -142,8 +142,8 @@ Details of every feature and command can be found in the [Features](#features) s
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the attributes to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a attribute which can be used as `add n/John Doe`, `n/` is its attribute prefix.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -154,12 +154,10 @@ Details of every feature and command can be found in the [Features](#features) s
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* Attributes can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-  Note: For sort command, the order of parameters defines the order of sorting.
-  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous attributes for commands that do not take in attributes (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -171,14 +169,14 @@ Details of every feature and command can be found in the [Features](#features) s
 
 Shows a message explaining how to access the help page.
 
-**Format**:
+**✏️ Format:**<br>
 `help`
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * Opens a window that allows you to copy the link to the User Guide website
 
-**📘Examples:**
-![help message](images/helpMessage.png)
+**📘 Examples:**
+* `help`<br>![help message](images/helpMessage.png)
 
 <br><br>
 
@@ -193,7 +191,7 @@ Shows a message explaining how to access the help page.
 
 Adds a person to the address book.
 
-**Format**:
+**✏️ Format:**<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
 
 <div markdown="block" class="alert alert-info">
@@ -205,11 +203,11 @@ Adds a person to the address book.
 
 </div>
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * Adds a new person to the list with the given details
   * e.g. `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` will add John Doe to the list and set his attributes to the given attributes
 
-**📘Examples:**
+**📘 Examples:**
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
 * `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
 
@@ -223,7 +221,7 @@ Adds a person to the address book.
 
 Edits an existing person in the address book.
 
-**Format**:
+**✏️ Format:**<br>
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
 
 <div markdown="block" class="alert alert-info">
@@ -239,11 +237,11 @@ Edits an existing person in the address book.
 
 </div>
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * Edits existing person in the list with the given details
   * e.g. `edit 5 p/98765432` will edit the phone number of the person at index `5` in the list to `98765432`
 
-**📘Examples:**
+**📘 Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
 
@@ -256,7 +254,7 @@ Edits an existing person in the address book.
 
 Deletes one or more specified persons from the address book.
 
-**Format**:
+**✏️ Format:**<br>
 `delete INDEX [MORE_INDEXES]...`
 
 <div markdown="block" class="alert alert-info">
@@ -270,10 +268,10 @@ Deletes one or more specified persons from the address book.
 contacts
 </div>
 
-**Expected Outcome**:
+**🎯 Expected Outcome:**
 * Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
 
-**Examples**:
+**📘 Examples:**
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
 
@@ -295,10 +293,10 @@ Deletes all contacts in the address book.
 * No extra input is needed
 </div>
 
-**Format**:
+**✏️ Format:**<br>
 `clear`
 
-**Expected Outcome**:
+**🎯 Expected Outcome:**
 * Deletes all persons in CareLink.
 
 <br><br>
@@ -314,16 +312,15 @@ Deletes all contacts in the address book.
 
 Shows a list of all persons in the address book.
 
-**Format**:
+**✏️ Format:**<br>
 `list`
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * Displays all persons' contact details in the address book.
 * At the panel below the command box, you can see the total number of contacts.
 
-**📘Example**:
-<br>
-![result for 'find alex david'](images/list-success-screenshot.png)
+**📘 Examples:**
+* `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
 
 <br><br>
 
@@ -335,7 +332,7 @@ Shows a list of all persons in the address book.
 
 Filters persons whose fields match the keywords.
 
-**Format**:
+**✏️ Format:**<br>
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
@@ -348,11 +345,11 @@ Filters persons whose fields match the keywords.
 
 </div>
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * Displays all persons who matches at least one keyword in each given field.
   * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` <u>and</u> whose phone number is `1234`.
 
-**📘Examples:**
+**📘 Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
@@ -368,23 +365,23 @@ Filters persons whose fields match the keywords.
 
 ### Sorting persons: `sort`
 
-Sorts persons by the fields in the order of the parameters
+Sorts persons by the fields in the order of the attribute prefixes
 
-**Format**:
+**✏️ Format:**<br>
 `sort [n/] [p/] [e/] [a/] [t/]`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
 * Order of sorting follows the natural order. e.g. 4th comes before 10th.
-* Order of parameters defines the order of sorting.
+* Order of attribute prefixes defines the order of sorting.
   e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 * Sorting by **tags** will group the tags by **beneficiary** and **volunteer**.
 * Calling sort after any command will sort the current displayed list.
 
 </div>
 
-**Expected Outcome**:
+**🎯 Expected Outcome:**
 * Displays all persons in the specified sorted order
   * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
 
@@ -401,9 +398,10 @@ Sorts persons by the fields in the order of the parameters
 
 Cycles between commands in the command history.
 
-`UP Key`: Goes to the previous command in history
+**⌨ Usage:**<br>
+* Press `⬆ UP Key`: Goes to the previous command in history
 
-`DOWN Key`: Goes to the next command in history
+* Press `⬇ DOWN Key`: Goes to the next command in history
 
 <br><br>
 
@@ -413,16 +411,16 @@ Cycles between commands in the command history.
 
 ### Autocomplete
 
-CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
+Provides suggestions to autocomplete your input text. Autocompletes command words and attribute prefixes like `n/`.
 
-**Format**: `tab`: press `tab` to autocomplete with the complement that appears below command box.
+**⌨ Usage:**<br>
+* Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After pressing **Tab**, continue typing in the attribute, no need to press "space". Press "space" when you have finished typing the current attribute, and the next attribute tag will be suggested.
+Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
 </div>
 
-**📘Example**:
-<br>
-![result for autoComplete](images/autoComplete-success.png)
+**📘 Examples:**
+* Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
 
 <br><br>
 
@@ -459,10 +457,10 @@ _Details coming soon ..._
 
 Exits the program.
 
-**Format**:
+**✏️ Format:**<br>
 `exit`
 
-**Expected Outcome:**
+**🎯 Expected Outcome:**
 * The display window closes and CareLink stops running.
 
 
