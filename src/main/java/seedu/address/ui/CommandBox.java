@@ -18,8 +18,6 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
     private final CommandExecutor commandExecutor;
-    private final Supplier<String> getPreviousCommand;
-    private final Supplier<String> getNextCommand;
     private final Ghost ghost = new Ghost();
 
     @FXML
@@ -33,8 +31,6 @@ public class CommandBox extends UiPart<Region> {
                       Supplier<String> getNextCommand) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.getPreviousCommand = getPreviousCommand;
-        this.getNextCommand = getNextCommand;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3)
                 -> setStyleToDefault());

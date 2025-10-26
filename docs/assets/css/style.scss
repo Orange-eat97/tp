@@ -6,7 +6,16 @@
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
 
-.icon {
-    height: 21px;
-    width: 21px
-}
+ul.toc-plain,
+ul.toc-plain ul { list-style: none; padding-left: 0; margin: 0; }
+ul.toc-plain > li { margin: .30rem 0; }
+ul.toc-plain ul { padding-left: 1rem; } /* indent child items */
+li > details { margin: .25rem 0; }
+
+ul.toc-plain details > summary { cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; }
+ul.toc-plain details > summary::-webkit-details-marker { display: none; }
+ul.toc-plain details > summary::before { content: "▸"; margin-right: .25rem; transition: transform .15s ease; color: #6e7781; }
+ul.toc-plain details[open] > summary::before { transform: rotate(90deg); }
+
+ul.toc-plain a { text-decoration: none; }
+ul.toc-plain a:hover { text-decoration: underline; }

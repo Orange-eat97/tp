@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "p1:StrAttrContainsKeyword" as StrAttrContainsKeyword LOGIC_COLOR
+participant "p2:StrAttrContainsKeyword" as StrAttrContainsKeyword2 LOGIC_COLOR
+participant "cp:ChainedPredicate" as ChainedPredicate LOGIC_COLOR
+participant "f:FindCommand" as FindCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+
+-> AddressBookParser : parseCommand("find n/Alex David t/volunteer")
+activate AddressBookParser
+
+create FindCommandParser
+AddressBookParser -> FindCommandParser
+
+AddressBookParser -> FindCommandParser : parse("n/Alex David t/volunteer")
+activate FindCommandParser
+
+create StrAttrContainsKeyword
+FindCommandParser -> StrAttrContainsKeyword : StrAttrContainsKeyword(nameKeywords, ...)
+
+create StrAttrContainsKeyword2
+FindCommandParser -> StrAttrContainsKeyword2 : StrAttrContainsKeyword(tagKeywords, ...)
+
+create ChainedPredicate
+FindCommandParser -> ChainedPredicate : ChainedPredicate([p1, p2])
+
+create FindCommand
+
+FindCommandParser -> FindCommand : FindCommand(cp)
+activate FindCommand
+FindCommand -> FindCommandParser : f
+deactivate FindCommand
+
+FindCommandParser --> AddressBookParser : f
+deactivate FindCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> AddressBookParser
+destroy FindCommandParser
+
+[<--AddressBookParser: f
+deactivate AddressBookParser
+
+-> FindCommand : execute(m)
+activate FindCommand
+
+FindCommand -> Model : updateDisplayList(cp)
+activate Model
+
+deactivate Model
+
+[<--FindCommand: r
+deactivate FindCommand
+
+@enduml
