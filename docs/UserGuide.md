@@ -268,7 +268,7 @@ CareLink suggests possible complements of your input text. It autocompletes comm
 
 **Format**: `tab`: press `tab` to autocomplete with the complement that appears below command box.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Pressing **Tab** manages spacing as well, just type as normal!
+After pressing **Tab**, continue typing in the attribute, no need to press "space". Press "space" when you have finished typing the current attribute, and the next attribute tag will be suggested.
 </div>
 
 **📘Example**:
