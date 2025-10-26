@@ -199,7 +199,7 @@ Exits the program.
 `exit`
 
 **Expected Outcome:**
-* The display window closes and the CareLink stops running.
+* The display window closes and CareLink stops running.
 
 
 ### Saving the data
@@ -239,7 +239,6 @@ If the data folder does not exist yet, you can simply copy over the entire `data
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
