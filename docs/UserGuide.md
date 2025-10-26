@@ -598,7 +598,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/woodlands t/volunteer`
 **Clear** | `clear`
-**Delete** | `delete INDEX [INDEX]...`<br> e.g., `delete 1 3`
+**Delete** | `delete INDEX [MORE_INDEXES]...`<br> e.g., `delete 1 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [prefix/KEYWORDS]`<br> e.g., `find n/James p/92813321`
 **Sort** | `sort [prefixes]` <br> e.g, `sort n/ p/`
