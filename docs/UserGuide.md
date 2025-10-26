@@ -81,7 +81,8 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 
 CareLink requires **Java 17 or above** to run.
 
-• Download Java [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* Download Java [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* Set Java environment variables. Follow instructions [here](https://docs.oracle.com/cd/F74770_01/English/Installing/p6_eppm_install_config/89522.htm)
 
 **Mac users:** Please follow the specific installation instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to avoid version issues
 
