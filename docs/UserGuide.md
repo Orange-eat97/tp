@@ -3,7 +3,16 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.🤝✨
+
+By consolidating beneficiary and worker data into a single, efficient system 📚⚡, CareLink empowers dispatchers to:
+
+* 📝 Create and update records for beneficiaries and social workers
+* 🔍 Access information quickly using **optimized find and sort commands**
+* 📍 Automatically identify the **closest available social worker**
+* 🛡️ Reduce errors and delays caused by manual lookups or outdated records
+
+In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 🚑💙
 
 ## Table of Contents
 
@@ -72,7 +81,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -113,20 +122,29 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/volunteer|beneficiary [t/TAG]…​`
+**Format**:
+`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags, but must have a tag that is either volunteer or beneficiary
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* Attributes must follow [Valid Attributes](#valid-attributes)
+* A person can have any number of tags, but must have a tag that is either volunteer or beneficiary
+* A person's attributes can be edited via `edit` later on, however all attributes must first be provided
+
 </div>
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/beneficiary`
+**Expected Outcome:**
+* Adds a new person to the list with the given details
+  * e.g. `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` will add John Doe to the list and set his attributes to the given attributes
+
+**📘Examples:**
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
+* `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
 
 ### Listing all persons : `list`
 
@@ -149,17 +167,27 @@ Shows a list of all persons in the address book.
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+**Format**:
+`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The index is affected by `find` and `sort`
 * At least one of the optional fields must be provided.
+* Attributes must follow [Valid Attributes](#valid-attributes)
 * If tags are edited, must include a tag indicating volunteer or beneficiary.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
 
-Examples:
+</div>
+
+**Expected Outcome:**
+* Edits existing person in the list with the given details
+  * e.g. `edit 5 p/98765432` will edit the phone number of the person at index `5` in the list to `98765432`
+
+**📘Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
 
@@ -222,15 +250,26 @@ Sorts persons by the fields in the order of the parameters
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes one or more specified persons from the address book.
 
-Format: `delete INDEX [INDEX]...`
+**Format**:
+`delete INDEX [MORE_INDEXES]...`
 
-* Deletes the person(s) at the specified `INDEX` and `[INDEX]...`.
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
 * Each index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* A minimum of one index must be specified
+* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
+* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
+* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
+contacts
+</div>
 
-Examples:
+**Expected Outcome**:
+* Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
+
+**Examples**:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
 
@@ -256,19 +295,34 @@ Shows a list of all persons in the address book.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Deletes all contacts in the address book.
 
-Format: `clear`
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:** <br>
+* This command will permanently delete **all** contacts in the address book.
+* Please think carefully before executing this **irreversible** action.
+* No extra input is needed
+</div>
+
+**Format**:
+`clear`
 
 [Table of Contents](#table-of-contents)
+
 
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+**Format**:
+`help`
 
-Format: `help`
+**Expected Outcome:**
+* Opens a window that allows you to copy the link to the User Guide website
+
+**📘Examples:**
+![help message](images/helpMessage.png)
 
 [Table of Contents](#table-of-contents)
 
@@ -324,6 +378,95 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Valid Attributes
+### 👤 Name
+
+Alphanumeric + spaces only, not blank.
+
+* `Alice Tan`
+* `John Doe`
+* `Li Wei`
+* `Aisyah`
+* `Bob 2`
+
+### 📧 Email
+
+Emails must follow: `local-part@domain`, allowed special chars in local part (`+_.-`), no leading/trailing special chars, domain labels alphanumeric & ≥2 letters at the end.
+
+* `alice@example.com`
+* `john_doe123@mail.sg`
+* `alex+promo@sub-domain.co.uk`
+* `my.email@ntu.edu.sg`
+* `contact-1@tech-startup.io`
+* `user123@domain99.net`
+
+### 📞 Phone Number
+
+Digits only, at least 3 numbers long.
+
+* `999`
+* `98765432`
+* `65123456`
+* `1800123`
+
+### 🌍 Region
+
+Regions must be a valid region (listed below):
+
+* Woodlands
+* Yishun
+* Sembawang
+* Mandai
+* Sungei Kadut
+* Punggol
+* Sengkang
+* Hougang
+* Seletar
+* Serangoon
+* Pasir Ris
+* Tampines
+* Bedok
+* Paya Lebar
+* Changi
+* Toa Payoh
+* Bishan
+* Ang Mo Kio
+* Novena
+* Geylang
+* Marine Parade
+* Kallang
+* Queenstown
+* Bukit Merah
+* Bukit Timah
+* Tanglin
+* River Valley
+* Jurong West
+* Jurong East
+* Boon Lay
+* Clementi
+* Bukit Batok
+* Bukit Panjang
+* Tuas
+* Lim Chu Kang
+* Western Water Catchment
+* Tengah
+
+### 🏠 Address
+
+Address can be any non-blank string.
+
+-   `21 Lower Kent Ridge Rd, Singapore`
+-   `Block 123, #02-45 Clementi Ave 3`
+-   `10 Dover Drive`
+-   `Jurong West Street 42`
+-   `Marina Bay Sands Tower 1`
+
+### 🏷️ Tags
+
+Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## FAQ
 **Q**: Where are my data files stored?<br>
 **A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
@@ -349,10 +492,10 @@ If the data folder does not exist yet, you can simply copy over the entire `data
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/volunteer|beneficiary [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/woodlands t/volunteer`
 **Clear** | `clear`
 **Delete** | `delete INDEX [INDEX]...`<br> e.g., `delete 1 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [prefix/KEYWORDS]`<br> e.g., `find n/James p/92813321`
 **Sort** | `sort [prefixes]` <br> e.g, `sort n/ p/`
 **List** | `list`
