@@ -13,24 +13,24 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 - <details markdown = 1><summary><a href="#features">Features</a></summary>
 
     - <details markdown = 1><summary>👤<a href="#individual-operations">Individual Operations</a></summary>
-      
+
       - [Adding a person: `add`](#adding-a-person-add)
       - [Editing a person : `edit`](#editing-a-person--edit)
       - [Locating persons: `find`](#locating-persons-find)
       - [Sorting persons: `sort`](#sorting-persons-sort)
       - [Deleting a person : `delete`](#deleting-a-person--delete)
-      
+
       </details>
 
     - <details markdown = 1><summary>👥<a href="#group-operations">Group Operations</a></summary>
-      
+
       - [Listing all persons : `list`](#listing-all-persons--list)
       - [Clearing all entries : `clear`](#clearing-all-entries--clear)
-      
+
       </details>
 
     - <details markdown = 1><summary>🛠<a href="#support-functions">Support Functions</a></summary>
-      
+
       - [Viewing help : `help`](#viewing-help--help)
       - [Exiting the program : `exit`](#exiting-the-program--exit)
       - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
@@ -38,7 +38,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
       - [Saving the data](#saving-the-data)
       - [Editing the data file](#editing-the-data-file)
       - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
-      
+
       </details>
     </details>
 
@@ -128,6 +128,21 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/volunteer`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/beneficiary`
 
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+**Format**:
+`list`
+
+**Expected Outcome:**
+* Displays all persons' contact details in the address book.
+* At the panel below the command box, you can see the total number of contacts.
+
+**📘Example**:
+<br>
+![result for 'find alex david'](images/list-success-screenshot.png)
+
 [Table of Contents](#table-of-contents)
 
 ### Editing a person : `edit`
@@ -154,7 +169,7 @@ Examples:
 
 Filters persons whose fields match the keywords.
 
-**Format**:  
+**Format**:
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
@@ -173,8 +188,8 @@ Filters persons whose fields match the keywords.
 
 **📘Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)  
-  
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
@@ -185,10 +200,23 @@ Filters persons whose fields match the keywords.
 
 Sorts persons by the fields in the order of the parameters
 
-Format: `sort [n/] [p/] [e/] [a/] [t/]`
+**Format**:
+`sort [n/] [p/] [e/] [a/] [t/]`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:**
+* Order of sorting follows the natural order. e.g. 4th comes before 10th.
 * Order of parameters defines the order of sorting.
   e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
+* Sorting by **tags** will group the tags by **beneficiary** and **volunteer**.
+* Calling sort after any command will sort the current displayed list.
+
+</div>
+
+**Expected Outcome**:
+* Displays all persons in the specified sorted order
+  * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
 
 [Table of Contents](#table-of-contents)
 
@@ -213,7 +241,7 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-**Format**:                  
+**Format**:
 `list`
 
 **Expected Outcome:**
@@ -263,7 +291,7 @@ Cycles between commands in the command history.
 [Table of Contents](#table-of-contents)
 
 ### Autocomplete
- 
+
 CareLink suggests possible complements of your input text. It autocompletes command words, and reminds you of tags of personal information, like `n/` for name.
 
 **Format**: `tab`: press `tab` to autocomplete with the complement that appears below command box.
@@ -298,7 +326,7 @@ _Details coming soon ..._
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
-**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`. 
+**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
