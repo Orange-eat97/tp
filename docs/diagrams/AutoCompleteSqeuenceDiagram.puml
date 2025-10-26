@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Autocomplete Process LOGIC_COLOR_T1
+actor "user" as user
+participant ":CommandBox" as commandbox LOGIC_COLOR
+participant "ghost:Ghost" as ghost LOGIC_COLOR
+participant "autocompleteSupplier:AutocompleteSupplier" as autocompleteSupplier LOGIC_COLOR
+participant ":javaFx" as javaFx LOGIC_COLOR
+end box
+
+user-> commandbox : type
+activate commandbox
+
+commandbox -> ghost: acRefreshGhostPreview(commandField)
+activate ghost
+
+    alt param
+    ghost -> autocompleteSupplier: giveParam(text, list of params)
+    activate autocompleteSupplier
+    return param tag
+
+    else command
+    ghost -> autocompleteSupplier: findBestMatch(text)
+    activate autocompleteSupplier
+    return command tail
+    end
+
+    ghost -> javaFx: label.setText(command tail)
+    activate javaFx
+
+return new label content
+
+ghost -> ghost: ghostShow()
+return
+
+
+user-> commandbox : tab
+commandbox -> ghost: acCommitSuggestion(commandField)
+activate ghost
+return modified commandField
+return
+
+
+@enduml
+
+
+
