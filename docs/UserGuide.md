@@ -81,10 +81,13 @@ In short, CareLink **enhances coordination efforts** and supports frontline work
 
 CareLink requires **Java 17 or above** to run.
 
-* Download Java [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-* Set Java environment variables. Follow instructions [here](https://docs.oracle.com/cd/F74770_01/English/Installing/p6_eppm_install_config/89522.htm)
+* If **Java 17 or above** is not installed, please follow the specific installation instructions mentioned [here](https://se-education.org/guides/tutorials/javaInstallation.html) to avoid version issues
 
-**Mac users:** Please follow the specific installation instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to avoid version issues
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Follow the guide that fits your computer's operating system**<br>
+
+</div>
 
 #### 2️⃣ Download CareLink
 
@@ -97,11 +100,13 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
 #### 4️⃣ Launch CareLink
 
-1.  Open your **Command Prompt / Terminal**
+1.  Open your **Command Prompt** for Windows / **Terminal** for Mac
 
 2.  Navigate to your CareLink Home folder:
 
     `cd path/to/home_folder`
+
+    For example, if CareLink Home folder is `C:/usr/folder/CareLink` and the terminal is pointing to `C:/usr`, run the command `cd folder/CareLink`.
 
     Your terminal should now show you are inside that folder.
 
@@ -109,8 +114,9 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
     `java -jar addressbook.jar`
 
-
+<br>
 A few seconds later, the CareLink interface will greet you with sample volunteer data so you can explore comfortably.
+
 ![Ui](images/Ui.png)
 
 #### 5️⃣ Try Out Some Commands
@@ -288,7 +294,7 @@ Deletes all contacts in the address book.
 
 <div markdown="block" class="alert alert-warning">
 
-:information_source: **Important Note:** <br>
+:exclamation: **Caution:** <br>
 * This command will permanently delete **all** contacts in the address book.
 * Please think carefully before executing this **irreversible** action.
 * No extra input is needed
@@ -601,8 +607,8 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX [MORE_INDEXES]...`<br> e.g., `delete 1 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find [prefix/KEYWORDS]`<br> e.g., `find n/James p/92813321`
-**Sort** | `sort [prefixes]` <br> e.g, `sort n/ p/`
+**Find** | `find [prefix/KEYWORDS]...`<br> e.g., `find n/James p/92813321`
+**Sort** | `sort [prefix/]...` <br> e.g., `sort n/ p/`
 **List** | `list`
 **Help** | `help`
 
