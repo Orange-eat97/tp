@@ -7,9 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.parseKeywords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -41,25 +43,38 @@ public class FindCommandParser implements Parser<FindCommand> {
                 PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REGION, PREFIX_TAG);
 
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
-        // build predicate for each attribute
-        argMultimap.getValue(PREFIX_NAME)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.NAME_STR_GETTER))
-                .ifPresent(predicates::add);
-        argMultimap.getValue(PREFIX_PHONE)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.PHONE_STR_GETTER))
-                .ifPresent(predicates::add);
-        argMultimap.getValue(PREFIX_EMAIL)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.EMAIL_STR_GETTER))
-                .ifPresent(predicates::add);
-        argMultimap.getValue(PREFIX_ADDRESS)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.ADDRESS_STR_GETTER))
-                .ifPresent(predicates::add);
-        argMultimap.getValue(PREFIX_REGION)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.REGION_STR_GETTER))
-                .ifPresent(predicates::add);
-        argMultimap.getValue(PREFIX_TAG)
-                .map(keywordStr -> buildPredicate(keywordStr, Person.TAG_STR_GETTER))
-                .ifPresent(predicates::add);
+
+        // build predicate for each attribute, will throw parseException if any invalid keywords are provided
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            String nameKeywords = argMultimap.getValue(PREFIX_NAME).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(nameKeywords, PREFIX_NAME), Person.NAME_STR_GETTER));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            String phoneKeywords = argMultimap.getValue(PREFIX_PHONE).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(phoneKeywords, PREFIX_PHONE), Person.PHONE_STR_GETTER));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            String emailKeywords = argMultimap.getValue(PREFIX_EMAIL).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(emailKeywords, PREFIX_EMAIL), Person.EMAIL_STR_GETTER));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            String addressKeywords = argMultimap.getValue(PREFIX_ADDRESS).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(addressKeywords, PREFIX_ADDRESS), Person.ADDRESS_STR_GETTER));
+        }
+        if (argMultimap.getValue(PREFIX_REGION).isPresent()) {
+            String regionKeywords = argMultimap.getValue(PREFIX_REGION).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(regionKeywords, PREFIX_REGION), Person.REGION_STR_GETTER));
+        }
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            String tagKeywords = argMultimap.getValue(PREFIX_TAG).get();
+            predicates.add(buildPredicate(
+                    parseKeywords(tagKeywords, PREFIX_TAG), Person.TAG_STR_GETTER));
+        }
 
         if (predicates.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -70,13 +85,12 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Builds predicate based on a string of keywords and a Person attribute getter
-     * @param keywordString containing keywords to search for
+     * @param keywords containing keywords to search for
      * @return predicate that evaluates to true if at least one of the keywords is found in the attribute
      */
     private static StrAttrContainsKeywords buildPredicate(
-            String keywordString, Function<Person, String> attributeGetter) {
-        String[] nameKeywords = keywordString.trim().split("\\s+");
-        return new StrAttrContainsKeywords(Arrays.asList(nameKeywords), attributeGetter);
+            List<String> keywords, Function<Person, String> attributeGetter) {
+        return new StrAttrContainsKeywords(keywords, attributeGetter);
     }
     private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Arrays.stream(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

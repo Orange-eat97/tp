@@ -1,6 +1,12 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,16 +58,45 @@ public class ParserUtil {
         return actualIndices;
     }
 
-
-
     /**
      * Parses a {@code Prefix prefix} into a {@code List<String>} (keywords) and returns it.
      */
-    public static List<String> parseKeywords(String keywords) {
+    public static List<String> parseKeywords(String keywords, Prefix prefix) throws ParseException {
         requireNonNull(keywords);
-        String[] separatedArgs = StringUtil.getAllElements(keywords.trim());
-        return List.of(separatedArgs);
+        String trimmedKeywords = keywords.trim();
+        List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
+
+        if (prefix == PREFIX_NAME) {
+            if (!separatedKeywords.stream().allMatch(Name::isValidName)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+        } else if (prefix == PREFIX_ADDRESS) {
+            if (!separatedKeywords.stream().allMatch(Address::isValidAddress)) {
+                throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            }
+        } else if (prefix == PREFIX_EMAIL) {
+            if (!separatedKeywords.stream().allMatch(Email::isValidEmail)) {
+                throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+            }
+        } else if (prefix == PREFIX_PHONE) {
+            if (!separatedKeywords.stream().allMatch(Phone::isValidPhone)) {
+                throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+            }
+        } else if (prefix == PREFIX_REGION) {
+            if (!separatedKeywords.stream().allMatch(Region::isValidRegion)) {
+                throw new ParseException(Region.MESSAGE_CONSTRAINTS);
+            }
+        } else if (prefix == PREFIX_TAG) {
+            if (!separatedKeywords.stream().allMatch(Tag::isValidTagName)) {
+                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
+        }
+
+        return separatedKeywords;
     }
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
