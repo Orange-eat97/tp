@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.List;
 
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.TextField;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -104,26 +105,37 @@ public class Ghost {
         int start = bounds[0];
         int end = bounds[1];
         int caret = commandTextField.getCaretPosition();
-        boolean addSortEdit = text.contains("add") || text.contains("sort") || text.contains("edit");
+        boolean isAddSort = text.contains("add") || text.contains("sort");
+        boolean isCaretPostionForParams = caret > 0 && text.charAt(caret - 1) == ' ';
 
-        if (caret > 0 && text.charAt(caret - 1) == ' ' && addSortEdit) { //case of having a space after add or sort
-            assert (text.contains("add") || text.contains("sort") || text.contains("edit"));
-            List<String> params = null;
+        if (isCaretPostionForParams && isAddSort) { //case of having a space after add or sort
+
+            assert (text.contains("add") || text.contains("sort"));
+
+            String next = null;
+
             if (text.contains("add")) {
-                params = AddCommand.PARAMS;
+                next = autoCompleteSupplier.giveParam(text, getParamList("add")); //get the suggested next param
             } else if (text.contains("sort")) {
-                params = SortCommand.PARAMS;
-            } else {
-                params = EditCommand.PARAMS;
+                next = autoCompleteSupplier.giveParam(text, getParamList("sort"));
             }
-            String next = autoCompleteSupplier.giveParam(text, params); //get the suggested next param
 
             if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
                 acLastSuggestion = next;
                 acTokenStart = caret;
-                javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-                label.setText(next);
-                ghostShow(commandTextField);
+                updateLabelAndShow(next, acGhostItem, commandTextField);
+                return null;
+            }
+
+        } else if (isCaretPostionForParams && text.contains("edit")) {
+            String next = null;
+            if (!text.matches(".*\\d.*")) { //checks if the text field has a number, if no, do not suggest first
+                acGhostHide();
+            } else {
+                next = autoCompleteSupplier.giveParam(text, getParamList("edit"));
+                acLastSuggestion = next;
+                acTokenStart = caret;
+                updateLabelAndShow(next, acGhostItem, commandTextField);
                 return null;
             }
 
@@ -148,10 +160,7 @@ public class Ghost {
             acLastSuggestion = suggestion;
             acTokenStart = start;
             String tail = suggestion.substring(prefix.length());
-
-            javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-            label.setText(tail);
-            ghostShow(commandTextField);
+            updateLabelAndShow(tail, acGhostItem, commandTextField);
             return null;
         }
         return null;
@@ -163,17 +172,17 @@ public class Ghost {
      */
     private void ghostShow(TextField commandTextField) {
         if (!acGhost.isShowing()) {
-            javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
-            if (b != null) {
-                acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
+            javafx.geometry.Bounds bounds = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
+            if (bounds != null) {
+                acGhost.show(commandTextField, bounds.getMinX(), bounds.getMaxY());
             } else {
                 acGhost.show(commandTextField, javafx.geometry.Side.BOTTOM, 0, 0);
             }
         } else {
             acGhost.hide();
-            javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
-            if (b != null) {
-                acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
+            javafx.geometry.Bounds bounds = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
+            if (bounds != null) {
+                acGhost.show(commandTextField, bounds.getMinX(), bounds.getMaxY());
             }
         }
     }
@@ -220,7 +229,33 @@ public class Ghost {
         }
     }
 
+    /**
+     * abstraction for getting paramList
+     * @param command command word
+     * @return param list of each command class
+     */
+    private List<String> getParamList(String command) {
+        switch (command) {
+        case "add": return AddCommand.PARAMS;
+        case "sort": return SortCommand.PARAMS;
+        case "edit": return EditCommand.PARAMS;
+        default: return null;
+        }
+    }
 
+    /**
+     * abstraction for updating javaFx label
+     * @param next string to be displayed
+     * @param acGhostItem current label item
+     */
+    private void updateJavaFxLable(String next, CustomMenuItem acGhostItem) {
+        javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+        label.setText(next);
+    }
 
+    private void updateLabelAndShow(String next, CustomMenuItem acGhostItem, TextField commandTextField) {
+        updateJavaFxLable(next, acGhostItem);
+        ghostShow(commandTextField);
+    }
 
 }
