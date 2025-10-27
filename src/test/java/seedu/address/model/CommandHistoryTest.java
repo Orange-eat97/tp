@@ -59,6 +59,10 @@ public class CommandHistoryTest {
 
     @Test
     public void hasNext_noCommandHistory_returnFalse() {
+        for (String commandText : LIST_OF_COMMANDS) {
+            commandHistory.addCommand(commandText);
+        }
+        String previousCommand = commandHistory.getPreviousCommand();
         assertFalse(commandHistory.hasNext());
     }
 
@@ -67,7 +71,8 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
-        String previousCommand = commandHistory.getPreviousCommand();
+        String firstPreviousCommand = commandHistory.getPreviousCommand();
+        String secondPreviousCommand = commandHistory.getPreviousCommand();
         assertTrue(commandHistory.hasNext());
     }
 
@@ -78,10 +83,11 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getPreviousCommand_multipleCommands_returnCorrespondingCommand() {
+    public void getPreviousCommand_multipleCommands_returnCorrespondingCommands() {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        assertEquals(LIST_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(ADD_PERSON_COMMAND, commandHistory.getPreviousCommand());
     }
@@ -93,10 +99,11 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getNextCommand_multipleCommands_returnCorrespondingCommand() {
+    public void getNextCommand_multipleCommands_returnCorrespondingCommands() {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        assertEquals(LIST_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(ADD_PERSON_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getNextCommand());
