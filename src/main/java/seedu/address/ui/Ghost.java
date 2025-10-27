@@ -104,38 +104,56 @@ public class Ghost {
         int[] bounds = acCurrentTokenBounds(commandTextField);
         int start = bounds[0];
         int end = bounds[1];
+        String token = text.substring(start, end);
         int caret = commandTextField.getCaretPosition();
         boolean isAddSort = text.contains("add") || text.contains("sort");
-        boolean isCaretPostionForParams = caret > 0 && text.charAt(caret - 1) == ' ';
+        int firstSpace = text.indexOf(' ');
+        boolean isParamsArea = firstSpace != -1 && caret >= firstSpace + 1;
+        String next = null;
+        String prefix = text.substring(start, end);
+        String tail = null;
 
-        if (isCaretPostionForParams && isAddSort) { //case of having a space after add or sort
+        if (token.indexOf('/') >= 0) {
+            acGhostHide();
+            return null;
+        }
+
+        if (isParamsArea && isAddSort) { //case of having a space after add or sort
 
             assert (text.contains("add") || text.contains("sort"));
 
-            String next = null;
-
             if (text.contains("add")) {
-                next = autoCompleteSupplier.giveParam(text, getParamList("add")); //get the suggested next param
+                next = autoCompleteSupplier.giveParam(text, getParamList("add"));
+                //get the suggested next param
             } else if (text.contains("sort")) {
                 next = autoCompleteSupplier.giveParam(text, getParamList("sort"));
             }
 
-            if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
-                acLastSuggestion = next;
-                acTokenStart = caret;
-                updateLabelAndShow(next, acGhostItem, commandTextField);
+            if (next != null && !next.isEmpty()) {
+                //possible to get null as a next, when all params have been typed
+                updateState(next, start); //
+                tail = makeTail(next, prefix); //
+                if (tail == null || tail.isEmpty()) {
+                    acGhostHide();
+                    return null;
+                }
+                updateLabelAndShow(tail, acGhostItem, commandTextField);
                 return null;
             }
 
-        } else if (isCaretPostionForParams && text.contains("edit")) {
-            String next = null;
+        } else if (isParamsArea && text.contains("edit")) {
+
             if (!text.matches(".*\\d.*")) { //checks if the text field has a number, if no, do not suggest first
                 acGhostHide();
             } else {
                 next = autoCompleteSupplier.giveParam(text, getParamList("edit"));
-                acLastSuggestion = next;
-                acTokenStart = caret;
-                updateLabelAndShow(next, acGhostItem, commandTextField);
+                updateState(next, start); //
+                tail = makeTail(next, prefix);
+                if (tail == null || tail.isEmpty()) {
+                    acGhostHide();
+                    return null;
+                }
+                updateLabelAndShow(tail, acGhostItem, commandTextField);
                 return null;
             }
 
@@ -145,21 +163,17 @@ public class Ghost {
                 return null;
             }
 
-            String prefix = text.substring(start, end);
-
-            String suggestion = null;
             if (start != end) { //added guarding rail so space at the end won't suggest "add"
-                suggestion = autoCompleteSupplier.findBestMatch(prefix);
+                next = autoCompleteSupplier.findBestMatch(prefix);
             }
 
-            if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
+            if (next == null || next.isEmpty() || next.equals(prefix)) {
                 acGhostHide();
                 return null;
             }
 
-            acLastSuggestion = suggestion;
-            acTokenStart = start;
-            String tail = suggestion.substring(prefix.length());
+            tail = makeTail(next, prefix); //
+            updateState(next, start);
             updateLabelAndShow(tail, acGhostItem, commandTextField);
             return null;
         }
@@ -243,19 +257,42 @@ public class Ghost {
         }
     }
 
+
     /**
-     * abstraction for updating javaFx label
-     * @param next string to be displayed
-     * @param acGhostItem current label item
+     * abstraction of updating label and showing
+     * @param next string to be shown
+     * @param acGhostItem dropdown menu
+     * @param commandTextField
      */
-    private void updateJavaFxLable(String next, CustomMenuItem acGhostItem) {
+    private void updateLabelAndShow(String next, CustomMenuItem acGhostItem, TextField commandTextField) {
         javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
         label.setText(next);
-    }
-
-    private void updateLabelAndShow(String next, CustomMenuItem acGhostItem, TextField commandTextField) {
-        updateJavaFxLable(next, acGhostItem);
         ghostShow(commandTextField);
     }
 
+    /**
+     * abstraction of making the correct suggestion tail
+     * @param suggestion full suggestion returned by autocompletesupplier
+     * @param prefix existing string in the commandbox
+     */
+    private String makeTail(String suggestion, String prefix) {
+        if (suggestion == null || prefix == null) {
+            return "";
+        }
+        int prefixlength = prefix.length();
+        if (prefixlength == 0) {
+            return suggestion;
+        } else {
+            return suggestion.substring(prefixlength);
+        }
+    }
+    /**
+     * abstraction for updating state
+     * @param suggestion
+     * @param start
+     */
+    private void updateState(String suggestion, int start) {
+        acLastSuggestion = suggestion;
+        acTokenStart = start;
+    }
 }
