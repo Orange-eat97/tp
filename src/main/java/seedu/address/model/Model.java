@@ -15,6 +15,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    Comparator<Person> COMPARATOR_DEFAULT_STATE = (p1, p2) -> 0;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -132,4 +134,9 @@ public interface Model {
      * Returns the command history
      */
     String getCommandHistory();
+
+    /**
+     * Clear any sorting comparator
+     */
+    void clearSorting();
 }

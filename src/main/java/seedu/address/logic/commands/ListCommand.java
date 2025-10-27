@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.COMPARATOR_DEFAULT_STATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.model.Model;
@@ -18,6 +19,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
+        model.clearSorting();
         int contactCount = model.getPersonListSize();
         String feedback = MESSAGE_SUCCESS + " " + contactCount + " contacts found";
         return new CommandResult(feedback, false, false, null, null);
