@@ -238,4 +238,12 @@ public class ParserUtilTest {
     public void parseKeywords_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseKeywords(null, PREFIX_NAME));
     }
+
+    @Test
+    public void parseKeywords_multipleValidKeywords_returnsKeywordSet() throws Exception {
+        Set<String> actualKeywordSet = ParserUtil.parseKeywords(
+                "Amy Rachel", PREFIX_NAME);
+        Set<String> expectedKeywordSet = new HashSet<>(Arrays.asList("Amy", "Rachel"));
+        assertEquals(expectedKeywordSet, actualKeywordSet);
+    }
 }

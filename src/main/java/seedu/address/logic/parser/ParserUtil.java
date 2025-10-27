@@ -59,11 +59,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Prefix prefix} into a {@code List<String>} (keywords) and returns it.
+     * Parses {@code keywordStr} into a {@code Set<String>} (keywordStr) and returns it.
      */
-    public static List<String> parseKeywords(String keywords, Prefix prefix) throws ParseException {
-        requireNonNull(keywords);
-        String trimmedKeywords = keywords.trim();
+    public static Set<String> parseKeywords(String keywordStr, Prefix prefix) throws ParseException {
+        requireNonNull(keywordStr);
+        String trimmedKeywords = keywordStr.trim();
         List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
 
         if (prefix == PREFIX_NAME) {
@@ -94,7 +94,7 @@ public class ParserUtil {
             throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
         }
 
-        return separatedKeywords;
+        return new HashSet<>(separatedKeywords);
     }
 
     /**

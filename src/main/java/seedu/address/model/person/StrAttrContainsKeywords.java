@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -21,8 +19,8 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
      * @param keywords Keywords to search for.
      * @param attributeGetter Function to get the attribute in String form to search from a Person.
      */
-    public StrAttrContainsKeywords(List<String> keywords, Function<Person, String> attributeGetter) {
-        this.keywords = new HashSet<>(keywords);
+    public StrAttrContainsKeywords(Set<String> keywords, Function<Person, String> attributeGetter) {
+        this.keywords = keywords;
         this.attributeGetter = attributeGetter;
     }
 

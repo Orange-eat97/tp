@@ -21,8 +21,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +77,7 @@ public class FindCommandParserTest {
     public void parse_validNameArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand = new FindCommand(new ChainedPredicate(
-                List.of(new StrAttrContainsKeywords(Arrays.asList("Alice", "Bob"), Person.NAME_STR_GETTER))));
+                List.of(new StrAttrContainsKeywords(Set.of("Alice", "Bob"), Person.NAME_STR_GETTER))));
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords

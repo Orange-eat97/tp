@@ -12,6 +12,8 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +33,9 @@ public class FindCommandTest {
     @Test
     public void equals() {
         StrAttrContainsKeywords firstPredicate =
-                new StrAttrContainsKeywords(Collections.singletonList("first"), Person.NAME_STR_GETTER);
+                new StrAttrContainsKeywords(new HashSet<>(List.of("first")), Person.NAME_STR_GETTER);
         StrAttrContainsKeywords secondPredicate =
-                new StrAttrContainsKeywords(Collections.singletonList("second"), Person.NAME_STR_GETTER);
+                new StrAttrContainsKeywords(new HashSet<>(List.of("second")), Person.NAME_STR_GETTER);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -78,7 +80,7 @@ public class FindCommandTest {
     @Test
     public void toStringMethod() {
         StrAttrContainsKeywords predicate =
-                new StrAttrContainsKeywords(Arrays.asList("keyword"), Person.NAME_STR_GETTER);
+                new StrAttrContainsKeywords(new HashSet<>(List.of("keyword")), Person.NAME_STR_GETTER);
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
@@ -89,7 +91,7 @@ public class FindCommandTest {
      */
     private StrAttrContainsKeywords preparePredicate(String userInput) {
         return new StrAttrContainsKeywords(
-                Arrays.asList(userInput.split("\\s+")),
+                new HashSet<>(List.of(userInput.split("\\s+"))),
                 Person.NAME_STR_GETTER
         );
     }
