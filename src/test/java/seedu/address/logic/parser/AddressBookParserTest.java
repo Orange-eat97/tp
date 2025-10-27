@@ -13,8 +13,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClosestCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -77,6 +79,15 @@ public class AddressBookParserTest {
         assertEquals(
                 new FindCommand(new ChainedPredicate(
                         List.of(new StrAttrContainsKeywords(keywords, Person.NAME_STR_GETTER)))),
+                command);
+    }
+
+    @Test
+    public void parseCommand_closest() throws Exception {
+        ClosestCommand command = (ClosestCommand) parser.parseCommand(
+                ClosestCommand.COMMAND_WORD + " 1");
+        assertEquals(
+                new ClosestCommand(Index.fromOneBased(1)),
                 command);
     }
 
