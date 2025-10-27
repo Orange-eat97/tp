@@ -215,7 +215,11 @@ public class AddCommandTest {
         }
 
         @Override
-        public void clearSorting() {throw new AssertionError("This method should not be called."); }
+        public void clearSorting() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
     }
 
     /**
