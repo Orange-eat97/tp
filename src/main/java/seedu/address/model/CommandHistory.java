@@ -34,7 +34,7 @@ public class CommandHistory {
      */
     public void addCommand(String commandText) {
         commandHistory.add(commandText);
-        currentIndex = this.commandHistory.size() - 1;
+        currentIndex = this.commandHistory.size();
     }
 
     /**
@@ -60,6 +60,8 @@ public class CommandHistory {
 
         if (hasPrevious()) {
             currentIndex--;
+        } else {
+            currentIndex = this.commandHistory.size() - 1;
         }
 
         return this.commandHistory.get(currentIndex);
@@ -88,6 +90,8 @@ public class CommandHistory {
 
         if (hasNext()) {
             currentIndex++;
+        } else {
+            currentIndex = 0;
         }
 
         return this.commandHistory.get(currentIndex);
@@ -102,6 +106,7 @@ public class CommandHistory {
         if (commandHistory == null || commandHistory.isEmpty()) {
             return COMMAND_HISTORY_HEADING + "No commands yet";
         }
-        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistory, currentIndex);
+        int highlightedIndex = currentIndex == this.commandHistory.size() ? currentIndex - 1 : currentIndex;
+        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistory, highlightedIndex);
     }
 }
