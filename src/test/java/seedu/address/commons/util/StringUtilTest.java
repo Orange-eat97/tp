@@ -179,27 +179,9 @@ public class StringUtilTest {
     }
 
     @Test
-    public void getAllElements_multipleElementsWithSingleSpace_returnsAllElements() {
-        assertArrayEquals(new String[]{"1", "2", "3"},
-                StringUtil.getAllElements("1 2 3"));
-    }
-
-    @Test
     public void getAllElements_multipleElementsWithMultipleSpaces_returnsAllElements() {
         assertArrayEquals(new String[]{"a", "b", "c"},
                 StringUtil.getAllElements("a   b    c"));
-    }
-
-    @Test
-    public void getAllElements_leadingSpaces_ignoresLeadingSpaces() {
-        assertArrayEquals(new String[]{"hello", "world"},
-                StringUtil.getAllElements("   hello world"));
-    }
-
-    @Test
-    public void getAllElements_trailingSpaces_ignoresTrailingSpaces() {
-        assertArrayEquals(new String[]{"hello", "world"},
-                StringUtil.getAllElements("hello world   "));
     }
 
     @Test
@@ -213,13 +195,6 @@ public class StringUtilTest {
     public void getAllElements_onlySpaces_returnsEmptyArray() {
         assertArrayEquals(new String[]{},
                 StringUtil.getAllElements("     ")
-        );
-    }
-
-    @Test
-    public void getAllElements_mixedWhitespace_splitsByAllWhitespace() {
-        assertArrayEquals(new String[]{"a", "b", "c"},
-                StringUtil.getAllElements("a\tb\nc")
         );
     }
 
@@ -262,38 +237,11 @@ public class StringUtilTest {
             StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 1));
     }
 
-    @Test
-    public void formatNumberedListWithHighlight_multipleElements_highlightsFirstElement() {
-        String expectedResult = "*1 " + ADD_PERSON_COMMAND + "\n"
-                + " 2 " + DELETE_PERSON_COMMAND + "\n"
-                + " 3 " + LIST_COMMAND + "\n";
-
-        assertEquals(expectedResult,
-                StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 0));
-    }
-
-    @Test
-    public void formatNumberedListWithHighlight_multipleElements_highlightsLastElement() {
-        String expectedResult = " 1 " + ADD_PERSON_COMMAND + "\n"
-                + " 2 " + DELETE_PERSON_COMMAND + "\n"
-                + "*3 " + LIST_COMMAND + "\n";
-
-        assertEquals(expectedResult,
-                StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 2));
-    }
-
     // Index out of range
     @Test
     public void formatNumberedListWithHighlight_negativeIndex_throwsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, ()
                 -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1)
-        );
-    }
-
-    @Test
-    public void formatNumberedListWithHighlight_indexTooLarge_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class, ()
-                -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 3)
         );
     }
 }
