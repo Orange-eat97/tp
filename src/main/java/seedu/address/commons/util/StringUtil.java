@@ -81,13 +81,24 @@ public class StringUtil {
      * Returns a string representing a list of strings in numbered point form
      * The current list element in focus has an asterisk (*) next to it
      * @throws NullPointerException if {@code listOfStrings} is null.
+     * @throws IndexOutOfBoundsException if {@code currIndex} is out of bounds.
      */
     public static String formatNumberedListWithHighlight(List<String> strings, int currIndex) {
         requireNonNull(strings);
+
+        if (strings.isEmpty()) {
+            return "";
+        }
+
+        if (currIndex < 0 || currIndex >= strings.size()) {
+            throw new IndexOutOfBoundsException("currIndex is out of range: " + currIndex);
+        }
+
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
             String string = strings.get(i);
-            String prefix = i == currIndex ? "*" + i : " " + i;
+            int actualIndex = i + 1;
+            String prefix = i == currIndex ? "*" + actualIndex : " " + actualIndex;
             String listItem = prefix + " " + string + "\n";
             result.append(listItem);
         }
