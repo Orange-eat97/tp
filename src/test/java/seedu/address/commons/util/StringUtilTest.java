@@ -55,8 +55,9 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_nullWord_Prefix_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordPrefixIgnoreCase("typical sentence", null));
+    public void containsWordIgnoreCase_nullWordPrefix_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordPrefixIgnoreCase("typical sentence", null));
     }
 
     @Test
@@ -73,7 +74,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordPrefixIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordPrefixIgnoreCase(null, "abc"));
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordPrefixIgnoreCase(null, "abc"));
     }
 
     /*
@@ -108,8 +110,8 @@ public class StringUtilTest {
         assertFalse(StringUtil.containsWordPrefixIgnoreCase("", "abc")); // Boundary case
         assertFalse(StringUtil.containsWordPrefixIgnoreCase("    ", "123"));
 
-        // Matches a partial prefix only
-        assertFalse(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+        // Query word bigger than sentence word
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "bbbb"));
 
         // Matches word in the sentence, different upper/lower case letters
         assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
