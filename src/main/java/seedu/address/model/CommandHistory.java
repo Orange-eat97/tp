@@ -47,15 +47,15 @@ public class CommandHistory {
     /**
      * Returns the previous command in the history.
      *
-     * <p>If the command history is empty, returns an empty string.
-     * If the current command is the first in the history, returns the current command.
-     * Otherwise, returns the command immediately before the current one and moves the cursor back.</p>
+     * <p>If the command history is empty, returns null
+     * If the current command is the first in the history, returns the last command.
+     * Otherwise, returns the command immediately before the current one and moves the current index back by 1.</p>
      *
-     * @return the previous command, the current command if at the start, or an empty string if no commands exist
+     * @return the previous command, the last command if at the start, or null if no commands exist
      */
     public String getPreviousCommand() {
         if (!hasCommands()) {
-            return "";
+            return null;
         }
 
         if (hasPrevious()) {
@@ -77,15 +77,15 @@ public class CommandHistory {
     /**
      * Returns the next command in the history.
      *
-     * <p>If the command history is empty, return an empty string.
-     * If the current command is the last in the history, returns the current command.
-     * Otherwise, returns the command immediately after the current one and moves the cursor forward.</p>
+     * <p>If the command history is empty, return null
+     * If the current command is the last in the history, returns the first command.
+     * Otherwise, returns the command immediately after the current one and moves the current index forward by 1.</p>
      *
-     * @return the next command, the current command if at the back, or an empty string if no commands exist
+     * @return the next command, the first command if at the back, or null if no commands exist
      */
     public String getNextCommand() {
         if (!hasCommands()) {
-            return "";
+            return null;
         }
 
         if (hasNext()) {
