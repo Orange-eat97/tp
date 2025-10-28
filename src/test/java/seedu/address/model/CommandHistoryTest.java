@@ -55,15 +55,13 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        String firstNextCommand = commandHistory.getNextCommand();
+        String secondNextCommand = commandHistory.getNextCommand();
         assertTrue(commandHistory.hasPrevious());
     }
 
     @Test
     public void hasNext_noCommandHistory_returnFalse() {
-        for (String commandText : LIST_OF_COMMANDS) {
-            commandHistory.addCommand(commandText);
-        }
-        String previousCommand = commandHistory.getPreviousCommand();
         assertFalse(commandHistory.hasNext());
     }
 
