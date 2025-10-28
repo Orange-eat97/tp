@@ -55,8 +55,7 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
-        String firstNextCommand = commandHistory.getNextCommand();
-        String secondNextCommand = commandHistory.getNextCommand();
+        String previousCommand = commandHistory.getPreviousCommand();
         assertTrue(commandHistory.hasPrevious());
     }
 
@@ -103,6 +102,7 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        assertEquals(LIST_COMMAND, commandHistory.getNextCommand());
         assertEquals(ADD_PERSON_COMMAND, commandHistory.getNextCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getNextCommand());
         assertEquals(LIST_COMMAND, commandHistory.getNextCommand());
