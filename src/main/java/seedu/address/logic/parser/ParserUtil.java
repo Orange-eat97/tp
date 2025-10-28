@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -31,6 +33,16 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static record ValidationRule(Predicate<String> validator, String messageConstraint){}
+    private static final Map<Prefix, ValidationRule> VALIDATION_RULES = Map.of(
+            PREFIX_NAME, new ValidationRule(Name::isValidName, Name.MESSAGE_CONSTRAINTS),
+            PREFIX_ADDRESS, new ValidationRule(Address::isValidAddress, Address.MESSAGE_CONSTRAINTS),
+            PREFIX_EMAIL, new ValidationRule(Email::isValidEmail, Email.MESSAGE_CONSTRAINTS),
+            PREFIX_PHONE, new ValidationRule(Phone::isValidPhone, Phone.MESSAGE_CONSTRAINTS),
+            PREFIX_REGION, new ValidationRule(Region::isValidRegion, Region.MESSAGE_CONSTRAINTS),
+            PREFIX_TAG, new ValidationRule(Tag::isValidTagName, Tag.MESSAGE_CONSTRAINTS)
+    );
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -66,32 +78,12 @@ public class ParserUtil {
         String trimmedKeywords = keywordStr.trim();
         List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
 
-        if (prefix == PREFIX_NAME) {
-            if (!separatedKeywords.stream().allMatch(Name::isValidName)) {
-                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-            }
-        } else if (prefix == PREFIX_ADDRESS) {
-            if (!separatedKeywords.stream().allMatch(Address::isValidAddress)) {
-                throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-            }
-        } else if (prefix == PREFIX_EMAIL) {
-            if (!separatedKeywords.stream().allMatch(Email::isValidEmail)) {
-                throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-            }
-        } else if (prefix == PREFIX_PHONE) {
-            if (!separatedKeywords.stream().allMatch(Phone::isValidPhone)) {
-                throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-            }
-        } else if (prefix == PREFIX_REGION) {
-            if (!separatedKeywords.stream().allMatch(Region::isValidRegion)) {
-                throw new ParseException(Region.MESSAGE_CONSTRAINTS);
-            }
-        } else if (prefix == PREFIX_TAG) {
-            if (!separatedKeywords.stream().allMatch(Tag::isValidTagName)) {
-                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-            }
-        } else {
+        ValidationRule rule = VALIDATION_RULES.get(prefix);
+        if (rule == null) {
             throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
+        }
+        if (!separatedKeywords.stream().allMatch(rule.validator)) {
+            throw new ParseException(rule.messageConstraint);
         }
 
         return new HashSet<>(separatedKeywords);
