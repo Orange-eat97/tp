@@ -158,8 +158,7 @@ public class StringUtilTest {
     //---------------- Tests for getAllElements  --------------------------------------
 
     /*
-     * Equivalence Partitions: null, empty string, one space between elements, multiple spaces between elements,
-     * trailing spaces, leading spaces
+     * Equivalence Partitions: null, empty string, multiple spaces between elements, trailing and leading spaces
      */
 
     @Test
