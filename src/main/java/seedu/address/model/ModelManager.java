@@ -186,6 +186,12 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public void clearSorting() {
+        sortedPersons.setComparator(null);
+
+    }
+
     //=========== Command History =============================================================
     @Override
     public void addCommand(String commandText) {
