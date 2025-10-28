@@ -9,7 +9,7 @@ import seedu.address.commons.util.StringUtil;
  */
 public class TypicalCommandHistory {
 
-    private static final String COMMAND_HISTORY_HEADING = "Command History:\n";
+    public static final String COMMAND_HISTORY_HEADING = "Command History:\n";
 
     public static final String NO_COMMAND_COMMAND_HISTORY =
             COMMAND_HISTORY_HEADING + "No commands yet";
