@@ -149,6 +149,72 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for getAllElements  --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, empty string, one space between elements, multiple spaces between elements,
+     * trailing spaces, leading spaces
+     */
+
+    @Test
+    public void getAllElements_nullString_throwsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> StringUtil.getAllElements(null));
+    }
+
+    @Test
+    public void getAllElements_emptyString_returnsEmptyArray() {
+        assertArrayEquals(new String[]{}, StringUtil.getAllElements(""));
+    }
+
+    @Test
+    public void getAllElements_singleElement_returnsSingleElementArray() {
+        assertArrayEquals(new String[]{"hello"},
+                StringUtil.getAllElements("hello"));
+    }
+
+    @Test
+    public void getAllElements_multipleElementsWithSingleSpace_returnsAllElements() {
+        assertArrayEquals(new String[]{"1", "2", "3"},
+                StringUtil.getAllElements("1 2 3"));
+    }
+
+    @Test
+    public void getAllElements_multipleElementsWithMultipleSpaces_returnsAllElements() {
+        assertArrayEquals(new String[]{"a", "b", "c"},
+                StringUtil.getAllElements("a   b    c"));
+    }
+
+    @Test
+    public void getAllElements_leadingSpaces_ignoresLeadingSpaces() {
+        assertArrayEquals(new String[]{"hello", "world"},
+                StringUtil.getAllElements("   hello world"));
+    }
+
+    @Test
+    public void getAllElements_trailingSpaces_ignoresTrailingSpaces() {
+        assertArrayEquals(new String[]{"hello", "world"},
+                StringUtil.getAllElements("hello world   "));
+    }
+
+    @Test
+    public void getAllElements_leadingAndTrailingSpaces_ignoresBoth() {
+        assertArrayEquals(new String[]{"hello", "world"},
+                StringUtil.getAllElements("  hello world  "));
+    }
+
+    @Test
+    public void getAllElements_onlySpaces_returnsEmptyArray() {
+        assertArrayEquals(new String[]{},
+                StringUtil.getAllElements("     "));
+    }
+
+    @Test
+    public void getAllElements_mixedWhitespace_splitsByAllWhitespace() {
+        assertArrayEquals(new String[]{"a", "b", "c"},
+                StringUtil.getAllElements("a\tb\nc"));
+    }
+
     //---------------- Tests for formatNumberedListWithHighlight --------------------------------------
 
     /*
