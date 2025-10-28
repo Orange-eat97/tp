@@ -16,14 +16,14 @@ public class CommandHistory {
     private static final String COMMAND_HISTORY_HEADING = "Command History:\n";
 
     private final Queue<String> commandHistory;
-    private int currentIndex;
+    private int queueIndex;
 
     /**
      * Creates a CommandHistory from scratch
      */
     public CommandHistory() {
         this.commandHistory = new LinkedList<>();
-        this.currentIndex = 0;
+        this.queueIndex = 0;
     }
 
     /**
@@ -41,84 +41,104 @@ public class CommandHistory {
         if (commandHistory.size() > 5) {
             commandHistory.poll();
         }
-        currentIndex = -1;
+        queueIndex = -1;
     }
 
     /**
-     * Returns true if there exists a command before the command at the current index
+     * Returns true if the command history has not been navigated yet.
+     *
+     * <p>This is the case when the current index has not been set,
+     *  i.e., the user has not pressed the up or down key to cycle through the command history.</p>*
+     *
+     *  @return true if the command history is being navigated for the first time, false otherwise
+     */
+    private boolean isInitialPress() {
+        return queueIndex == -1;
+    }
+
+    /**
+     * Returns true if there exists an older command in the queue before the command at the current index
      */
     public boolean hasPrevious() {
-        return currentIndex > 0;
+        return queueIndex > 0;
     }
 
     /**
-     * Returns the previous command in the history.
+     * Returns the previous command in the history, i.e. the older command entered after the current one.
      *
      * <p>If the command history is empty, returns null
-     * If the current command is the first in the history, returns the last command.
+     * If the current command is the oldest in the history, returns the newest command.
      * Otherwise, returns the command immediately before the current one and moves the current index back by 1.</p>
      *
-     * @return the previous command, the last command if at the start, or null if no commands exist
+     * @return the previous command, the newest command if at the oldest command, or null if no commands exist
      */
     public String getPreviousCommand() {
         if (!hasCommands()) {
             return null;
         }
 
-        if (hasPrevious()) {
-            currentIndex--;
+        if (isInitialPress()) {
+            queueIndex = this.commandHistory.size() - 1;
+        } else if (hasPrevious()) {
+            queueIndex--;
         } else {
-            currentIndex = this.commandHistory.size() - 1;
+            queueIndex = this.commandHistory.size() - 1;
         }
 
         List<String> commandHistoryList = new ArrayList<>(commandHistory);
-        return commandHistoryList.get(currentIndex);
+        return commandHistoryList.get(queueIndex);
     }
 
     /**
-     * Returns true if there exists a command after the command at the current index
+     * Returns true if there exists a newer command after the command at the current index
      */
     public boolean hasNext() {
-        return currentIndex < this.commandHistory.size() - 1;
+        return queueIndex < this.commandHistory.size() - 1;
     }
 
     /**
-     * Returns the next command in the history.
+     * Returns the next command in the history, i.e. the newer command entered after the current one.
      *
      * <p>If the command history is empty, return null
-     * If the current command is the last in the history, returns the first command.
+     * If the current command is the newest in the history, returns the oldest command.
      * Otherwise, returns the command immediately after the current one and moves the current index forward by 1.</p>
      *
-     * @return the next command, the first command if at the back, or null if no commands exist
+     * @return the next command, the oldest command if at the newest command, or null if no commands exist
      */
     public String getNextCommand() {
         if (!hasCommands()) {
             return null;
         }
 
-        if (hasNext()) {
-            currentIndex++;
+        if (isInitialPress()) {
+            queueIndex = this.commandHistory.size() - 1;
+        } else if (hasNext()) {
+            queueIndex++;
         } else {
-            currentIndex = 0;
+            queueIndex = 0;
         }
 
         List<String> commandHistoryList = new ArrayList<>(commandHistory);
-        return commandHistoryList.get(currentIndex);
+        return commandHistoryList.get(queueIndex);
     }
 
     /**
      * Returns all commands in the command history in a single string
-     * Neatly arranges all commands in a numbered list, with an asterisk next to the current command
+     *
+     * <p>Neatly arranges all commands in a numbered list,
+     * from most recent command at the top to oldest command at the bottom,
+     * with an asterisk next to the current command</p>
+     *
      * @return the list of all commands in the command history
      */
     public String toString() {
         if (commandHistory.isEmpty()) {
             return COMMAND_HISTORY_HEADING + "No commands yet";
         }
-        int highlightedIndex = currentIndex == -1 ? 0 : currentIndex;
         List<String> commandHistoryList = new ArrayList<>(commandHistory);
         Collections.reverse(commandHistoryList);
-        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistoryList,
-                highlightedIndex);
+        int highlightIndex = queueIndex == -1 ? 0 : commandHistory.size() - 1 - queueIndex;
+        return COMMAND_HISTORY_HEADING
+                + StringUtil.formatNumberedListWithHighlight(commandHistoryList, highlightIndex);
     }
 }
