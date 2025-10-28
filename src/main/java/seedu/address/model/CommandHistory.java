@@ -1,12 +1,12 @@
 package seedu.address.model;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Keeps track of all commands entered in the current session

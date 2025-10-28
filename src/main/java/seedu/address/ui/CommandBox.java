@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.function.Supplier;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
