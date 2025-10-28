@@ -1,8 +1,12 @@
 package seedu.address.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.commons.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * Keeps track of all commands entered in the current session
@@ -11,14 +15,14 @@ public class CommandHistory {
 
     private static final String COMMAND_HISTORY_HEADING = "Command History:\n";
 
-    private final ObservableList<String> commandHistory;
+    private final Queue<String> commandHistory;
     private int currentIndex;
 
     /**
      * Creates a CommandHistory from scratch
      */
     public CommandHistory() {
-        this.commandHistory = FXCollections.observableArrayList();
+        this.commandHistory = new LinkedList<>();
         this.currentIndex = 0;
     }
 
@@ -34,7 +38,10 @@ public class CommandHistory {
      */
     public void addCommand(String commandText) {
         commandHistory.add(commandText);
-        currentIndex = this.commandHistory.size();
+        if (commandHistory.size() > 5) {
+            commandHistory.poll();
+        }
+        currentIndex = -1;
     }
 
     /**
@@ -64,7 +71,8 @@ public class CommandHistory {
             currentIndex = this.commandHistory.size() - 1;
         }
 
-        return this.commandHistory.get(currentIndex);
+        List<String> commandHistoryList = new ArrayList<>(commandHistory);
+        return commandHistoryList.get(currentIndex);
     }
 
     /**
@@ -94,7 +102,8 @@ public class CommandHistory {
             currentIndex = 0;
         }
 
-        return this.commandHistory.get(currentIndex);
+        List<String> commandHistoryList = new ArrayList<>(commandHistory);
+        return commandHistoryList.get(currentIndex);
     }
 
     /**
@@ -103,10 +112,13 @@ public class CommandHistory {
      * @return the list of all commands in the command history
      */
     public String toString() {
-        if (commandHistory == null || commandHistory.isEmpty()) {
+        if (commandHistory.isEmpty()) {
             return COMMAND_HISTORY_HEADING + "No commands yet";
         }
-        int highlightedIndex = currentIndex == this.commandHistory.size() ? currentIndex - 1 : currentIndex;
-        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistory, highlightedIndex);
+        int highlightedIndex = currentIndex == -1 ? 0 : currentIndex;
+        List<String> commandHistoryList = new ArrayList<>(commandHistory);
+        Collections.reverse(commandHistoryList);
+        return COMMAND_HISTORY_HEADING + StringUtil.formatNumberedListWithHighlight(commandHistoryList,
+                highlightedIndex);
     }
 }
