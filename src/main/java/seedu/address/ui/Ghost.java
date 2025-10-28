@@ -1,13 +1,8 @@
 package seedu.address.ui;
 
-import java.util.List;
-
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.TextField;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.SortCommand;
-
+import seedu.address.logic.parser.AutoCompleteParser;
 
 
 /**
@@ -43,39 +38,6 @@ public class Ghost {
         return this.acLastSuggestion;
     }
 
-    /**
-     * A helper function that reads the starting and ending position of the text input. Returns a length-2 array
-     * containining the position of start and end of the word being tpyed
-     * @param
-     */
-    public int[] acCurrentTokenBounds(TextField commandTextField) {
-        String t = commandTextField.getText();
-        if (t == null) {
-            t = "";
-        }
-        int caret = commandTextField.getCaretPosition();
-        if (caret < 0) {
-            caret = 0;
-        }
-        if (caret > t.length()) {
-            caret = t.length();
-        }
-        if (t.isEmpty() || caret == 0) {
-            return new int[]{caret, caret};
-        }
-
-        int i = caret - 1;
-        while (i >= 0) {
-            char c = t.charAt(i);
-            if (Character.isLetterOrDigit(c) || c == '_' || c == ':' || c == '-') {
-                i--;
-            } else {
-                break;
-            }
-        }
-        int start = i + 1;
-        return new int[]{start, caret};
-    }
 
     /**
      * only gets called when acHasGhost is true. handles situation when other keys are pressed
@@ -101,54 +63,51 @@ public class Ghost {
             text = "";
         }
 
-        int[] bounds = acCurrentTokenBounds(commandTextField);
+        int[] bounds = AutoCompleteParser.getCurrentTokenBounds(commandTextField);
         int start = bounds[0];
         int end = bounds[1];
         String token = text.substring(start, end);
         int caret = commandTextField.getCaretPosition();
-        boolean isAddSort = text.contains("add") || text.contains("sort");
-        int firstSpace = text.indexOf(' ');
-        boolean isParamsArea = firstSpace != -1 && caret >= firstSpace + 1;
         String next = null;
         String prefix = text.substring(start, end);
         String tail = null;
+        int firstSpace = text.indexOf(' ');
 
         if (token.indexOf('/') >= 0) {
             acGhostHide();
             return null;
         }
 
-        if (isParamsArea && isAddSort) { //case of having a space after add or sort
+        if (AutoCompleteParser.isParamsArea(firstSpace, text, caret) && AutoCompleteParser.isAddSort(text)) {
+            //case of having a space after add or sort
 
             assert (text.contains("add") || text.contains("sort"));
 
-            if (text.contains("add")) {
-                next = autoCompleteSupplier.giveParam(text, getParamList("add"));
-                //get the suggested next param
-            } else if (text.contains("sort")) {
-                next = autoCompleteSupplier.giveParam(text, getParamList("sort"));
-            }
+            next = AutoCompleteSupplier.giveAddSortParams(text);
 
-            if (next != null && !next.isEmpty()) {
-                //possible to get null as a next, when all params have been typed
+            if (AutoCompleteParser.isEndWithSpace(text)) {
+                next = AutoCompleteSupplier.giveAddSortParams(text);
                 updateState(next, start); //
-                tail = makeTail(next, prefix); //
+                tail = AutoCompleteSupplier.makeTail(next, prefix);
                 if (tail == null || tail.isEmpty()) {
                     acGhostHide();
                     return null;
+
                 }
                 updateLabelAndShow(tail, acGhostItem, commandTextField);
                 return null;
             }
 
-        } else if (isParamsArea && text.contains("edit")) {
+        } else if (AutoCompleteParser.isParamsArea(firstSpace, text, caret)
+                && AutoCompleteParser.isContainsEdit(text)) {
 
-            if (!text.matches(".*\\d.*")) { //checks if the text field has a number, if no, do not suggest first
+            if (AutoCompleteParser.isHideEditParams(text)) {
+                //checks if the text field has a number, if no, do not suggest first
                 acGhostHide();
-            } else {
-                next = autoCompleteSupplier.giveParam(text, getParamList("edit"));
+            } else if (AutoCompleteParser.isEndWithSpace(text)) {
+                next = AutoCompleteSupplier.giveEditParams(text);
                 updateState(next, start); //
-                tail = makeTail(next, prefix);
+                tail = AutoCompleteSupplier.makeTail(next, prefix);
                 if (tail == null || tail.isEmpty()) {
                     acGhostHide();
                     return null;
@@ -157,7 +116,8 @@ public class Ghost {
                 return null;
             }
 
-        } else if (!text.contains(" ")) { //case of suggesting for command: assertion text has no " "
+        } else if (AutoCompleteParser.isNotContainSpace(text)) { //case of suggesting for command:
+            // assertion text has no " "
             if (start >= end) { // empty token
                 acGhostHide();
                 return null;
@@ -172,7 +132,7 @@ public class Ghost {
                 return null;
             }
 
-            tail = makeTail(next, prefix); //
+            tail = AutoCompleteSupplier.makeTail(next, prefix); //
             updateState(next, start);
             updateLabelAndShow(tail, acGhostItem, commandTextField);
             return null;
@@ -233,6 +193,7 @@ public class Ghost {
         return commandTextField.getSelection().getLength() > 0
                 && commandTextField.getAnchor() != commandTextField.getCaretPosition();
     }
+
     /**
      * hides the drop-down window
      */
@@ -240,20 +201,6 @@ public class Ghost {
         acLastSuggestion = null;
         if (acGhost.isShowing()) {
             acGhost.hide();
-        }
-    }
-
-    /**
-     * abstraction for getting paramList
-     * @param command command word
-     * @return param list of each command class
-     */
-    private List<String> getParamList(String command) {
-        switch (command) {
-        case "add": return AddCommand.PARAMS;
-        case "sort": return SortCommand.PARAMS;
-        case "edit": return EditCommand.PARAMS;
-        default: return null;
         }
     }
 
@@ -270,24 +217,9 @@ public class Ghost {
         ghostShow(commandTextField);
     }
 
+
     /**
-     * abstraction of making the correct suggestion tail
-     * @param suggestion full suggestion returned by autocompletesupplier
-     * @param prefix existing string in the commandbox
-     */
-    private String makeTail(String suggestion, String prefix) {
-        if (suggestion == null || prefix == null) {
-            return "";
-        }
-        int prefixlength = prefix.length();
-        if (prefixlength == 0) {
-            return suggestion;
-        } else {
-            return suggestion.substring(prefixlength);
-        }
-    }
-    /**
-     * abstraction for updating state
+     * abstraction for updating state of ghost
      * @param suggestion
      * @param start
      */

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.parser.AutoCompleteParser;
 
 /**
  * this class handles the logic of matching input, returns a string of the ghost
@@ -37,6 +38,30 @@ public class AutoCompleteSupplier {
         return COMMANDS.stream().filter(x->x.startsWith(input)).findFirst().orElse("");
     }
 
+    /**
+     * give a param for either sort or add
+     * @param text
+     * @return
+     */
+    public static String giveAddSortParams(String text) {
+        String next = null;
+        if (AutoCompleteParser.containsAdd(text)) {
+            next = giveParam(text, getParamList("add"));
+            //get the suggested next param
+        } else if (AutoCompleteParser.containsSort(text)) {
+            next = giveParam(text, getParamList("sort"));
+        }
+        return next;
+    }
+
+    /**
+     * returns a param for edit command
+     * @param text
+     * @return
+     */
+    public static String giveEditParams(String text) {
+        return giveParam(text, getParamList("edit"));
+    }
 
     /**
      * public method fed into ghost to retrieve the param signature.
@@ -44,11 +69,12 @@ public class AutoCompleteSupplier {
      * @param text
      * @return string of next param signature
      */
-    public String giveParam(String text, List<String> params) {
+    public static String giveParam(String text, List<String> params) {
         String result = null;
         int prefixContaied = 0;
         for (int i = 0; i < params.size(); i++) {
-            if (!text.contains(" " + params.get(i))) { //only finds prefix with a space leading it
+            if (!text.contains(" " + params.get(i))) {
+                //only finds prefix with a space leading it + triggers when at least some param is contained
                 result = params.get(i);
                 break;
             } else {
@@ -62,4 +88,36 @@ public class AutoCompleteSupplier {
             return result;
         }
     }
+
+    /**
+     * abstraction of making the correct suggestion tail
+     * @param suggestion full suggestion returned by autocompletesupplier
+     * @param prefix existing string in the commandbox
+     */
+    public static String makeTail(String suggestion, String prefix) {
+        if (suggestion == null || prefix == null) {
+            return "";
+        }
+        int prefixlength = prefix.length();
+        if (prefixlength == 0) {
+            return suggestion;
+        } else {
+            return suggestion.substring(prefixlength);
+        }
+    }
+
+    /**
+     * abstraction for getting paramList
+     * @param command command word
+     * @return param list of each command class
+     */
+    private static List<String> getParamList(String command) {
+        switch (command) {
+        case "add": return AddCommand.PARAMS;
+        case "sort": return SortCommand.PARAMS;
+        case "edit": return EditCommand.PARAMS;
+        default: return null;
+        }
+    }
+
 }
