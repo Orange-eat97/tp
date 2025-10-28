@@ -124,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED,
