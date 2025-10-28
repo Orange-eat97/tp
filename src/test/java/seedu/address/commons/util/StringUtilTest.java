@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCommands.ADD_PERSON_COMMAND;
 import static seedu.address.testutil.TypicalCommands.DELETE_PERSON_COMMAND;
@@ -68,31 +67,26 @@ public class StringUtilTest {
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
         assertThrows(NullPointerException.class,
-                () -> StringUtil.containsWordIgnoreCase("typical sentence", null)
-        );
+                () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
-        assertThrows(
-                IllegalArgumentException.class,
-                "Word parameter cannot be empty",
-                () -> StringUtil.containsWordIgnoreCase("typical sentence", "  ")
-        );
+        assertThrows(IllegalArgumentException.class,"Word parameter cannot be empty", ()
+                -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
 
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word",
-                () -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB")
+        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
+                -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB")
         );
     }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> StringUtil.containsWordIgnoreCase(null, "abc")
+        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc")
         );
     }
 
@@ -171,9 +165,7 @@ public class StringUtilTest {
 
     @Test
     public void getAllElements_nullString_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> StringUtil.getAllElements(null)
-        );
+        assertThrows(NullPointerException.class, () -> StringUtil.getAllElements(null));
     }
 
     @Test
@@ -241,8 +233,8 @@ public class StringUtilTest {
     // Null list
     @Test
     public void formatNumberedListWithHighlight_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> StringUtil.formatNumberedListWithHighlight(null, 0)
+        assertThrows(NullPointerException.class, ()
+                -> StringUtil.formatNumberedListWithHighlight(null, 0)
         );
     }
 
@@ -294,15 +286,15 @@ public class StringUtilTest {
     // Index out of range
     @Test
     public void formatNumberedListWithHighlight_negativeIndex_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1)
+        assertThrows(IndexOutOfBoundsException.class, ()
+                -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1)
         );
     }
 
     @Test
     public void formatNumberedListWithHighlight_indexTooLarge_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 3)
+        assertThrows(IndexOutOfBoundsException.class, ()
+                -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 3)
         );
     }
 }
