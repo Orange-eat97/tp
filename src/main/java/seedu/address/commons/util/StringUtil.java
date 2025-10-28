@@ -74,7 +74,13 @@ public class StringUtil {
      */
     public static String[] getAllElements(String s) {
         requireNonNull(s);
-        return s.split("\\s+");
+
+        String trimmedString = s.trim();
+        if (trimmedString.isEmpty()) {
+            return new String[0];
+        }
+
+        return trimmedString.split("\\s+");
     }
 
     /**
