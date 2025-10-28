@@ -59,82 +59,16 @@ public class Ghost {
      */
     public Runnable acRefreshGhostPreview(TextField commandTextField) {
         String text = commandTextField.getText();
-        if (text == null) {
-            text = "";
-        }
-
-        int[] bounds = AutoCompleteParser.getCurrentTokenBounds(commandTextField);
-        int start = bounds[0];
-        int end = bounds[1];
-        String token = text.substring(start, end);
         int caret = commandTextField.getCaretPosition();
-        String next = null;
-        String prefix = text.substring(start, end);
-        String tail = null;
-        int firstSpace = text.indexOf(' ');
 
-        if (token.indexOf('/') >= 0) {
+        String[] commands = AutoCompleteParser.command(text, caret);
+        if (commands[0] == AutoCompleteParser.HIDE_COMMAND) {
             acGhostHide();
             return null;
-        }
-
-        if (AutoCompleteParser.isParamsArea(firstSpace, text, caret) && AutoCompleteParser.isAddSort(text)) {
-            //case of having a space after add or sort
-
-            assert (text.contains("add") || text.contains("sort"));
-
-            next = AutoCompleteSupplier.giveAddSortParams(text);
-
-            if (AutoCompleteParser.isEndWithSpace(text)) {
-                next = AutoCompleteSupplier.giveAddSortParams(text);
-                updateState(next, start); //
-                tail = AutoCompleteSupplier.makeTail(next, prefix);
-                if (tail == null || tail.isEmpty()) {
-                    acGhostHide();
-                    return null;
-
-                }
-                updateLabelAndShow(tail, acGhostItem, commandTextField);
-                return null;
-            }
-
-        } else if (AutoCompleteParser.isParamsArea(firstSpace, text, caret)
-                && AutoCompleteParser.isContainsEdit(text)) {
-
-            if (AutoCompleteParser.isHideEditParams(text)) {
-                //checks if the text field has a number, if no, do not suggest first
-                acGhostHide();
-            } else if (AutoCompleteParser.isEndWithSpace(text)) {
-                next = AutoCompleteSupplier.giveEditParams(text);
-                updateState(next, start); //
-                tail = AutoCompleteSupplier.makeTail(next, prefix);
-                if (tail == null || tail.isEmpty()) {
-                    acGhostHide();
-                    return null;
-                }
-                updateLabelAndShow(tail, acGhostItem, commandTextField);
-                return null;
-            }
-
-        } else if (AutoCompleteParser.isNotContainSpace(text)) { //case of suggesting for command:
-            // assertion text has no " "
-            if (start >= end) { // empty token
-                acGhostHide();
-                return null;
-            }
-
-            if (start != end) { //added guarding rail so space at the end won't suggest "add"
-                next = autoCompleteSupplier.findBestMatch(prefix);
-            }
-
-            if (next == null || next.isEmpty() || next.equals(prefix)) {
-                acGhostHide();
-                return null;
-            }
-
-            tail = AutoCompleteSupplier.makeTail(next, prefix); //
-            updateState(next, start);
-            updateLabelAndShow(tail, acGhostItem, commandTextField);
+        } else if (commands[0] == AutoCompleteParser.SHOW_COMMAND) {
+            int start = Integer.parseInt(commands[2]);
+            updateState(commands[1], start);
+            updateLabelAndShow(commands[3], acGhostItem, commandTextField);
             return null;
         }
         return null;
