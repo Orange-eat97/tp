@@ -7,10 +7,10 @@ title: User Guide
 
 By consolidating beneficiary and worker data into a single, efficient system 📚, CareLink empowers dispatchers to:
 
-* 📝 Create and update records for beneficiaries and social workers
-* 🔍 Access information quickly using **optimized find and sort commands**
-* 📍 Automatically identify the **closest available social worker**
-* 📈 Reduce errors and delays caused by manual lookups or outdated records
+* 📝 create and update records for beneficiaries and social workers
+* 🔍 access information quickly using **optimized find and sort commands**
+* 📍 automatically identify the **closest available social worker**
+* 📈 reduce errors and delays caused by manual lookups or outdated records
 
 In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 💙
 
