@@ -1,12 +1,21 @@
 package seedu.address.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalCommandHistory.COMMAND_HISTORY_HEADING;
+import static seedu.address.testutil.TypicalCommands.ADD_PERSON_COMMAND;
+import static seedu.address.testutil.TypicalCommands.DELETE_PERSON_COMMAND;
+import static seedu.address.testutil.TypicalCommands.LIST_COMMAND;
+import static seedu.address.testutil.TypicalCommands.LIST_OF_COMMANDS;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import javax.lang.model.type.ArrayType;
+
 
 public class StringUtilTest {
 
@@ -140,4 +149,73 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for formatNumberedListWithHighlight --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, empty list, list with single object, list with multiple objects, index out of range
+     */
+
+    // Null list
+    @Test
+    public void formatNumberedListWithHighlight_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> StringUtil.formatNumberedListWithHighlight(null, 0));
+    }
+
+    // Empty List
+    @Test
+    public void formatNumberedListWithHighlight_emptyList_returnEmptyString() {
+        assertEquals("", StringUtil.formatNumberedListWithHighlight(new ArrayList<>(), 0));
+    }
+
+    // List with single object
+    @Test
+    public void formatNumberedListWithHighlight_singleElement_highlightsOnlyElement() {
+        assertEquals("*1 list\n",
+                StringUtil.formatNumberedListWithHighlight(List.of(LIST_COMMAND), 0));
+    }
+
+    // List with multiple objects
+    @Test
+    public void formatNumberedListWithHighlight_multipleElements_highlightsMiddleElement() {
+        String expectedResult = " 1 " + ADD_PERSON_COMMAND + "\n"
+                + "*2 " + DELETE_PERSON_COMMAND + "\n"
+                + " 3 " + LIST_COMMAND + "\n";
+
+        assertEquals(expectedResult,
+            StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 1));
+    }
+
+    @Test
+    public void formatNumberedListWithHighlight_multipleElements_highlightsFirstElement() {
+        String expectedResult = "*1 " + ADD_PERSON_COMMAND + "\n"
+                + " 2 " + DELETE_PERSON_COMMAND + "\n"
+                + " 3 " + LIST_COMMAND + "\n";
+
+        assertEquals(expectedResult,
+                StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 0));
+    }
+
+    @Test
+    public void formatNumberedListWithHighlight_multipleElements_highlightsLastElement() {
+        String expectedResult = " 1 " + ADD_PERSON_COMMAND + "\n"
+                + " 2 " + DELETE_PERSON_COMMAND + "\n"
+                + "*3 " + LIST_COMMAND + "\n";
+
+        assertEquals(expectedResult,
+                StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 2));
+    }
+
+    // Index out of range
+    @Test
+    public void formatNumberedListWithHighlight_negativeIndex_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1));
+    }
+
+    @Test
+    public void formatNumberedListWithHighlight_indexTooLarge_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 3));
+    }
 }
