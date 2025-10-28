@@ -10,7 +10,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s specified attribute matches any of the keywords given.
+ * Does prefix-matching, meaning to check if any words in the attribute has the keyword as a prefix
  */
 public class StrAttrContainsKeywords implements Predicate<Person> {
     private final Set<String> keywords;
@@ -34,7 +35,7 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(attributeGetter.apply(person), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordPrefixIgnoreCase(attributeGetter.apply(person), keyword));
     }
 
     @Override

@@ -39,6 +39,22 @@ public class StringUtil {
                 .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
+    public static boolean containsWordPrefixIgnoreCase(String sentence, String wordPrefix) {
+        requireNonNull(sentence);
+        requireNonNull(wordPrefix);
+
+        String preppedPrefix = wordPrefix.trim().toLowerCase();
+        checkArgument(!preppedPrefix.isEmpty(), "Word Prefix parameter cannot be empty");
+        checkArgument(preppedPrefix.split("\\s+").length == 1,
+                "Word Prefix parameter should be a single word");
+
+        String[] wordsInSentence = sentence.toLowerCase().split("\\s+");
+
+
+        return Arrays.stream(wordsInSentence)
+                .anyMatch(word -> word.startsWith(preppedPrefix));
+    }
+
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
