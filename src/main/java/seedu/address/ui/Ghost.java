@@ -1,12 +1,8 @@
 package seedu.address.ui;
 
-import java.util.List;
-
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.TextField;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.SortCommand;
-
+import seedu.address.logic.parser.AutoCompleteParser;
 
 
 /**
@@ -42,39 +38,6 @@ public class Ghost {
         return this.acLastSuggestion;
     }
 
-    /**
-     * A helper function that reads the starting and ending position of the text input. Returns a length-2 array
-     * containining the position of start and end of the word being tpyed
-     * @param
-     */
-    public int[] acCurrentTokenBounds(TextField commandTextField) {
-        String t = commandTextField.getText();
-        if (t == null) {
-            t = "";
-        }
-        int caret = commandTextField.getCaretPosition();
-        if (caret < 0) {
-            caret = 0;
-        }
-        if (caret > t.length()) {
-            caret = t.length();
-        }
-        if (t.isEmpty() || caret == 0) {
-            return new int[]{caret, caret};
-        }
-
-        int i = caret - 1;
-        while (i >= 0) {
-            char c = t.charAt(i);
-            if (Character.isLetterOrDigit(c) || c == '_' || c == ':' || c == '-') {
-                i--;
-            } else {
-                break;
-            }
-        }
-        int start = i + 1;
-        return new int[]{start, caret};
-    }
 
     /**
      * only gets called when acHasGhost is true. handles situation when other keys are pressed
@@ -96,62 +59,16 @@ public class Ghost {
      */
     public Runnable acRefreshGhostPreview(TextField commandTextField) {
         String text = commandTextField.getText();
-        if (text == null) {
-            text = "";
-        }
-
-        int[] bounds = acCurrentTokenBounds(commandTextField);
-        int start = bounds[0];
-        int end = bounds[1];
         int caret = commandTextField.getCaretPosition();
-        boolean addSortEdit = text.contains("add") || text.contains("sort") || text.contains("edit");
 
-        if (caret > 0 && text.charAt(caret - 1) == ' ' && addSortEdit) { //case of having a space after add or sort
-            assert (text.contains("add") || text.contains("sort") || text.contains("edit"));
-            List<String> params = null;
-            if (text.contains("add")) {
-                params = AddCommand.PARAMS;
-            } else if (text.contains("sort")) {
-                params = SortCommand.PARAMS;
-            } else {
-                params = EditCommand.PARAMS;
-            }
-            String next = autoCompleteSupplier.giveParam(text, params); //get the suggested next param
-
-            if (next != null && !next.isEmpty()) { //possible to get null as a next, when all params have been typed
-                acLastSuggestion = next;
-                acTokenStart = caret;
-                javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-                label.setText(next);
-                ghostShow(commandTextField);
-                return null;
-            }
-
-        } else if (!text.contains(" ")) { //case of suggesting for command: assertion text has no " "
-            if (start >= end) { // empty token
-                acGhostHide();
-                return null;
-            }
-
-            String prefix = text.substring(start, end);
-
-            String suggestion = null;
-            if (start != end) { //added guarding rail so space at the end won't suggest "add"
-                suggestion = autoCompleteSupplier.findBestMatch(prefix);
-            }
-
-            if (suggestion == null || suggestion.isEmpty() || suggestion.equals(prefix)) {
-                acGhostHide();
-                return null;
-            }
-
-            acLastSuggestion = suggestion;
-            acTokenStart = start;
-            String tail = suggestion.substring(prefix.length());
-
-            javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
-            label.setText(tail);
-            ghostShow(commandTextField);
+        String[] commands = AutoCompleteParser.command(text, caret);
+        if (commands == null || commands[0] == AutoCompleteParser.HIDE_COMMAND) {
+            acGhostHide();
+            return null;
+        } else if (commands[0] == AutoCompleteParser.SHOW_COMMAND) {
+            int start = Integer.parseInt(commands[2]);
+            updateState(commands[1], start);
+            updateLabelAndShow(commands[3], acGhostItem, commandTextField);
             return null;
         }
         return null;
@@ -163,17 +80,17 @@ public class Ghost {
      */
     private void ghostShow(TextField commandTextField) {
         if (!acGhost.isShowing()) {
-            javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
-            if (b != null) {
-                acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
+            javafx.geometry.Bounds bounds = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
+            if (bounds != null) {
+                acGhost.show(commandTextField, bounds.getMinX(), bounds.getMaxY());
             } else {
                 acGhost.show(commandTextField, javafx.geometry.Side.BOTTOM, 0, 0);
             }
         } else {
             acGhost.hide();
-            javafx.geometry.Bounds b = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
-            if (b != null) {
-                acGhost.show(commandTextField, b.getMinX(), b.getMaxY());
+            javafx.geometry.Bounds bounds = commandTextField.localToScreen(commandTextField.getBoundsInLocal());
+            if (bounds != null) {
+                acGhost.show(commandTextField, bounds.getMinX(), bounds.getMaxY());
             }
         }
     }
@@ -210,6 +127,7 @@ public class Ghost {
         return commandTextField.getSelection().getLength() > 0
                 && commandTextField.getAnchor() != commandTextField.getCaretPosition();
     }
+
     /**
      * hides the drop-down window
      */
@@ -221,6 +139,26 @@ public class Ghost {
     }
 
 
+    /**
+     * abstraction of updating label and showing
+     * @param next string to be shown
+     * @param acGhostItem dropdown menu
+     * @param commandTextField
+     */
+    private void updateLabelAndShow(String next, CustomMenuItem acGhostItem, TextField commandTextField) {
+        javafx.scene.control.Label label = (javafx.scene.control.Label) acGhostItem.getContent();
+        label.setText(next);
+        ghostShow(commandTextField);
+    }
 
 
+    /**
+     * abstraction for updating state of ghost
+     * @param suggestion
+     * @param start
+     */
+    private void updateState(String suggestion, int start) {
+        acLastSuggestion = suggestion;
+        acTokenStart = start;
+    }
 }
