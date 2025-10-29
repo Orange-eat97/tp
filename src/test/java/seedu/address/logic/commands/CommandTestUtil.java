@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -127,7 +127,7 @@ public class CommandTestUtil {
         Person person = model.getDisplayList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateDisplayList(new StrAttrContainsKeywords(
-                Arrays.asList(splitName[0]),
+                new HashSet<>(List.of(splitName[0])),
                 p -> p.getName().fullName
         ));
 

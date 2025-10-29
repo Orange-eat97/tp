@@ -18,6 +18,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
+        model.clearSorting();
         int contactCount = model.getPersonListSize();
         String feedback = MESSAGE_SUCCESS + " " + contactCount + " contacts found";
         return new CommandResult(feedback, false, false, null, null);

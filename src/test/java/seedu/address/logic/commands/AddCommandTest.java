@@ -213,6 +213,13 @@ public class AddCommandTest {
         public String getCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void clearSorting() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
     }
 
     /**

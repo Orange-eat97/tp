@@ -132,4 +132,9 @@ public interface Model {
      * Returns the command history
      */
     String getCommandHistory();
+
+    /**
+     * Clear any sorting comparator
+     */
+    void clearSorting();
 }
