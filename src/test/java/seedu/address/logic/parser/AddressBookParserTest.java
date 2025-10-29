@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -78,7 +79,7 @@ public class AddressBookParserTest {
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + String.join(" ", keywords));
         assertEquals(
                 new FindCommand(new ChainedPredicate(
-                        List.of(new StrAttrContainsKeywords(keywords, Person.NAME_STR_GETTER)))),
+                        List.of(new StrAttrContainsKeywords(new HashSet<>(keywords), Person.NAME_STR_GETTER)))),
                 command);
     }
 

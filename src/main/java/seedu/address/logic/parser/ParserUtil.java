@@ -1,12 +1,20 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -25,6 +33,16 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static record ValidationRule(Predicate<String> validator, String messageConstraint){}
+    private static final Map<Prefix, ValidationRule> VALIDATION_RULES = Map.of(
+            PREFIX_NAME, new ValidationRule(Name::isValidName, Name.MESSAGE_CONSTRAINTS),
+            PREFIX_ADDRESS, new ValidationRule(Address::isValidAddress, Address.MESSAGE_CONSTRAINTS),
+            PREFIX_EMAIL, new ValidationRule(Email::isValidEmail, Email.MESSAGE_CONSTRAINTS),
+            PREFIX_PHONE, new ValidationRule(Phone::isValidPhone, Phone.MESSAGE_CONSTRAINTS),
+            PREFIX_REGION, new ValidationRule(Region::isValidRegion, Region.MESSAGE_CONSTRAINTS),
+            PREFIX_TAG, new ValidationRule(Tag::isValidTagName, Tag.MESSAGE_CONSTRAINTS)
+    );
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -52,16 +70,25 @@ public class ParserUtil {
         return actualIndices;
     }
 
-
-
     /**
-     * Parses a {@code Prefix prefix} into a {@code List<String>} (keywords) and returns it.
+     * Parses {@code keywordStr} into a {@code Set<String>} (keywordStr) and returns it.
      */
-    public static List<String> parseKeywords(String keywords) {
-        requireNonNull(keywords);
-        String[] separatedArgs = StringUtil.getAllElements(keywords.trim());
-        return List.of(separatedArgs);
+    public static Set<String> parseKeywords(String keywordStr, Prefix prefix) throws ParseException {
+        requireNonNull(keywordStr);
+        String trimmedKeywords = keywordStr.trim();
+        List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
+
+        ValidationRule rule = VALIDATION_RULES.get(prefix);
+        if (rule == null) {
+            throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
+        }
+        if (!separatedKeywords.stream().allMatch(rule.validator)) {
+            throw new ParseException(rule.messageConstraint);
+        }
+
+        return new HashSet<>(separatedKeywords);
     }
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
