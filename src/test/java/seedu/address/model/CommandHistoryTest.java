@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalCommands.LIST_COMMAND;
 import static seedu.address.testutil.TypicalCommands.LIST_OF_COMMANDS;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.logic.CommandHistory;
 
 public class CommandHistoryTest {
 
