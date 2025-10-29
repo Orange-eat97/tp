@@ -36,7 +36,7 @@ public class ClosestCommandTest {
     public void execute_selectedPersonFirst_success() {
         Index targetIndex = Index.fromZeroBased(0);
         Region targetRegion = ALICE.getRegion();
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS.formatted("closest to %s"),
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS.formatted("closest volunteer to %s"),
                 targetRegion.value.getDisplayName());
 
         ClosestCommand command = new ClosestCommand(targetIndex);
@@ -51,7 +51,7 @@ public class ClosestCommandTest {
     public void execute_correctOrdering_success() {
         Index targetIndex = Index.fromZeroBased(3);
         Region targetRegion = DANIEL.getRegion();
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS.formatted("closest to %s"),
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS.formatted("closest volunteer to %s"),
                 targetRegion.value.getDisplayName());
 
         ClosestCommand command = new ClosestCommand(targetIndex);

@@ -2,10 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -13,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Region;
+import seedu.address.model.person.StrAttrContainsKeywords;
 
 /**
  * Sorts people according to how close their region is to the region of the
@@ -52,10 +52,12 @@ public class ClosestCommand extends Command {
 
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
-        model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateDisplayList(new StrAttrContainsKeywords(
+            Set.of("volunteer"),
+            Person.TAG_STR_GETTER));
 
         return new SortCommand(personComparator,
-                "closest to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
+                "closest volunteer to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
     }
 
     /**

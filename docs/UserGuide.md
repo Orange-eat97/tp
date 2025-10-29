@@ -402,7 +402,7 @@ Sorts persons by the fields in the order of the attribute prefixes
 
 ### Searching for closest person: `closest`
 
-Sorts people according to how close their region is to the region of the identified person by the index provided
+Sorts volunteers according to how close their region is to the region of the identified person by the index provided
 
 **✏️ Format:**<br>
 `closest INDEX`
@@ -411,16 +411,19 @@ Sorts people according to how close their region is to the region of the identif
 
 :information_source: **Important Note:**
 * Overrides existing sort order
+* Overrides existing find filters
 
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use find(#locating-persons-find) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
+Use [find](#locating-persons-find) and [sort](#sorting-persons-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
+
+This allows easy selection of volunteers to dispatch.
 </div>
 
 **🎯 Expected Outcome:**
-* Displays all persons in sorted according to how close their region is to the region of the identified person by the index provided.
-  * e.g. `closest 1` when person at index 1 has region Woodlands, will return all persons sorted by how close their region is to Woodlands
+* Displays all volunteers sorted according to how close their region is to the region of the identified person by the index provided.
+  * e.g. `closest 1` when person at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
 
 <br><br>
 
