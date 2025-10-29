@@ -17,7 +17,7 @@ By consolidating beneficiary and worker data into a single, streamlined system �
 * 📈 reduce errors and delays caused by manual lookups or outdated records
 
 In short, CareLink **enhances coordination efforts** between social workers and beneficiaries 
-through the **fast retrieval** of contact details and supports NGOs in delivering social assistance more effectively. 💙
+through the **fast retrieval** of contact details 💙
 
 ## Table of Contents
 
