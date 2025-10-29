@@ -16,8 +16,7 @@ By consolidating beneficiary and worker data into a single, streamlined system �
 * 📍 automatically identify the **closest available social worker**
 * 📈 reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink **enhances coordination efforts** between social workers and beneficiaries 
-through the **fast retrieval** of contact details 💙
+In short, CareLink helps dispatchers quickly access and update beneficiary and social worker records. 💙
 
 ## Table of Contents
 
