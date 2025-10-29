@@ -3,16 +3,21 @@ layout: page
 title: User Guide
 ---
 
-**CareLink**’s core purpose is to **connect** people in need with the right help as quickly as possible.🤝
+CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by 
+connecting beneficiaries to social workers as quickly as possible. 🤝
 
-By consolidating beneficiary and worker data into a single, efficient system 📚, CareLink empowers dispatchers to:
+NGOs often serve a large number of beneficiaries with a limited pool of social workers, 
+making it challenging to respond promptly to those in need.
+
+By consolidating beneficiary and worker data into a single, streamlined system 📚, CareLink enables dispatchers to:
 
 * 📝 create and update records for beneficiaries and social workers
 * 🔍 access information quickly using **optimized find and sort commands**
 * 📍 automatically identify the **closest available social worker**
 * 📈 reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink **enhances coordination efforts** and supports frontline workers in delivering social assistance more effectively. 💙
+In short, CareLink **enhances coordination efforts** between social workers and beneficiaries 
+through the **fast retrieval** of contact details and supports NGOs in delivering social assistance more effectively. 💙
 
 ## Table of Contents
 
