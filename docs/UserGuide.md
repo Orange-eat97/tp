@@ -415,11 +415,11 @@ Sorts people according to how close their region is to the region of the identif
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use sort and find to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary
+Use find(#locating-persons-find) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
 </div>
 
 **🎯 Expected Outcome:**
-* Displays all persons in sorted according to how close their region is to the region of the identified person by the index provided
+* Displays all persons in sorted according to how close their region is to the region of the identified person by the index provided.
   * e.g. `closest 1` when person at index 1 has region Woodlands, will return all persons sorted by how close their region is to Woodlands
 
 <br><br>

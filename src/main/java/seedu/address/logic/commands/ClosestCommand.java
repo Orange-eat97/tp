@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -49,6 +51,8 @@ public class ClosestCommand extends Command {
         Person personToSortBy = lastShownList.get(index.getZeroBased());
 
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
+
+        model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new SortCommand(personComparator,
                 "closest to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
