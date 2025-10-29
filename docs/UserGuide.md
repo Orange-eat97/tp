@@ -495,6 +495,9 @@ Digits only, at least 3 numbers long.
 
 Regions must be a valid region (listed below):
 
+<details>
+  <summary>Click to view all regions</summary>
+
 * Woodlands
 * Yishun
 * Sembawang
@@ -532,6 +535,8 @@ Regions must be a valid region (listed below):
 * Lim Chu Kang
 * Western Water Catchment
 * Tengah
+
+</details>
 
 ### 🏠 Address
 
