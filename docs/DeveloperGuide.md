@@ -166,6 +166,11 @@ Below is a given sequence diagram illustrating how the find command is executed 
 ## Command History
 
 ### Current Implementation
+Command history tracks all commands entered during the current session and allows users to navigate through previously
+entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed 
+through the `Logic` component. Below is a given sequence diagram illustrating how the command history navigation is 
+executed through the Logic component.
+
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
@@ -347,18 +352,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case ends.
 
-**Use case: UC03 - Delete a person**
+**Use case: UC03 - Delete person(s)**
 
 **MSS:**
 1. User requests to <u>list persons (UC02)</u>.
-2. User requests to delete a specific person in the list.
+2. User requests to delete specific person(s) in the list.
 3. AddressBook deletes the person.
 
    Use case ends.
 
 **Extensions:**
 
-* 2a. Invalid/missing identifier for person to delete.
+* 2a. Invalid/missing identifier(s) for person(s) to delete.
 
     * 2a1. AddressBook shows an error.
 
@@ -386,7 +391,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. AddressBook shows an error.
 
       Use case resumes from step 2.
-  
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -449,6 +454,9 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
+   1. Test case: `delete 1 2`<br>
+      Expected: First and second contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
