@@ -175,14 +175,11 @@ Shows a message explaining how to access the help page.
 **✏️ Format:**<br>
 `help`
 
-**🎯 Expected Outcome:**
-* Opens a window that allows you to copy the link to the User Guide website
-
-**📘 Examples:**
+**📘 Example:**
 * `help`<br>![help message](images/helpMessage.png)
 
 Simply click the `Copy URL` button to copy the link and paste it in your web browser of choice 
-(e.g. Google Chrome or Safari)
+(e.g. Google Chrome or Safari) to access the User Guide website.
 
 <br><br>
 
