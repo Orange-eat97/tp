@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,7 +26,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SortedList<Person> sortedPersons;
-    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,7 +39,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         sortedPersons = new SortedList<>(filteredPersons);
-        this.commandHistory = new CommandHistory();
     }
 
     public ModelManager() {
@@ -190,26 +189,5 @@ public class ModelManager implements Model {
     public void clearSorting() {
         sortedPersons.setComparator(null);
 
-    }
-
-    //=========== Command History =============================================================
-    @Override
-    public void addCommand(String commandText) {
-        commandHistory.addCommand(commandText);
-    }
-
-    @Override
-    public String getPreviousCommand() {
-        return commandHistory.getPreviousCommand();
-    }
-
-    @Override
-    public String getNextCommand() {
-        return commandHistory.getNextCommand();
-    }
-
-    @Override
-    public String getCommandHistory() {
-        return commandHistory.toString();
     }
 }
