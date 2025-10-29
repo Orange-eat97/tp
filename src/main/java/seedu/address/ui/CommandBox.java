@@ -59,8 +59,8 @@ public class CommandBox extends UiPart<Region> {
             case TAB -> {
                 if (ghost.getLastSuggestion() != null) {
                     ghost.acCommitSuggestion(commandTextField);
-                    e.consume();
                 }
+                e.consume();
             }
             default -> { }
             }
