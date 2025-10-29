@@ -472,16 +472,3 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Appendix: Planned Enhancements**
-
-Team size: 5
-
-1. **Command history deletes current command**: Currently, when a command is being typed out and either the `UP` or 
-`DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
-command history.
-2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion, 
-pressing `UP` or `DOWN` key selects the autoComplete suggestion. As this is caused by the default behaviour of the JavaFX 
-label, we plan to override this behaviour so that only command history has control over the `UP` or `DOWN` key.
