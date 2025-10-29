@@ -366,15 +366,15 @@ Sorts persons by the fields in the order of the attribute prefixes
 :information_source: **Important Note:**
 * Order of sorting follows the natural order. e.g. 4th comes before 10th.
 * Order of attribute prefixes defines the order of sorting.
-  e.g. `n/ p/` sorts name then sorts phone number, `p/ n/` sorts phone number then name
 * Sorting by **tags** will group the tags by **beneficiary** and **volunteer**.
 * Calling sort after any command will sort the current displayed list.
 
 </div>
 
-**🎯 Expected Outcome:**
-* Displays all persons in the specified sorted order
-  * e.g. `sort n/` will return all persons sorted by their names in alphabetical order
+**📘 Examples:**
+* `sort n/` will return all contacts sorted by their names in alphabetical order
+* `sort n/ p/` will return all contacts sorted by name then phone number
+* `sort p/ n/` will return all contacts sorted by phone number then name
 
 <br><br>
 
@@ -412,6 +412,8 @@ Press **Tab** to complete the prefix and start typing an attribute. When you fin
 
 **📘 Examples:**
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
+Typing the letter 'd' in an attempt to type the `delete` command will prompt autocomplete to suggest 'elete'. Pressing
+`Tab` autocompletes the command rendering 'delete' in the command box.
 
 <br><br>
 
