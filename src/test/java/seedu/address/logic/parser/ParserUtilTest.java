@@ -241,9 +241,11 @@ public class ParserUtilTest {
 
     @Test
     public void parseKeywords_multipleValidKeywords_returnsKeywordSet() throws Exception {
-        Set<String> actualKeywordSet = ParserUtil.parseKeywords(
+        Set<KeywordMatch> actualKeywordSet = ParserUtil.parseKeywords(
                 "Amy Rachel", PREFIX_NAME);
-        Set<String> expectedKeywordSet = new HashSet<>(Arrays.asList("Amy", "Rachel"));
+        Set<KeywordMatch> expectedKeywordSet = Set.of(
+                new KeywordMatch("Amy", false),
+                new KeywordMatch("Rachel", false));
         assertEquals(expectedKeywordSet, actualKeywordSet);
     }
 }

@@ -14,9 +14,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.KeywordMatch;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,10 +35,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        StrAttrContainsKeywords firstPredicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("first")), Person.NAME_STR_GETTER);
-        StrAttrContainsKeywords secondPredicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("second")), Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords firstPredicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("first", false))), Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords secondPredicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("second", false))), Person.NAME_STR_GETTER);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -79,20 +82,20 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
-        StrAttrContainsKeywords predicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("keyword")), Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("keyword", false))), Person.NAME_STR_GETTER);
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
     }
 
     /**
-     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate.
+     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate with only word match.
      */
     private StrAttrContainsKeywords preparePredicate(String userInput) {
-        return new StrAttrContainsKeywords(
-                new HashSet<>(List.of(userInput.split("\\s+"))),
-                Person.NAME_STR_GETTER
-        );
+        Set<KeywordMatch> keywordMatches = Arrays.stream(userInput.split("\\s+"))
+            .map(keyword -> new KeywordMatch(keyword, false))
+            .collect(Collectors.toSet());
+        return new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER);
     }
 }
