@@ -25,8 +25,8 @@ public class Email {
     private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+"; // alphanumeric characters except underscore
     private static final String LOCAL_PART_REGEX = "^" + ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]"
             + ALPHANUMERIC_NO_UNDERSCORE + ")*";
-    private static final String LOCAL_PART_PREFIX_REGEX = ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]"
-            + ALPHANUMERIC_NO_UNDERSCORE + ")*";
+    private static final String LOCAL_PART_PREFIX_REGEX = "^" + ALPHANUMERIC_NO_UNDERSCORE
+            + "([" + SPECIAL_CHARACTERS + "]" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
     private static final String DOMAIN_PART_REGEX = ALPHANUMERIC_NO_UNDERSCORE
             + "(-" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
     private static final String DOMAIN_LAST_PART_REGEX = "(" + DOMAIN_PART_REGEX + "){2,}$"; // At least two chars
@@ -39,7 +39,8 @@ public class Email {
             + ")";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
     // Any possible prefix of an email is valid, minimum one alphanumeric character
-    public static final String PREFIX_VALIDATION_REGEX = LOCAL_PART_PREFIX_REGEX + "(@" + DOMAIN_PREFIX_REGEX + ")?";
+    public static final String PREFIX_VALIDATION_REGEX =
+            LOCAL_PART_PREFIX_REGEX + "(@" + DOMAIN_PREFIX_REGEX + ")?" + "$";
 
     public final String value;
 
@@ -65,7 +66,7 @@ public class Email {
      * Returns true if given string is a valid email prefix
      */
     public static boolean isValidEmailPrefix(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(PREFIX_VALIDATION_REGEX);
     }
 
     @Override
