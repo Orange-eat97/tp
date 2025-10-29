@@ -389,11 +389,21 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 Cycles between commands in the command history.
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:**
+* When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
+* If you are at the most recent command, pressing the `⬇ UP Key` will retrieve the oldest command
+* Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
+
 **⌨ Usage:**<br>
 * Press `⬆ UP Key`: Goes to the previous command in history
 
 * Press `⬇ DOWN Key`: Goes to the next command in history
 
+**📘 Example:**
+* Command History List <br> ![Command History List](images/CommandHistoryList.png)
+The current command in the command history is prefixed with a `*`.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
