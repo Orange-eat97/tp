@@ -28,11 +28,11 @@ public class ClosestCommand extends Command {
             + "by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) " + "Example: " + COMMAND_WORD + " 1 ";
 
-    private final Index index;
-
     public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
             Set.of("volunteer"),
             Person.TAG_STR_GETTER);
+
+    private final Index index;
 
     /**
      * Creates a Closest command that sorts people according to the closeness of
