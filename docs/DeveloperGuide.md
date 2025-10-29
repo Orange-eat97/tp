@@ -163,7 +163,23 @@ Below is a given sequence diagram illustrating how the find command is executed 
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
+## Sort command parsing
 
+### Current Implementation
+The `SortCommandParser` supports sorting using one or more prefixes.
+Each prefix corresponds to an attribute in the `Person` model (name, phone, address, etc.)
+
+How the `SortCommandParser` works:
+1. Takes in a list of prefixes.
+2. Iterates through each prefix and builds a comparator chain using Java's
+`Comparator` interface. 
+   * For the first prefix, `comparing(...)` is used to initialise a new comparator
+   * For subsequent prefixes, `thenComparing(...)` is called to chain additional comparators 
+3. The resulting `personComparator` compares the attribute in the order the prefixes appear in the command.
+
+Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
+
+![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
