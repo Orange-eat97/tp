@@ -257,7 +257,7 @@ Deletes one or more specified persons from the address book.
 :information_source: **Important Note:** <br>
 * Each index refers to the index number shown in the displayed person list.
 * A minimum of one index must be specified
-* Each index must be a **whole number greater than 0** e.g. 1, 2, 3, …​
+* Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
 * The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
 * Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
 contacts
