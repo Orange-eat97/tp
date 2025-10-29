@@ -21,15 +21,15 @@ through the **fast retrieval** of contact details and supports NGOs in deliverin
 
 ## Table of Contents
 
-- 🔹 [Quick start](#quick-start)
+- [Quick start](#quick-start)
 
-- <details open markdown = 1><summary><a href="#features">Features</a></summary>
+- <a href="#features">Features</a>
 
     - [Command Format](#command-format)
 
     - [Viewing help : `help`](#viewing-help--help)
 
-    - <details open markdown = 1><summary>👤 <a href="#contacts-management">Contacts Management</a></summary>
+    - <a href="#contacts-management">Contacts Management</a>
 
       - [Adding a person: `add`](#adding-a-person-add)
 
@@ -39,9 +39,7 @@ through the **fast retrieval** of contact details and supports NGOs in deliverin
 
       - [Clearing all entries : `clear`](#clearing-all-entries--clear)
 
-      </details>
-
-    - <details markdown = 1><summary>🔍 <a href="#display-and-searching">Display and Searching</a></summary>
+    - <a href="#display-and-searching">Display and Searching</a>
 
       - [Listing all persons : `list`](#listing-all-persons--list)
 
@@ -49,9 +47,7 @@ through the **fast retrieval** of contact details and supports NGOs in deliverin
 
       - [Sorting persons: `sort`](#sorting-persons-sort)
 
-      </details>
-
-    - <details markdown = 1><summary>🛠 <a href="#advanced-features">Advanced Features</a></summary>
+    - <a href="#advanced-features">Advanced Features</a>
 
       - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
 
@@ -63,19 +59,15 @@ through the **fast retrieval** of contact details and supports NGOs in deliverin
 
       - [Archiving data files `[coming in v2.0]`](#archiving-data-files-coming-in-v20)
 
-      </details>
-
     - [Exiting the program : `exit`](#exiting-the-program--exit)
 
     - [Valid Attributes for person](#valid-attributes)
 
-    </details>
+- [FAQ](#faq)
 
-- ❓ [FAQ](#faq)
+- [Known issues](#known-issues)
 
-- ⚠️ [Known issues](#known-issues)
-
-- 📦 [Command summary](#command-summary)
+- [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
