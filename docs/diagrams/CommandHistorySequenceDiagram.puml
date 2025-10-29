@@ -12,25 +12,6 @@ user -> ui : handleUpDownKeyPress(event, commandBox)
 activate ui
 
 alt UP key pressed
-    ui -> logic : getPreviousCommand()
-    activate logic
-
-    logic -> model : getPreviousCommand()
-    activate model
-
-    model -> commandHistory : getPreviousCommand()
-    activate commandHistory
-
-    commandHistory --> model : previousCommand
-    deactivate commandHistory
-
-    model --> logic : previousCommand
-    deactivate model
-
-    logic --> ui : command
-    deactivate logic
-
-else DOWN key pressed
     ui -> logic : getNextCommand()
     activate logic
 
@@ -44,6 +25,26 @@ else DOWN key pressed
     deactivate commandHistory
 
     model --> logic : nextCommand
+    deactivate model
+
+    logic --> ui : command
+    deactivate logic
+
+
+else DOWN key pressed
+    ui -> logic : getPreviousCommand()
+    activate logic
+
+    logic -> model : getPreviousCommand()
+    activate model
+
+    model -> commandHistory : getPreviousCommand()
+    activate commandHistory
+
+    commandHistory --> model : previousCommand
+    deactivate commandHistory
+
+    model --> logic : previousCommand
     deactivate model
 
     logic --> ui : command

@@ -48,6 +48,8 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    void addCommand(String commandText);
+
     String getPreviousCommand();
 
     String getNextCommand();
