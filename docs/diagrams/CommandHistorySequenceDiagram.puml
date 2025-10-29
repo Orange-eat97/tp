@@ -5,8 +5,7 @@ skinparam ArrowFontStyle plain
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
-Participant ":Model" as model MODEL_COLOR
-Participant ":CommandHistory" as commandHistory MODEL_COLOR_T1
+Participant ":CommandHistory" as commandHistory LOGIC_COLOR_T1
 
 user -> ui : handleUpDownKeyPress(event, commandBox)
 activate ui
@@ -15,17 +14,11 @@ alt UP key pressed
     ui -> logic : getNextCommand()
     activate logic
 
-    logic -> model : getNextCommand()
-    activate model
-
-    model -> commandHistory : getNextCommand()
+    logic -> commandHistory : getNextCommand()
     activate commandHistory
 
-    commandHistory --> model : nextCommand
+    commandHistory --> logic : nextCommand
     deactivate commandHistory
-
-    model --> logic : nextCommand
-    deactivate model
 
     logic --> ui : command
     deactivate logic
@@ -35,17 +28,11 @@ else DOWN key pressed
     ui -> logic : getPreviousCommand()
     activate logic
 
-    logic -> model : getPreviousCommand()
-    activate model
-
-    model -> commandHistory : getPreviousCommand()
+    logic -> commandHistory : getPreviousCommand()
     activate commandHistory
 
-    commandHistory --> model : previousCommand
+    commandHistory --> logic : previousCommand
     deactivate commandHistory
-
-    model --> logic : previousCommand
-    deactivate model
 
     logic --> ui : command
     deactivate logic
@@ -55,17 +42,11 @@ end
 ui -> logic : getCommandHistory()
 activate logic
 
-logic -> model : getCommandHistory()
-activate model
-
-model -> commandHistory : toString()
+logic -> commandHistory : toString()
 activate commandHistory
 
-commandHistory --> model : formattedCommandHistory
+commandHistory --> logic : formattedCommandHistory
 deactivate commandHistory
-
-model --> logic : formattedCommandHistory
-deactivate model
 
 logic --> ui : formattedCommandHistory
 deactivate logic

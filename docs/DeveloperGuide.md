@@ -163,6 +163,10 @@ Below is a given sequence diagram illustrating how the find command is executed 
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
+## Command History
+
+### Current Implementation
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -251,9 +255,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
 --------------------------------------------------------------------------------------------------------------------
 
