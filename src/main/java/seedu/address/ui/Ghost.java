@@ -62,7 +62,7 @@ public class Ghost {
         int caret = commandTextField.getCaretPosition();
 
         String[] commands = AutoCompleteParser.command(text, caret);
-        if (commands[0] == AutoCompleteParser.HIDE_COMMAND) {
+        if (commands == null || commands[0] == AutoCompleteParser.HIDE_COMMAND) {
             acGhostHide();
             return null;
         } else if (commands[0] == AutoCompleteParser.SHOW_COMMAND) {

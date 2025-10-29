@@ -46,10 +46,10 @@ public class AutoCompleteSupplier {
     public static String giveAddSortParams(String text) {
         String next = null;
         if (AutoCompleteParser.containsAdd(text)) {
-            next = giveParam(text, getParamList("add"));
+            next = giveParam(AddCommand.COMMAND_WORD, text, getParamList("add"));
             //get the suggested next param
         } else if (AutoCompleteParser.containsSort(text)) {
-            next = giveParam(text, getParamList("sort"));
+            next = giveParam(SortCommand.COMMAND_WORD, text, getParamList("sort"));
         }
         return next;
     }
@@ -60,7 +60,7 @@ public class AutoCompleteSupplier {
      * @return
      */
     public static String giveEditParams(String text) {
-        return giveParam(text, getParamList("edit"));
+        return giveParam(EditCommand.COMMAND_WORD, text, getParamList("edit"));
     }
 
     /**
@@ -69,7 +69,7 @@ public class AutoCompleteSupplier {
      * @param text
      * @return string of next param signature
      */
-    public static String giveParam(String text, List<String> params) {
+    public static String giveParam(String command, String text, List<String> params) {
         String result = null;
         int prefixContaied = 0;
         for (int i = 0; i < params.size(); i++) {
@@ -82,7 +82,9 @@ public class AutoCompleteSupplier {
             }
         }
 
-        if (prefixContaied == params.size()) {
+        if (prefixContaied == params.size()
+                && command != SortCommand.COMMAND_WORD
+                && command != EditCommand.COMMAND_WORD) {
             return "t/";
         } else {
             return result;
@@ -95,15 +97,24 @@ public class AutoCompleteSupplier {
      * @param prefix existing string in the commandbox
      */
     public static String makeTail(String suggestion, String prefix) {
-        if (suggestion == null || prefix == null) {
+        if (suggestion == null) { //if suggestion is null, just return an empty string
             return "";
         }
-        int prefixlength = prefix.length();
-        if (prefixlength == 0) {
-            return suggestion;
-        } else {
-            return suggestion.substring(prefixlength);
+        if (prefix == null) { //if prefix is null, keep it as a empty string for matching
+            prefix = "";
         }
+
+        int prefixLength = prefix.length();
+        if (suggestion.length() <= prefixLength) { //case of having "e" as suggestion while prefix is "delet". Wrong
+            //logic passed by caller
+            return "";
+        }
+
+        if (!suggestion.startsWith(prefix)) { //case of wrong suggestion, eg having p/ suggested for "c"
+            return "";
+        }
+
+        return suggestion.substring(prefixLength); //assertion: suggestion definitely starts with prefix
     }
 
     /**
