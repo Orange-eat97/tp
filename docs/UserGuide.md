@@ -236,10 +236,6 @@ Edits an existing person in the address book.
 
 </div>
 
-**🎯 Expected Outcome:**
-* Edits existing person in the list with the given details
-  * e.g. `edit 5 p/98765432` will edit the phone number of the person at index `5` in the list to `98765432`
-
 **📘 Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
@@ -267,8 +263,6 @@ Deletes one or more specified persons from the address book.
 contacts
 </div>
 
-**🎯 Expected Outcome:**
-* Deletes the person(s) at the specified `INDEX` and `[MORE_INDEXES]...` (if specified).
 
 **📘 Examples:**
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
