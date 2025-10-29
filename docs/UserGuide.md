@@ -206,10 +206,6 @@ Adds a person to the address book.
 
 </div>
 
-**🎯 Expected Outcome:**
-* Adds a new person to the list with the given details
-  * e.g. `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` will add John Doe to the list and set his attributes to the given attributes
-
 **📘 Examples:**
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
 * `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
