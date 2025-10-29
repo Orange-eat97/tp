@@ -289,8 +289,8 @@ Deletes all contacts in the address book.
 **✏️ Format:**<br>
 `clear`
 
-**🎯 Expected Outcome:**
-* Deletes all persons in CareLink.
+**📘 Example:**
+* `clear` deletes all persons in CareLink.
 
 <br><br>
 
@@ -308,12 +308,10 @@ Shows a list of all persons in the address book.
 **✏️ Format:**<br>
 `list`
 
-**🎯 Expected Outcome:**
-* Displays all persons' contact details in the address book.
-* At the panel below the command box, you can see the total number of contacts.
-
 **📘 Examples:**
 * `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
+Displays all social workers and beneficiaries' contact details in the address book. At the panel below the command box, 
+you can see the total number of contacts.
 
 <br><br>
 
