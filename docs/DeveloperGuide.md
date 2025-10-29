@@ -9,6 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
+* Used in the definition of natural sort order in the glossary https://en.wikipedia.org/wiki/Natural_sort_order
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -410,6 +411,7 @@ may be assigned to a beneficiary.
 * **Social service worker**: Person who provides social service to beneficiaries. May be assigned to 
 zero or more beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
+* **Natural sort order**: Ordering of strings in alphabetical order, except that single- and multi-digit numbers are treated atomically, i.e. as if they were a single character, and compared between themselves by their actual numerical values. 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -455,6 +457,59 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Finding a person
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `find n/John`<br>
+    Expected: Only contacts whose names start with "John" appear in the list.
+   The status bar at the bottom shows what it is finding by.
+   3. Test case: `find n/John t/volunteer`
+    Expected: Only contacts with the name "John" and "volunteer" tag appear. 
+   The status bar at the bottom shows what it is finding by.
+   4. Test case: `find n/`<br>
+    Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
+   5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
+2. _{ more test cases …​ }_
+   
+
+### Sorting the list
+1. Sorting a list while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `sort n/`<br>
+   Expected: Contacts are rearranged alphabetically by name in the list. The status bar at the bottom shows it is sorted by name.
+   3. Test case: `sort n/123`<br>
+   Expected: Similar to previous.
+   4. Test case: `sort t/ n/`<br>
+   Expected: Contacts are grouped by tags (beneficiary before volunteer), then alphabetically by name. The status bar at
+   the bottom shows it is sorted by tags and name.
+   5. Test case: `sort`<br>
+   Expected: The list does not change. Error details are shown in the status message. Status bar remains the same.
+   6. Other sort commands to try: `sort a/`, `sort r/`<br>
+   Expected: Contacts are sorted by their attribute in natural sort order.
+
+### Autocomplete
+1. Typing in any command in the CLI
+   1. Type `s` then press **Tab**. <br>
+   Expected: Autocompletes to `sort`.
+   2. Type `sort` and **Space** and then press **Tab**. <br>
+   Expected: Autocompletes to `sort n/`
+   3. After completing one prefix, then type **Space**. <br> 
+   Expected: Next prefix appears in the CLI.
+
+### Command History
+1. Cycling through any past commands
+   1. Prerequisites: Some commands have already been used. Enter `list`, then `find n/Alex`, then `sort n/`.
+   2. Press the ↑ **Up**. <br>
+   Expected: `sort n/` appears in the CLI. Command history appears with a pointer to the most recent command.
+   3. Press the ↑ **Up** again. <br>
+   Expected: `find n/Alex` appears in the CLI. Pointer in command history points to `find n/Alex`
+   4. Press the ↓ **Down**. <br>
+   Expected: `sort n/` appears in the CLI. Pointer in command history points to `sort n/`.
+   5. Enter a new command `find n/John` and press ↑ **Up**. <br>
+   Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
+
+2. _{ more test cases …​ }_
 
 ### Saving data
 
