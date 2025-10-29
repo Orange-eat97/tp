@@ -29,8 +29,6 @@ public class AutoCompleteParser {
      *     arr[3] = substring of next to be shown
      */
     public static String[] command(String text, int caret) {
-        final String[] show = {SHOW_COMMAND, null, null, null};
-        final String[] hide = {HIDE_COMMAND, null, null, null};
         if (text == null) {
             text = "";
         }
@@ -50,7 +48,7 @@ public class AutoCompleteParser {
 
         if (caretChunk.indexOf('/') >= 0) { //case when current text has something like "add n/"-> hide,
             //case like "add n/james p" -> "p", so go to the other blocks
-            return hide;
+            return makeCommandsArray(null, 0, null);
         }
 
         if (isParamsArea(firstSpace, text, caret) //case like "add " -> to suggest a param signature
@@ -59,57 +57,40 @@ public class AutoCompleteParser {
             assert (text.contains("add") || text.contains("sort"));
 
             next = AutoCompleteSupplier.giveAddSortParams(text);
-            tail = AutoCompleteSupplier.makeTail(next, prefix); //
+            tail = AutoCompleteSupplier.makeTail(next, prefix);
 
-            if (isEndWithSpace(text)) {
-                //tail = AutoCompleteSupplier.makeTail(next, prefix);
-                if (nullOrEmpty(next) || nullOrEmpty(tail)) {
-                    return hide;
-                }
-                return makeCommandsArray(next, start, tail);
-            } else {
-                //tail = AutoCompleteSupplier.makeTail(next, prefix);
-                return makeCommandsArray(next, start, tail);
-            }
+            return makeCommandsArray(next, start, tail);
 
         } else if (isParamsArea(firstSpace, text, caret)
                 && isContainsEdit(text)) { //case of edit
-            next = AutoCompleteSupplier.giveEditParams(text); //
-            tail = AutoCompleteSupplier.makeTail(next, prefix); //
+
+            next = AutoCompleteSupplier.giveEditParams(text);
+            tail = AutoCompleteSupplier.makeTail(next, prefix);
 
             if (isHideEditParams(text)) { //case when text has no index, hide
-                return hide;
+                return makeCommandsArray(null, 0, null);
             } else if (isEndWithSpace(text)) { //case of "edit 1 " -> suggest param signature
-                //next = AutoCompleteSupplier.giveEditParams(text);
-                //tail = AutoCompleteSupplier.makeTail(next, prefix);
                 return makeCommandsArray(next, start, tail);
             } else { //case of "edit 1" -> still suggest
-                //next = AutoCompleteSupplier.giveEditParams(text);
-                //tail = AutoCompleteSupplier.makeTail(next, prefix);
                 return makeCommandsArray(next, start, tail);
             }
 
         } else if (isNotContainSpace(text)) { //case of command word
-            if (start >= end) {
-                return hide;
-            }
 
             if (start != end) {
                 next = AutoCompleteSupplier.findBestMatch(prefix);
             }
-            if (nullOrEmpty(next) || next.equals(prefix)) {
-                return hide;
+
+            if (nullOrEmpty(next) || next.equals(prefix) || start >= end) {
+                return makeCommandsArray(null, 0, null);
             }
 
             tail = AutoCompleteSupplier.makeTail(next, prefix);
-            if (nullOrEmpty(text)) {
-                return hide;
-            }
 
             return makeCommandsArray(next, start, tail);
         }
 
-        return hide;
+        return makeCommandsArray(null, 0, null);
     }
 
     /**
@@ -120,6 +101,7 @@ public class AutoCompleteParser {
     private static boolean nullOrEmpty(String text) {
         return (text == null || text.isEmpty());
     }
+
     /**
      * abstraction for updating result array for command
      * @param next suggestion
@@ -188,7 +170,7 @@ public class AutoCompleteParser {
     }
 
     /**
-     * checks if string has add
+     * checks if string has add command commandword
      * @param text
      * @return
      */
