@@ -92,9 +92,45 @@ public class AutoCompleteSupplier {
     }
 
     /**
-     * abstraction of making the correct suggestion tail
+     * abstraction of making the correct suggestion tail. Added new param 
      * @param suggestion full suggestion returned by autocompletesupplier
      * @param prefix existing string in the commandbox
+     */
+    public static String makeTail(String command, String suggestion, String prefix) {
+        if (suggestion == null) { //if suggestion is null, just return an empty string
+            return "";
+        }
+        if (prefix == null) { //if prefix is null, keep it as a empty string for matching
+            prefix = "";
+        }
+
+        List<String> temp = getParamList(command);
+        String possibleParams = temp.stream().map(param -> param.substring(0, 1)).toString();
+
+        if (prefix.length() == 1 && suggestion.length() == 2 && suggestion.charAt(1) == '/'
+                && possibleParams.indexOf(prefix.charAt(0)) >= 0
+                && possibleParams.indexOf(suggestion.charAt(0)) >= 0) {
+            return "/";
+        }
+
+        int prefixLength = prefix.length();
+        if (suggestion.length() <= prefixLength) { //case of having "e" as suggestion while prefix is "delet". Wrong
+            //logic passed by caller
+            return "";
+        }
+
+        if (!suggestion.startsWith(prefix)) { //case of wrong suggestion, eg having p/ suggested for "c"
+            return "";
+        }
+
+        return suggestion.substring(prefixLength); //assertion: suggestion definitely starts with prefix
+    }
+
+    /**
+     * makeTail that takes a different signature, specifically for suggesting command
+     * @param suggestion
+     * @param prefix
+     * @return
      */
     public static String makeTail(String suggestion, String prefix) {
         if (suggestion == null) { //if suggestion is null, just return an empty string

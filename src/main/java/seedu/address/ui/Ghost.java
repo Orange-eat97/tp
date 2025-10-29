@@ -12,11 +12,11 @@ public class Ghost {
     private boolean acInternalEdit = false;
     private String acLastSuggestion = null;
     private int acTokenStart = 0;
+    private String tail = null;
 
     private final javafx.scene.control.ContextMenu acGhost = new javafx.scene.control.ContextMenu();
     private final javafx.scene.control.CustomMenuItem acGhostItem =
             new javafx.scene.control.CustomMenuItem(new javafx.scene.control.Label(), false);
-    private final AutoCompleteSupplier autoCompleteSupplier = new AutoCompleteSupplier();
 
     /**
      * constructor for ghost
@@ -67,7 +67,7 @@ public class Ghost {
             return null;
         } else if (commands[0] == AutoCompleteParser.SHOW_COMMAND) {
             int start = Integer.parseInt(commands[2]);
-            updateState(commands[1], start);
+            updateState(commands[1], start, commands[3]);
             updateLabelAndShow(commands[3], acGhostItem, commandTextField);
             return null;
         }
@@ -108,7 +108,7 @@ public class Ghost {
 
         acInternalEdit = true; //enable editing
         try {
-            commandTextField.replaceText(acTokenStart, caret, acLastSuggestion);
+            commandTextField.insertText(caret, tail);
             int newCaret = acTokenStart + acLastSuggestion.length();
             commandTextField.positionCaret(newCaret);
             commandTextField.deselect();
@@ -157,8 +157,9 @@ public class Ghost {
      * @param suggestion
      * @param start
      */
-    private void updateState(String suggestion, int start) {
+    private void updateState(String suggestion, int start, String newTail) {
         acLastSuggestion = suggestion;
         acTokenStart = start;
+        tail = newTail;
     }
 }
