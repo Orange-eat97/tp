@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -240,12 +241,31 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseKeywords_multipleValidKeywords_returnsKeywordSet() throws Exception {
+    public void parseKeywords_multipleValidFullKeywords_returnsKeywordSet() throws Exception {
         Set<KeywordMatch> actualKeywordSet = ParserUtil.parseKeywords(
                 "Amy Rachel", PREFIX_NAME);
         Set<KeywordMatch> expectedKeywordSet = Set.of(
                 new KeywordMatch("Amy", false),
                 new KeywordMatch("Rachel", false));
         assertEquals(expectedKeywordSet, actualKeywordSet);
+    }
+
+    @Test
+    public void parseKeywords_multipleValidPrefixKeywords_returnsKeywordSet() throws Exception {
+        Set<KeywordMatch> actualKeywordSet = ParserUtil.parseKeywords(
+                "A% Rac%", PREFIX_NAME);
+        Set<KeywordMatch> expectedKeywordSet = Set.of(
+                new KeywordMatch("A", true),
+                new KeywordMatch("Rac", true));
+        assertEquals(expectedKeywordSet, actualKeywordSet);
+    }
+
+    @Test
+    public void parseKeywords_invalidPrefixKeywords_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%", PREFIX_NAME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%%", PREFIX_NAME));
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%", PREFIX_EMAIL));
+        assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%%", PREFIX_EMAIL));
     }
 }
