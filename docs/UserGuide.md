@@ -30,21 +30,21 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
     - <a href="#contacts-management">Contacts Management</a>
 
-      - [Adding a person: `add`](#adding-a-person-add)
+      - [Adding a contact: `add`](#adding-a-contact-add)
 
-      - [Editing a person : `edit`](#editing-a-person--edit)
+      - [Editing a contact : `edit`](#editing-a-contact--edit)
 
-      - [Deleting a person : `delete`](#deleting-a-person--delete)
+      - [Deleting a contact : `delete`](#deleting-a-contact--delete)
 
       - [Clearing all entries : `clear`](#clearing-all-entries--clear)
 
     - <a href="#display-and-searching">Display and Searching</a>
 
-      - [Listing all persons : `list`](#listing-all-persons--list)
+      - [Listing all contacts : `list`](#listing-all-contacts--list)
 
-      - [Locating persons: `find`](#locating-persons-find)
+      - [Locating contacts: `find`](#locating-contacts-find)
 
-      - [Sorting persons: `sort`](#sorting-persons-sort)
+      - [Sorting contacts: `sort`](#sorting-contacts-sort)
 
     - <a href="#advanced-features">Advanced Features</a>
 
@@ -60,7 +60,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
     - [Exiting the program : `exit`](#exiting-the-program--exit)
 
-    - [Valid Attributes for person](#valid-attributes)
+    - [Valid Attributes for contact](#valid-attributes)
 
 - [FAQ](#faq)
 
@@ -190,9 +190,9 @@ Simply click the `Copy URL` button to copy the link and paste it in your web bro
 ## Contacts Management
 -----
 
-### Adding a person: `add`
+### Adding a contact: `add`
 
-Adds a person to the address book.
+Adds a contact to the address book.
 
 **✏️ Format:**<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
@@ -201,8 +201,8 @@ Adds a person to the address book.
 
 :information_source: **Important Note:** <br>
 * Attributes must follow [Valid Attributes](#valid-attributes)
-* A person can have any number of tags, but must have a tag that is either volunteer or beneficiary
-* A person's attributes can be edited via `edit` later on, however all attributes must first be provided
+* A contact can have any number of tags, but must have a tag that is either volunteer or beneficiary
+* A contact's attributes can be edited via `edit` later on, however all attributes must first be provided
 
 </div>
 
@@ -216,9 +216,9 @@ Adds a person to the address book.
 
 ------
 
-### Editing a person : `edit`
+### Editing a contact : `edit`
 
-Edits an existing person in the address book.
+Edits an existing contact in the address book.
 
 **✏️ Format:**<br>
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
@@ -226,28 +226,28 @@ Edits an existing person in the address book.
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * The index is affected by `find` and `sort`
 * At least one of the optional fields must be provided.
 * Attributes must follow [Valid Attributes](#valid-attributes)
 * If tags are edited, must include a tag indicating volunteer or beneficiary.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 
 </div>
 
 **📘 Examples:**
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd contact to be `Betsy Crower`
 
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
 ------
-### Deleting a person : `delete`
+### Deleting a contact : `delete`
 
-Deletes one or more specified persons from the address book.
+Deletes one or more specified contacts from the address book.
 
 **✏️ Format:**<br>
 `delete INDEX [MORE_INDEXES]...`
@@ -255,7 +255,7 @@ Deletes one or more specified persons from the address book.
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
-* Each index refers to the index number shown in the displayed person list.
+* Each index refers to the index number shown in the displayed contact list.
 * A minimum of one index must be specified
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
 * The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
@@ -265,8 +265,8 @@ contacts
 
 
 **📘 Examples:**
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd persons in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd contact in the address book.
+* `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
 
 <br><br>
 
@@ -290,7 +290,7 @@ Deletes all contacts in the address book.
 `clear`
 
 **📘 Example:**
-* `clear` deletes all persons in CareLink.
+* `clear` deletes all contacts in CareLink.
 
 <br><br>
 
@@ -301,9 +301,9 @@ Deletes all contacts in the address book.
 ## Display and Searching
 -----
 
-### Listing all persons : `list`
+### Listing all contacts : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book.
 
 **✏️ Format:**<br>
 `list`
@@ -319,9 +319,9 @@ you can see the total number of contacts.
 
 ------
 
-### Locating persons: `find`
+### Locating contacts: `find`
 
-Filters persons whose fields match the keywords.
+Filters contacts whose fields match the keywords.
 
 **✏️ Format:**<br>
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
@@ -354,9 +354,9 @@ At the panel below the command box, you can see the total number of contacts.
 
 ------
 
-### Sorting persons: `sort`
+### Sorting contacts: `sort`
 
-Sorts persons by the fields in the order of the attribute prefixes
+Sorts contacts by the fields in the order of the attribute prefixes
 
 **✏️ Format:**<br>
 `sort [n/] [p/] [e/] [a/] [t/]`
@@ -452,9 +452,6 @@ Exits the program.
 
 **✏️ Format:**<br>
 `exit`
-
-**🎯 Expected Outcome:**
-* The display window closes and CareLink stops running.
 
 
 <br><br>
