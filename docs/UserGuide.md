@@ -4,19 +4,19 @@ title: User Guide
 ---
 
 CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by 
-connecting beneficiaries to social workers as quickly as possible. 🤝
+connecting beneficiaries to volunteers as quickly as possible. 🤝
 
-NGOs often serve a large number of beneficiaries with a limited pool of social workers, 
+NGOs often serve a large number of beneficiaries with a limited pool of volunteers, 
 making it challenging to respond promptly to those in need.
 
 By consolidating beneficiary and worker data into a single, streamlined system 📚, CareLink enables dispatchers to:
 
-* 📝 create and update records for beneficiaries and social workers
+* 📝 create and update records for beneficiaries and volunteers
 * 🔍 access information quickly using **optimized find and sort commands**
-* 📍 automatically identify the **closest available social worker**
+* 📍 automatically identify the **closest available volunteer**
 * 📈 reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink helps dispatchers quickly access and update beneficiary and social worker records. 💙
+In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records. 💙
 
 ## Table of Contents
 
@@ -308,9 +308,9 @@ Shows a list of all persons in the address book.
 **✏️ Format:**<br>
 `list`
 
-**📘 Examples:**
+**📘 Example:**
 * `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
-Displays all social workers and beneficiaries' contact details in the address book. At the panel below the command box, 
+Displays all volunteers and beneficiaries' contact details in the address book. At the panel below the command box, 
 you can see the total number of contacts.
 
 <br><br>
@@ -336,18 +336,18 @@ Filters persons whose fields match the keywords.
 
 </div>
 
-**🎯 Expected Outcome:**
-* Displays all persons who matches at least one keyword in each given field.
-  * e.g. `find n/Hans p/1234` will return all persons whose names contain `Hans` <u>and</u> whose phone number is `1234`.
 
 **📘 Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-
+Displays all volunteers and beneficiaries' contact details named Alex and David in the address book. 
+At the panel below the command box, you can see the total number of contacts.
+<br><br>
 
 * `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
-
+Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
+At the panel below the command box, you can see the total number of contacts.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
