@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import static seedu.address.logic.parser.ParserUtil.PREFIX_SYMBOL;
-import static seedu.address.model.person.Person.ADDRESS_STR_GETTER;
-
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;

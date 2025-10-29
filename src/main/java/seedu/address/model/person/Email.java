@@ -33,10 +33,10 @@ public class Email {
     private static final String DOMAIN_REGEX = "(" + DOMAIN_PART_REGEX + "\\.)*" + DOMAIN_LAST_PART_REGEX;
     // combination of complete and potentially 1 incomplete domain part at the end
     private static final String DOMAIN_PREFIX_REGEX =
-            "(" +
-                "(" + DOMAIN_PART_REGEX + "\\.)*" + // completed domain parts
-                "(" + DOMAIN_PART_REGEX + ")?" + // optional incomplete domain part
-            ")";
+            "("
+                + "(" + DOMAIN_PART_REGEX + "\\.)*" // completed domain parts
+                + "(" + DOMAIN_PART_REGEX + ")?" // optional incomplete domain part
+            + ")";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
     // Any possible prefix of an email is valid, minimum one alphanumeric character
     public static final String PREFIX_VALIDATION_REGEX = LOCAL_PART_PREFIX_REGEX + "(@" + DOMAIN_PREFIX_REGEX + ")?";

@@ -39,6 +39,17 @@ public class StringUtil {
                 .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
+    /**
+     * Returns true if the {@code sentence} has {@code wordPrefix} as the prefix.
+     *   Ignores case, but a prefix match is required.
+     *   <br>examples:<pre>
+     *       containsWordPrefixIgnoreCase("ABc def", "abc") == true
+     *       containsWordPrefixIgnoreCase("ABc def", "DE") == true
+     *       containsWordPrefixIgnoreCase("ABc def", "aBB") == false //not a prefix
+     *       </pre>
+     * @param sentence cannot be null
+     * @param wordPrefix cannot be null, cannot be empty, must be a single word
+     */
     public static boolean containsWordPrefixIgnoreCase(String sentence, String wordPrefix) {
         requireNonNull(sentence);
         requireNonNull(wordPrefix);
