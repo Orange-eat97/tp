@@ -63,7 +63,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         }
 
-        String description = String.join(", ", labels);
+        String description = "\n• " + String.join("\n• ", labels);
         return new SortCommand(personComparator, description);
 
     }
@@ -93,11 +93,11 @@ public class SortCommandParser implements Parser<SortCommand> {
         case "n/":
             return "name";
         case "p/":
-            return "phone";
+            return "phone number";
         case "e/":
             return "email";
         case "t/":
-            return "tag";
+            return "volunteer/beneficiary tags";
         case "a/":
             return "address";
         case "r/":
