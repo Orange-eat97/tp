@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.ClosestCommand.PREDICATE_SHOW_ALL_VOLUNTEERS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -41,6 +42,7 @@ public class ClosestCommandTest {
 
         ClosestCommand command = new ClosestCommand(targetIndex);
         expectedModel.updateDisplayList(ClosestCommand.createClosestComparator(ALICE));
+        expectedModel.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
@@ -57,6 +59,7 @@ public class ClosestCommandTest {
         ClosestCommand command = new ClosestCommand(targetIndex);
         Comparator<Person> personComparator = ClosestCommand.createClosestComparator(DANIEL);
         expectedModel.updateDisplayList(personComparator);
+        expectedModel.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 

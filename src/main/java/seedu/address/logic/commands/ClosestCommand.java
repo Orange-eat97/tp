@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -29,6 +30,10 @@ public class ClosestCommand extends Command {
 
     private final Index index;
 
+    public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
+            Set.of("volunteer"),
+            Person.TAG_STR_GETTER);
+
     /**
      * Creates a Closest command that sorts people according to the closeness of
      * their region to the region of the identified person
@@ -52,9 +57,7 @@ public class ClosestCommand extends Command {
 
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
-        model.updateDisplayList(new StrAttrContainsKeywords(
-            Set.of("volunteer"),
-            Person.TAG_STR_GETTER));
+        model.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
 
         return new SortCommand(personComparator,
                 "closest volunteer to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
