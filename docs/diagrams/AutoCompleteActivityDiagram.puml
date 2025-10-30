@@ -1,0 +1,47 @@
+@startuml
+' https://plantuml.com/activity-diagram
+
+start
+: type;
+
+if (caret > 0?) then (suggest parameters)
+  if (text contains edit?) then (edit)
+    if (text has index?) then (yes)
+      if (text ends with space?) then (yes)
+        : suggest next param;
+        stop
+      else (no)
+        if (valid param signature letter?) then (yes)
+          : suggest "/";
+          stop
+        else (no)
+          : acGhostHide;
+          stop
+        endif
+      endif
+    else (no)
+      : acGhostHide;
+      stop
+    endif
+  else (add/sort)
+    if (text ends with space?) then (yes)
+      : suggest next parameter signature;
+      stop
+    else (no)
+      : acGhostHide;
+      stop
+    endif
+  endif
+else (suggest command word)
+  if (matches command?) then (yes)
+    : suggest command word;
+    stop
+  else (no)
+    : acGhostHide;
+    stop
+  endif
+endif
+
+@enduml
+
+
