@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCommandHistory.NO_COMMAND_COMMAND_HISTORY;
 import static seedu.address.testutil.TypicalCommandHistory.ONE_COMMAND_COMMAND_HISTORY;
@@ -20,8 +21,8 @@ public class CommandHistoryTest {
     @Test
     public void constructor() {
         assertFalse(commandHistory.hasCommands());
-        assertEquals("", commandHistory.getPreviousCommand());
-        assertEquals("", commandHistory.getNextCommand());
+        assertNull(commandHistory.getPreviousCommand());
+        assertNull(commandHistory.getNextCommand());
     }
 
     @Test
@@ -54,6 +55,7 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        String previousCommand = commandHistory.getPreviousCommand();
         assertTrue(commandHistory.hasPrevious());
     }
 
@@ -67,7 +69,8 @@ public class CommandHistoryTest {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
-        String previousCommand = commandHistory.getPreviousCommand();
+        String firstPreviousCommand = commandHistory.getPreviousCommand();
+        String secondPreviousCommand = commandHistory.getPreviousCommand();
         assertTrue(commandHistory.hasNext());
     }
 
@@ -78,12 +81,14 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getPreviousCommand_multipleCommands_returnCorrespondingCommand() {
+    public void getPreviousCommand_multipleCommands_returnCorrespondingCommands() {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
+        assertEquals(LIST_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getPreviousCommand());
         assertEquals(ADD_PERSON_COMMAND, commandHistory.getPreviousCommand());
+        assertEquals(LIST_COMMAND, commandHistory.getPreviousCommand());
     }
 
     @Test
@@ -93,12 +98,12 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void getNextCommand_multipleCommands_returnCorrespondingCommand() {
+    public void getNextCommand_multipleCommands_returnCorrespondingCommands() {
         for (String commandText : LIST_OF_COMMANDS) {
             commandHistory.addCommand(commandText);
         }
-        assertEquals(DELETE_PERSON_COMMAND, commandHistory.getPreviousCommand());
-        assertEquals(ADD_PERSON_COMMAND, commandHistory.getPreviousCommand());
+        assertEquals(LIST_COMMAND, commandHistory.getNextCommand());
+        assertEquals(ADD_PERSON_COMMAND, commandHistory.getNextCommand());
         assertEquals(DELETE_PERSON_COMMAND, commandHistory.getNextCommand());
         assertEquals(LIST_COMMAND, commandHistory.getNextCommand());
     }
