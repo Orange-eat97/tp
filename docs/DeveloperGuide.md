@@ -520,7 +520,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 * 2a. User ignores the suggestion and continues typing.
 
-      Use case resumes from step 5.
+   Use case resumes from step 5.
 
 *{More to be added}*
 
