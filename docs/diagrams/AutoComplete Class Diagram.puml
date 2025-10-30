@@ -19,5 +19,4 @@ Ghost .. AutoCompleteParser : <<◀commands>>
 Ghost <-- CommandBox : <<◀reads>>
 AutoCompleteParser .down. AutoCompleteSupplier : <<▲suggests>>
 AutoCompleteSupplier -- HiddenModel
-
 @enduml

@@ -319,7 +319,6 @@ Segregates ghost from low-level logic items, such as supplier, and other command
 3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
 suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
-
 <img src="images/AutoComplete-sequence.png" width="850" />
 <img src="images/AutoComplete activity diagram main.png" width="850" />
 <img src="images/AutoComplete parser activity diagram.png" width="850" />
