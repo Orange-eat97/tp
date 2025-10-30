@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.KeywordMatch;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Region;
@@ -29,7 +30,7 @@ public class ClosestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
-            Set.of("volunteer"),
+            Set.of(new KeywordMatch("volunteer", false)),
             Person.TAG_STR_GETTER);
 
     private final Index index;
