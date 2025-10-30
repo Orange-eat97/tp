@@ -79,7 +79,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @return predicate that evaluates to true if at least one of the keywords is found in the attribute
      */
     private static StrAttrContainsKeywords buildPredicate(
-            Set<String> keywords, Function<Person, String> attributeGetter) {
+            Set<KeywordMatch> keywords, Function<Person, String> attributeGetter) {
         return new StrAttrContainsKeywords(keywords, attributeGetter);
     }
     private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

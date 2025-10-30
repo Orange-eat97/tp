@@ -136,6 +136,25 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    @Test
+    public void containsWordPrefixIgnoreCase_validInputs_correctResult() {
+        // Empty sentence
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("    ", "123"));
+
+        // Query prefix bigger than sentence word
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "bbbb"));
+
+        // Matches prefix in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bBb ccc", "Bb")); // First word (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bBb ccc@1", "CCc@")); // Last word (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("  AAA   bBb   ccc  ", "aa")); // Sentence has extra spaces
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("Aaa", "aa")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "  cc  ")); // Leading/trailing spaces
+
+
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*
