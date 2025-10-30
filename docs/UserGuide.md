@@ -336,7 +336,13 @@ Filters contacts whose fields match the keywords.
 * The search is <u>case-insensitive</u> e.g `n/hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`.
  Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`.
-* Only full words will be matched e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`.
+* Keywords can be:
+  * full words e.g. `n/Alex` 
+  * prefixes e.g. `n/Al%` where `%` indicates a prefix
+* If keyword is a full word, only full words will be matched.
+  * e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`.
+* If keyword is a prefix, any prefix of attribute can be matched.
+  * e.g. `n/Han%` can match `Hans` and `Bo Hans`.
 
 </div>
 
