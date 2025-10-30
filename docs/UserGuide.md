@@ -405,9 +405,9 @@ Cycles between commands in the command history.
 
 **📘 Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
-<br>
-The current command in the command history is prefixed with a `*`.
-<br><br>
+  <br>
+  The current command in the command history is prefixed with a `*`.
+  <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
