@@ -553,3 +553,28 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Command history deletes current command**: Currently, when a command is being typed out and either the `UP` or
+   `DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
+   command history.
+2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion,
+   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the 
+   JavaFX label, we plan to override this behaviour so that only command history has control over the 
+`UP` or `DOWN` key.
+3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
+   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and 
+only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI 
+representation in the contact list and make it more readable.
+4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next 
+`SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
+once a valid command has been typed fully.
+5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit 
+the CLI. We plan to have a keyboard shortcut to access the CLI.
+6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to 
+avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
