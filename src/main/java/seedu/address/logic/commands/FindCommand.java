@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -36,20 +35,32 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Alice Bob Charlie" + " "
             + PREFIX_TAG + "beneficiary";
-
+    public static final String FIND_SUCCESS_OVERVIEW =
+            "Listed %1$d persons matching the following attribute keywords:\n";
     private final Predicate<Person> predicate;
+    private final String description;
+    private final String statusText;
 
-    public FindCommand(Predicate<Person> predicate) {
+    /**
+     * Creates FindCommand to filter persons based on predicates.
+     * @param predicate a filter for persons
+     * @param description describes the predicate filters, part of the success message displayed
+     * @param statusText brief overview of the filters
+     */
+    public FindCommand(Predicate<Person> predicate, String description, String statusText) {
         this.predicate = predicate;
+        this.description = description;
+        this.statusText = statusText;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateDisplayList(predicate);
+        String overview = String.format(FIND_SUCCESS_OVERVIEW, model.getDisplayList().size());
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getDisplayList().size()),
-                false, false, null, null);
+                overview + description, false, false,
+                null, statusText);
     }
 
     @Override
