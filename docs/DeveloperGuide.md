@@ -490,20 +490,20 @@ testers are expected to do more *exploratory* testing.
 
 ### Autocomplete
 1. Typing in any command in the CLI
-   1. Type `s` then press **Tab**. <br>
-   Expected: Autocompletes to `sort`.
-   2. Type `sort` and **Space** and then press **Tab**. <br>
-   Expected: Autocompletes to `sort n/`
-   3. After completing one prefix, then type **Space**. <br> 
-   Expected: Next prefix appears in the CLI.
+   1. Type `f` then press **Tab**. <br>
+   Expected: Autocompletes to `find`.
+   2. Type `find` and **Space** and then press **Tab**. <br>
+   Expected: Autocompletes to `find n/`
+   3. After typing `find n/`, type "John" as an input. Then, type **Space** and press **Tab**. <br> 
+   Expected: Autocompletes to `find n/John p/`
 
 ### Command History
 1. Cycling through any past commands
    1. Prerequisites: Some commands have already been used. Enter `list`, then `find n/Alex`, then `sort n/`.
    2. Press the ↑ **Up**. <br>
    Expected: `sort n/` appears in the CLI. Command history appears with a pointer to the most recent command.
-   3. Press the ↑ **Up** again. <br>
-   Expected: `find n/Alex` appears in the CLI. Pointer in command history points to `find n/Alex`
+   3. Press the ↑ **Up**. <br>
+   Expected: `list` appears in the CLI. Pointer in command history points to `list`
    4. Press the ↓ **Down**. <br>
    Expected: `sort n/` appears in the CLI. Pointer in command history points to `sort n/`.
    5. Enter a new command `find n/John` and press ↑ **Up**. <br>
