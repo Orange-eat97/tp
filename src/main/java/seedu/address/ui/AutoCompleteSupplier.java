@@ -1,5 +1,6 @@
 package seedu.address.ui;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -108,7 +109,10 @@ public class AutoCompleteSupplier {
         }
 
         List<String> temp = getParamList(command);
-        String possibleParams = temp.stream().map(param -> param.substring(0, 1)).toString();
+        String possibleParams = temp
+                .stream()
+                .map(param -> param.substring(0, 1))
+                .collect(Collectors.joining());
 
         if (prefix.length() == 1 && suggestion.length() == 2 && suggestion.charAt(1) == '/'
                 && isCharInString(possibleParams, prefix)
@@ -178,7 +182,11 @@ public class AutoCompleteSupplier {
      * @return boolean
      */
     private static boolean isCharInString(String checkList, String check) {
+        if (checkList == null || check == null || check.isEmpty()) {
+            return false;
+        }
         return checkList.indexOf(check.charAt(0)) >= 0;
     }
+
 
 }
