@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
@@ -14,9 +13,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.KeywordMatch;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,19 +34,19 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        StrAttrContainsKeywords firstPredicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("first")), Person.NAME_STR_GETTER);
-        StrAttrContainsKeywords secondPredicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("second")), Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords firstPredicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("first", false))), Person.NAME_STR_GETTER);
+        StrAttrContainsKeywords secondPredicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("second", false))), Person.NAME_STR_GETTER);
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindCommand findFirstCommand = new FindCommand(firstPredicate, "", "");
+        FindCommand findSecondCommand = new FindCommand(secondPredicate, "", "");
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate, "", "");
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -59,9 +61,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 0);
         StrAttrContainsKeywords predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindCommand command = new FindCommand(predicate, "", "");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -69,9 +71,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 3);
         StrAttrContainsKeywords predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        FindCommand command = new FindCommand(predicate, "", "");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
@@ -79,20 +81,20 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
-        StrAttrContainsKeywords predicate =
-                new StrAttrContainsKeywords(new HashSet<>(List.of("keyword")), Person.NAME_STR_GETTER);
-        FindCommand findCommand = new FindCommand(predicate);
+        StrAttrContainsKeywords predicate = new StrAttrContainsKeywords(
+                new HashSet<>(List.of(new KeywordMatch("keyword", false))), Person.NAME_STR_GETTER);
+        FindCommand findCommand = new FindCommand(predicate, "", "");
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
     }
 
     /**
-     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate.
+     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate with only word match.
      */
     private StrAttrContainsKeywords preparePredicate(String userInput) {
-        return new StrAttrContainsKeywords(
-                new HashSet<>(List.of(userInput.split("\\s+"))),
-                Person.NAME_STR_GETTER
-        );
+        Set<KeywordMatch> keywordMatches = Arrays.stream(userInput.split("\\s+"))
+            .map(keyword -> new KeywordMatch(keyword, false))
+            .collect(Collectors.toSet());
+        return new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER);
     }
 }

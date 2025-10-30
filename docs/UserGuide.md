@@ -45,6 +45,8 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
       - [Locating contacts: `find`](#locating-contacts-find)
 
       - [Sorting contacts: `sort`](#sorting-contacts-sort)
+      
+      - [Searching for closest persons: `closest`](#searching-for-closest-person-closest)
 
     - <a href="#advanced-features">Advanced Features</a>
 
@@ -384,6 +386,37 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 ------
 
+### Searching for closest person: `closest`
+
+Sorts volunteers according to how close their region is to the region of the identified person by the index provided
+
+**✏️ Format:**<br>
+`closest INDEX`
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Important Note:**
+* Overrides existing sort order
+* Overrides existing find filters
+
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use [find](#locating-persons-find) and [sort](#sorting-persons-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
+
+This allows easy selection of volunteers to dispatch.
+</div>
+
+**🎯 Expected Outcome:**
+* Displays all volunteers sorted according to how close their region is to the region of the identified person by the index provided.
+  * e.g. `closest 1` when person at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
 ## Advanced Features
 -----
 
@@ -610,6 +643,7 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find [prefix/KEYWORDS]...`<br> e.g., `find n/James p/92813321`
 **Sort** | `sort [prefix/]...` <br> e.g., `sort n/ p/`
+**Closest** | `closest INDEX` <br> e.g., `closest 3`
 **List** | `list`
 **Help** | `help`
 

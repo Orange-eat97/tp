@@ -12,7 +12,7 @@ public class Region {
     public static final String MESSAGE_CONSTRAINTS = """
             Region can take any valid region name as a value, and it should not be blank.
             Valid regions are: %s.""".formatted(String.join(", ", ValidRegion.getAllRegionNames()));
-
+    public static final String PREFIX_VALIDATION_REGEX = "^[A-Za-z]+$";
     public final ValidRegion value;
 
     /**
@@ -31,6 +31,13 @@ public class Region {
      */
     public static boolean isValidRegion(String test) {
         return ValidRegion.isValidRegion(test);
+    }
+
+    /**
+     * Returns true if a given string is a valid region prefix.
+     */
+    public static boolean isValidRegionPrefix(String test) {
+        return test.matches(PREFIX_VALIDATION_REGEX);
     }
 
     /**

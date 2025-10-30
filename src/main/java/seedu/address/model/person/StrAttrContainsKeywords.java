@@ -6,22 +6,31 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.parser.KeywordMatch;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s specified attribute matches any of the keywords given.
+ * Does prefix-matching, meaning to check if any words in the attribute has the keyword as a prefix
  */
 public class StrAttrContainsKeywords implements Predicate<Person> {
-    private final Set<String> keywords;
+    private final Set<KeywordMatch> keywordMatches;
     private final Function<Person, String> attributeGetter;
 
     /**
      * Creates a StrAttrContainsKeywords predicate.
-     * @param keywords Keywords to search for.
+     * @param keywordMatches Keywords to search for.
      * @param attributeGetter Function to get the attribute in String form to search from a Person.
      */
-    public StrAttrContainsKeywords(Set<String> keywords, Function<Person, String> attributeGetter) {
-        this.keywords = keywords;
+    public StrAttrContainsKeywords(Set<KeywordMatch> keywordMatches, Function<Person, String> attributeGetter) {
+        this.keywordMatches = keywordMatches;
         this.attributeGetter = attributeGetter;
+    }
+
+    private boolean isMatch(KeywordMatch keywordMatch, Person person) {
+        String keyword = keywordMatch.keyword();
+        return keywordMatch.isPrefix()
+                ? StringUtil.containsWordPrefixIgnoreCase(attributeGetter.apply(person), keyword)
+                : StringUtil.containsWordIgnoreCase(attributeGetter.apply(person), keyword);
     }
 
     /**
@@ -31,9 +40,10 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(attributeGetter.apply(person), keyword));
+        return keywordMatches.stream()
+                .anyMatch(keywordMatch -> isMatch(keywordMatch, person));
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -47,17 +57,17 @@ public class StrAttrContainsKeywords implements Predicate<Person> {
         }
 
         StrAttrContainsKeywords otherStrAttrContainsKeywords = (StrAttrContainsKeywords) other;
-        return keywords.equals(otherStrAttrContainsKeywords.keywords)
+        return keywordMatches.equals(otherStrAttrContainsKeywords.keywordMatches)
                 && attributeGetter.equals(otherStrAttrContainsKeywords.attributeGetter);
     }
 
     @Override
     public int hashCode() {
-        return keywords.hashCode() + attributeGetter.hashCode();
+        return keywordMatches.hashCode() + attributeGetter.hashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).toString();
+        return new ToStringBuilder(this).add("keywords", keywordMatches).toString();
     }
 }

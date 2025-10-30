@@ -57,7 +57,7 @@ public class AutoCompleteParser {
             assert (text.contains("add") || text.contains("sort"));
 
             next = AutoCompleteSupplier.giveAddSortParams(text);
-            tail = AutoCompleteSupplier.makeTail(next, prefix);
+            tail = AutoCompleteSupplier.makeTail("add", next, prefix);
 
             return makeCommandsArray(next, start, tail);
 
@@ -65,7 +65,7 @@ public class AutoCompleteParser {
                 && isContainsEdit(text)) { //case of edit
 
             next = AutoCompleteSupplier.giveEditParams(text);
-            tail = AutoCompleteSupplier.makeTail(next, prefix);
+            tail = AutoCompleteSupplier.makeTail("edit", next, prefix);
 
             if (isHideEditParams(text)) { //case when text has no index, hide
                 return makeCommandsArray(null, 0, null);
