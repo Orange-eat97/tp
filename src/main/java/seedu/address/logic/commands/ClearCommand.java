@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -18,6 +19,10 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        return new CommandResult(MESSAGE_SUCCESS);
+        // Clear wipes existing sorts/filters and starts on clean slate
+        model.updateDisplayList(PREDICATE_SHOW_ALL_PERSONS);
+        model.clearSorting();
+
+        return new CommandResult(MESSAGE_SUCCESS, false, false, "", "");
     }
 }

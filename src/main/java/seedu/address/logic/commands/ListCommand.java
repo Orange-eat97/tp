@@ -21,6 +21,6 @@ public class ListCommand extends Command {
         model.clearSorting();
         int contactCount = model.getPersonListSize();
         String feedback = MESSAGE_SUCCESS + " " + contactCount + " contacts found";
-        return new CommandResult(feedback, false, false, "", null);
+        return new CommandResult(feedback, false, false, "", "");
     }
 }
