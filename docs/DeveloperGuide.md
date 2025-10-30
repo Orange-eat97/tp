@@ -310,6 +310,21 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Command History
+<img src="images/CommandHistorySequenceDiagram.png" width="850" />
+
+### Autocomplete
+Autocomplete consists of three classes:
+1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
+2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
+Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
+3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
+suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
+
+<img src="images/AutoComplete-sequence.png" width="850" />
+<img src="images/AutoComplete activity diagram main.png" width="850" />
+<img src="images/AutoComplete parser activity diagram.png" width="850" />
+<img src="images/AutoComplete class diagram.png" width="850" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -505,7 +520,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 * 2a. User ignores the suggestion and continues typing.
 
-      Use case resumes from step 5.
+   Use case resumes from step 5.
 
 *{More to be added}*
 
