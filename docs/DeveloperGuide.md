@@ -255,6 +255,20 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Command History
 <img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
+### Autocomplete
+Autocomplete consists of three classes: 
+1. ghost: interacteds with commandTextField.
+2. autoCompleteParser: parses text passed in by ghost, generates "command" array that is 
+an array of string that passes necessary information to be used by ghost.
+3. autoCompleteSupplier: provides autocomplete suggestions and "tail", that is the substring 
+of suggestion to be filled upon user confirmation.
+
+Autocomplete is not implemented as a command, as it does not interact with storage classes. For similar reasons, its 
+parser also does not implement parser interface. 
+
+<img src="images/AutoComplete-sequence.png" width="850" />
+<img src="images/AutoComplete activity diagram main.png" width="850" />
+<img src="images/AutoComplete parser activity diagram.png" width="850" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
