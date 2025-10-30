@@ -9,6 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
+* Used in the definition of natural sort order in the glossary https://en.wikipedia.org/wiki/Natural_sort_order
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -155,14 +156,69 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-## Find command
+### Find command
 
-### Current Implementation
+#### Current Implementation
 A case-insensitive search is performed with each additional field added to the find command narrowing down the results.
 Below is a given sequence diagram illustrating how the find command is executed through the Logic component.
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
+### Closest command
+
+#### Current Implementation
+Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
+As such it is heavily dependent on the Sort command's implementation.
+
+It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
+
+![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
+
+### Closest command
+
+#### Current Implementation
+Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
+As such it is heavily dependent on the Sort command's implementation.
+
+It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
+
+![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
+
+### Sort command parsing
+
+#### Current Implementation
+The `SortCommandParser` supports sorting using one or more prefixes.
+Each prefix corresponds to an attribute in the `Person` model (name, phone, address, etc.)
+
+How the `SortCommandParser` works:
+1. Takes in a list of prefixes.
+2. Iterates through each prefix and builds a comparator chain using Java's
+`Comparator` interface.
+   * For the first prefix, `comparing(...)` is used to initialise a new comparator
+   * For subsequent prefixes, `thenComparing(...)` is called to chain additional comparators
+3. The resulting `personComparator` compares the attribute in the order the prefixes appear in the command.
+
+Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
+
+![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+
+## Command History
+
+### Current Implementation
+Command history tracks all commands entered during the current session and allows users to navigate through previously
+entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+through the `Logic` component.
+
+How `CommandHistory` works:
+1. The MainWindow class listens for an UP or DOWN key press
+2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
+3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
+4. The Key press event is then consumed within MainWindow
+
+Below is a given sequence diagram illustrating how the command history navigation is
+executed through the Logic component.
+
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -251,9 +307,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -352,18 +405,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC03 - Delete a person**
+**Use case: UC03 - Delete person(s)**
 
 **MSS:**
 1. User requests to <u>list persons (UC02)</u>.
-2. User requests to delete a specific person in the list.
+2. User requests to delete specific person(s) in the list.
 3. AddressBook deletes the person.
 
    Use case ends.
 
 **Extensions:**
 
-* 2a. Invalid/missing identifier for person to delete.
+* 2a. Invalid/missing identifier(s) for person(s) to delete.
 
     * 2a1. AddressBook shows an error.
 
@@ -474,6 +527,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Beneficiary**: Person who benefits from the social service.
 * **Volunteer**: Person who provides social service to beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
+* **Natural sort order**: Ordering of strings in alphabetical order, except that single- and multi-digit numbers are treated atomically, i.e. as if they were a single character, and compared between themselves by their actual numerical values.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -512,6 +566,9 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
+   1. Test case: `delete 1 2`<br>
+      Expected: First and second contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
@@ -520,6 +577,59 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Finding a person
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `find n/John`<br>
+    Expected: Only contacts whose names start with "John" appear in the list.
+   The status bar at the bottom shows what it is finding by.
+   3. Test case: `find n/John t/volunteer`
+    Expected: Only contacts with the name "John" and "volunteer" tag appear.
+   The status bar at the bottom shows what it is finding by.
+   4. Test case: `find n/`<br>
+    Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
+   5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
+2. _{ more test cases …​ }_
+
+
+### Sorting the list
+1. Sorting a list while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `sort n/`<br>
+   Expected: Contacts are rearranged alphabetically by name in the list. The status bar at the bottom shows it is sorted by name.
+   3. Test case: `sort n/123`<br>
+   Expected: Similar to previous.
+   4. Test case: `sort t/ n/`<br>
+   Expected: Contacts are grouped by tags (beneficiary before volunteer), then alphabetically by name. The status bar at
+   the bottom shows it is sorted by tags and name.
+   5. Test case: `sort`<br>
+   Expected: The list does not change. Error details are shown in the status message. Status bar remains the same.
+   6. Other sort commands to try: `sort a/`, `sort r/`<br>
+   Expected: Contacts are sorted by their attribute in natural sort order.
+
+### Autocomplete
+1. Typing in any command in the CLI
+   1. Type `f` then press **Tab**. <br>
+   Expected: Autocompletes to `find`.
+   2. Type `find` and **Space** and then press **Tab**. <br>
+   Expected: Autocompletes to `find n/`
+   3. After typing `find n/`, type "John" as an input. Then, type **Space** and press **Tab**. <br>
+   Expected: Autocompletes to `find n/John p/`
+
+### Command History
+1. Cycling through any past commands
+   1. Prerequisites: Some commands have already been used. Enter `list`, then `find n/Alex`, then `sort n/`.
+   2. Press the ↑ **Up**. <br>
+   Expected: `sort n/` appears in the CLI. Command history appears with a pointer to the most recent command.
+   3. Press the ↑ **Up**. <br>
+   Expected: `list` appears in the CLI. Pointer in command history points to `list`
+   4. Press the ↓ **Down**. <br>
+   Expected: `sort n/` appears in the CLI. Pointer in command history points to `sort n/`.
+   5. Enter a new command `find n/John` and press ↑ **Up**. <br>
+   Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
+
+2. _{ more test cases …​ }_
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -527,3 +637,28 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Command history deletes current command**: Currently, when a command is being typed out and either the `UP` or
+   `DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
+   command history.
+2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion,
+   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the
+   JavaFX label, we plan to override this behaviour so that only command history has control over the
+`UP` or `DOWN` key.
+3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
+   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and
+only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI
+representation in the contact list and make it more readable.
+4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next
+`SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
+once a valid command has been typed fully.
+5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit
+the CLI. We plan to have a keyboard shortcut to access the CLI.
+6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
+avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
