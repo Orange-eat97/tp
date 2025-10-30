@@ -1,0 +1,41 @@
+@startuml
+' https://plantuml.com/activity-diagram
+
+start
+: AutoCompleteParser.command(text, caret);
+
+if (caret > 0?) then (suggest parameters)
+  if (text contains edit?) then (edit)
+    if (text has index?) then (yes)
+      if (text ends with space?) then (yes)
+        : suggest next param;
+      else (no)
+        if (valid param signature letter?) then (yes)
+          : suggest "/";
+        else (no)
+          : hide;
+        endif
+      endif
+    else (no)
+      : hide;
+    endif
+  else (add/sort)
+    if (text ends with space?) then (yes)
+      : suggest next parameter signature;
+    else (no)
+      : hide;
+    endif
+  endif
+else (suggest command word)
+  if (matches command?) then (yes)
+    : suggest command word;
+  else (no)
+    : hide;
+  endif
+endif
+
+stop
+
+@enduml
+
+
