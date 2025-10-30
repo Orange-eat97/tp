@@ -9,7 +9,7 @@ connecting beneficiaries to volunteers as quickly as possible. 🤝
 NGOs often serve a large number of beneficiaries with a limited pool of volunteers, 
 making it challenging to respond promptly to those in need.
 
-By consolidating beneficiary and worker data into a single, streamlined system 📚, CareLink enables dispatchers to:
+By consolidating beneficiary and volunteer data into a single, streamlined system 📚, CareLink enables dispatchers to:
 
 * 📝 create and update records for beneficiaries and volunteers
 * 🔍 access information quickly using **optimized find and sort commands**
