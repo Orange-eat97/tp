@@ -111,7 +111,7 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
     `java -jar addressbook.jar`
 
 <br>
-About 10 seconds later, the CareLink interface will greet you with sample volunteer data so you can explore comfortably.
+About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
 
 ![Ui](images/Ui.png)
 
