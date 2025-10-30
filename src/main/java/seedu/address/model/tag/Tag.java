@@ -32,6 +32,13 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a valid tag name prefix.
+     */
+    public static boolean isValidTagPrefix(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

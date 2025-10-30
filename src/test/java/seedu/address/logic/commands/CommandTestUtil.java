@@ -16,6 +16,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.KeywordMatch;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -127,7 +128,7 @@ public class CommandTestUtil {
         Person person = model.getDisplayList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateDisplayList(new StrAttrContainsKeywords(
-                new HashSet<>(List.of(splitName[0])),
+                new HashSet<>(List.of(new KeywordMatch(splitName[0], false))),
                 p -> p.getName().fullName
         ));
 

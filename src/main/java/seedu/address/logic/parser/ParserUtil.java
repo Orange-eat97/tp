@@ -33,15 +33,23 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
-    private static record ValidationRule(Predicate<String> validator, String messageConstraint){}
+    public static final String MESSAGE_INVALID_PREFIX = "Prefix provided is not valid for this attribute.";
+    public static final String PREFIX_SYMBOL = "%";
+    private static record ValidationRule(
+            Predicate<String> wordValidator, Predicate<String> prefixValidator, String messageConstraint){}
     private static final Map<Prefix, ValidationRule> VALIDATION_RULES = Map.of(
-            PREFIX_NAME, new ValidationRule(Name::isValidName, Name.MESSAGE_CONSTRAINTS),
-            PREFIX_ADDRESS, new ValidationRule(Address::isValidAddress, Address.MESSAGE_CONSTRAINTS),
-            PREFIX_EMAIL, new ValidationRule(Email::isValidEmail, Email.MESSAGE_CONSTRAINTS),
-            PREFIX_PHONE, new ValidationRule(Phone::isValidPhone, Phone.MESSAGE_CONSTRAINTS),
-            PREFIX_REGION, new ValidationRule(Region::isValidRegion, Region.MESSAGE_CONSTRAINTS),
-            PREFIX_TAG, new ValidationRule(Tag::isValidTagName, Tag.MESSAGE_CONSTRAINTS)
+            PREFIX_NAME, new ValidationRule(
+                    Name::isValidName, Name::isValidNamePrefix, Name.MESSAGE_CONSTRAINTS),
+            PREFIX_ADDRESS, new ValidationRule(
+                    Address::isValidAddress, null, Address.MESSAGE_CONSTRAINTS),
+            PREFIX_EMAIL, new ValidationRule(
+                    Email::isValidEmail, Email::isValidEmailPrefix, Email.MESSAGE_CONSTRAINTS),
+            PREFIX_PHONE, new ValidationRule(
+                    Phone::isValidPhone, Phone::isValidPhonePrefix, Phone.MESSAGE_CONSTRAINTS),
+            PREFIX_REGION, new ValidationRule(
+                    Region::isValidRegion, Region::isValidRegionPrefix, Region.MESSAGE_CONSTRAINTS),
+            PREFIX_TAG, new ValidationRule(
+                    Tag::isValidTagName, Tag::isValidTagPrefix, Tag.MESSAGE_CONSTRAINTS)
     );
 
     /**
@@ -73,20 +81,35 @@ public class ParserUtil {
     /**
      * Parses {@code keywordStr} into a {@code Set<String>} (keywordStr) and returns it.
      */
-    public static Set<String> parseKeywords(String keywordStr, Prefix prefix) throws ParseException {
+    public static Set<KeywordMatch> parseKeywords(String keywordStr, Prefix prefix) throws ParseException {
         requireNonNull(keywordStr);
+        requireNonNull(prefix);
         String trimmedKeywords = keywordStr.trim();
         List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
-
         ValidationRule rule = VALIDATION_RULES.get(prefix);
+        if (separatedKeywords.isEmpty()) {
+            throw new ParseException(rule.messageConstraint);
+        }
         if (rule == null) {
             throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
         }
-        if (!separatedKeywords.stream().allMatch(rule.validator)) {
-            throw new ParseException(rule.messageConstraint);
+        Set<KeywordMatch> keywordMatches = new HashSet<>();
+        for (String keyword : separatedKeywords) {
+            boolean isPrefix = false;
+            // keyword is a prefix for a supported attribute
+            if (keyword.endsWith(PREFIX_SYMBOL) && rule.prefixValidator != null) {
+                keyword = keyword.substring(0, keyword.length() - 1);
+                if (!rule.prefixValidator.test(keyword)) {
+                    throw new ParseException(MESSAGE_INVALID_PREFIX + "\n" + rule.messageConstraint);
+                }
+                isPrefix = true;
+            } else if (!rule.wordValidator.test(keyword)) {
+                throw new ParseException(rule.messageConstraint);
+            }
+            keywordMatches.add(new KeywordMatch(keyword, isPrefix));
         }
 
-        return new HashSet<>(separatedKeywords);
+        return keywordMatches;
     }
 
     /**
