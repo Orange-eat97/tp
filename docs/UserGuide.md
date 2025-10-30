@@ -266,7 +266,7 @@ contacts
 
 **📘 Examples:**
 * `list` followed by `delete 2` deletes the 2nd contact in the address book.
-* `find Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
+* `find n/Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
 
 <br><br>
 
