@@ -43,13 +43,15 @@ public class AutoCompleteSupplier {
      * @param text
      * @return
      */
-    public static String giveAddSortParams(String text) {
+    public static String giveAddSortFindParams(String text) {
         String next = null;
         if (AutoCompleteParser.containsAdd(text)) {
-            next = giveParam(AddCommand.COMMAND_WORD, text, getParamList("add"));
+            next = giveParam(AddCommand.COMMAND_WORD, text, AddCommand.PARAMS);
             //get the suggested next param
         } else if (AutoCompleteParser.containsSort(text)) {
-            next = giveParam(SortCommand.COMMAND_WORD, text, getParamList("sort"));
+            next = giveParam(SortCommand.COMMAND_WORD, text, SortCommand.PARAMS);
+        } else if (AutoCompleteParser.containsFind(text)) {
+            next = giveParam(FindCommand.COMMAND_WORD, text, FindCommand.PARAMS);
         }
         return next;
     }
@@ -84,7 +86,8 @@ public class AutoCompleteSupplier {
 
         if (prefixContaied == params.size()
                 && command != SortCommand.COMMAND_WORD
-                && command != EditCommand.COMMAND_WORD) {
+                && command != EditCommand.COMMAND_WORD
+                && command != FindCommand.COMMAND_WORD) {
             return "t/";
         } else {
             return result;
@@ -163,6 +166,7 @@ public class AutoCompleteSupplier {
         case "add": return AddCommand.PARAMS;
         case "sort": return SortCommand.PARAMS;
         case "edit": return EditCommand.PARAMS;
+        case "find": return FindCommand.PARAMS;
         default: return null;
         }
     }

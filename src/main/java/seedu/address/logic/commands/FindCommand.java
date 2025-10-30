@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -40,9 +41,11 @@ public class FindCommand extends Command {
             + PREFIX_TAG + "benef%";
     public static final String FIND_SUCCESS_OVERVIEW =
             "Listed %1$d persons matching the following attribute keywords:\n";
+    public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
     private final Predicate<Person> predicate;
     private final String description;
     private final String statusText;
+
 
     /**
      * Creates FindCommand to filter persons based on predicates.
