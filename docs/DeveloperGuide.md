@@ -166,10 +166,10 @@ Below is a given sequence diagram illustrating how the find command is executed 
 ### Closest command
 
 #### Current Implementation
-Currently the closest command takes advantage of the Sort commands execution to sort the people by closest to a region and to generate a Command Result.
+Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
 As such it is heavily dependent on the Sort command's implementation.
 
-It also uses the StrAttrContainsKeywords Predicate class that the find command uses.
+It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
 
 ![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
 
