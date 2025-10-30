@@ -80,8 +80,11 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + String.join(" ", keywords));
         assertEquals(
-                new FindCommand(new ChainedPredicate(
-                        List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER)))),
+                new FindCommand(
+                        new ChainedPredicate(
+                            List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))),
+                        "", ""
+                ),
                 command);
     }
 
