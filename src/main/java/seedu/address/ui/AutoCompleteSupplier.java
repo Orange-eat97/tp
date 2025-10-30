@@ -108,8 +108,8 @@ public class AutoCompleteSupplier {
         String possibleParams = temp.stream().map(param -> param.substring(0, 1)).toString();
 
         if (prefix.length() == 1 && suggestion.length() == 2 && suggestion.charAt(1) == '/'
-                && possibleParams.indexOf(prefix.charAt(0)) >= 0
-                && possibleParams.indexOf(suggestion.charAt(0)) >= 0) {
+                && isCharInString(possibleParams, prefix)
+                && isCharInString(possibleParams, suggestion)) {
             return "/";
         }
 
@@ -165,6 +165,16 @@ public class AutoCompleteSupplier {
         case "edit": return EditCommand.PARAMS;
         default: return null;
         }
+    }
+
+    /**
+     * abstraction used to check if prefix and suggestion are among possible param signatures
+     * @param checkList paramlist
+     * @param check string to be checked
+     * @return boolean
+     */
+    private static boolean isCharInString(String checkList, String check) {
+        return checkList.indexOf(check.charAt(0)) >= 0;
     }
 
 }
