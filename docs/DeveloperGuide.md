@@ -159,20 +159,22 @@ This section describes some noteworthy details on how certain features are imple
 ### Find command
 
 #### Current Implementation
-A case-insensitive search is performed with each additional field added to the find command narrowing down the results.
-Below is a given sequence diagram illustrating how the find command is executed through the Logic component.
+The `FindCommand` supports filtering the persons by certain attribute keywords. Keywords for a given prefix will only
+match the attribute corresponding to the given prefix. Keywords can either be **words**, which match only full words in
+the attribute, or **prefixes**, which match any word's prefix in the attribute. Multiple keywords can be used for each
+attribute and each additional attribute included further narrows the search space (similar to AND logic).
+
+How the `FindCommand` works:
+1. Takes in a list of keywords for each attribute.
+2. For each attribute, parses keywords to distinguish prefix and full-word keywords. Prefix keywords end with a `%`.
+3. Keywords undergo validation to ensure they are either valid words or prefixes depending on the attribute.
+4. This set of keywords form one `StrAttrContainsKeywords` predicate.
+5. The collective list of predicates is passed to `ChainedPredicate`, which acts like an `AND` logic operator.
+This is the final predicate used to filter persons.
+
+Below is a given sequence diagram for the flow of find command. 
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
-
-### Closest command
-
-#### Current Implementation
-Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
-As such it is heavily dependent on the Sort command's implementation.
-
-It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
-
-![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
 
 ### Closest command
 
@@ -200,7 +202,7 @@ How the `SortCommandParser` works:
 
 Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
 
-![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+![SortSequenceDiagram.png](images/SortSequenceDiagram.png)
 
 ## Command History
 

@@ -16,13 +16,13 @@ participant "m:Model" as Model MODEL_COLOR
 end box
 
 
--> AddressBookParser : parseCommand("find n/Alex David t/volunteer")
+-> AddressBookParser : parseCommand("find n/Al% David t/volunteer")
 activate AddressBookParser
 
 create FindCommandParser
 AddressBookParser -> FindCommandParser
 
-AddressBookParser -> FindCommandParser : parse("n/Alex David t/volunteer")
+AddressBookParser -> FindCommandParser : parse("n/Al% David t/volunteer")
 activate FindCommandParser
 
 create StrAttrContainsKeyword
@@ -36,7 +36,7 @@ FindCommandParser -> ChainedPredicate : ChainedPredicate([p1, p2])
 
 create FindCommand
 
-FindCommandParser -> FindCommand : FindCommand(cp)
+FindCommandParser -> FindCommand : FindCommand(cp, ...)
 activate FindCommand
 FindCommand -> FindCommandParser : f
 deactivate FindCommand
