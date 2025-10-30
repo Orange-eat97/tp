@@ -58,6 +58,13 @@ public class CommandBox extends UiPart<Region> {
                 }
                 e.consume();
             }
+            case ENTER -> {
+                if (ghost.acHasGhost(commandTextField)) {
+                    ghost.acGhostHide();
+                }
+                handleCommandEntered();
+                e.consume();
+            }
             default -> { }
             }
         });
