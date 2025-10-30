@@ -1,12 +1,22 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalCommands.ADD_PERSON_COMMAND;
+import static seedu.address.testutil.TypicalCommands.DELETE_PERSON_COMMAND;
+import static seedu.address.testutil.TypicalCommands.LIST_COMMAND;
+import static seedu.address.testutil.TypicalCommands.LIST_OF_COMMANDS;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+
 
 public class StringUtilTest {
 
@@ -56,24 +66,27 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
+        assertThrows(NullPointerException.class, ()
+                -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
+                -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
+                -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB")
+        );
     }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
+        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc")
+        );
     }
 
     /*
@@ -123,6 +136,25 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    @Test
+    public void containsWordPrefixIgnoreCase_validInputs_correctResult() {
+        // Empty sentence
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("    ", "123"));
+
+        // Query prefix bigger than sentence word
+        assertFalse(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "bbbb"));
+
+        // Matches prefix in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bBb ccc", "Bb")); // First word (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bBb ccc@1", "CCc@")); // Last word (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("  AAA   bBb   ccc  ", "aa")); // Sentence has extra spaces
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("Aaa", "aa")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil.containsWordPrefixIgnoreCase("aaa bbb ccc", "  cc  ")); // Leading/trailing spaces
+
+
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*
@@ -137,7 +169,97 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
+        assertThrows(NullPointerException.class, ()
+                -> StringUtil.getDetails(null)
+        );
     }
 
+    //---------------- Tests for getAllElements  --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, empty string, multiple spaces between elements, trailing and leading spaces
+     */
+
+    @Test
+    public void getAllElements_nullString_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.getAllElements(null));
+    }
+
+    @Test
+    public void getAllElements_emptyString_returnsEmptyArray() {
+        assertArrayEquals(new String[]{}, StringUtil.getAllElements(""));
+    }
+
+    @Test
+    public void getAllElements_singleElement_returnsSingleElementArray() {
+        assertArrayEquals(new String[]{"hello"},
+                StringUtil.getAllElements("hello"));
+    }
+
+    @Test
+    public void getAllElements_multipleElementsWithMultipleSpaces_returnsAllElements() {
+        assertArrayEquals(new String[]{"a", "b", "c"},
+                StringUtil.getAllElements("a   b    c"));
+    }
+
+    @Test
+    public void getAllElements_leadingAndTrailingSpaces_ignoresBoth() {
+        assertArrayEquals(new String[]{"hello", "world"},
+                StringUtil.getAllElements("  hello world  ")
+        );
+    }
+
+    @Test
+    public void getAllElements_onlySpaces_returnsEmptyArray() {
+        assertArrayEquals(new String[]{},
+                StringUtil.getAllElements("     ")
+        );
+    }
+
+    //---------------- Tests for formatNumberedListWithHighlight --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, empty list, list with single object, list with multiple objects, index out of range
+     */
+
+    // Null list
+    @Test
+    public void formatNumberedListWithHighlight_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+                -> StringUtil.formatNumberedListWithHighlight(null, 0)
+        );
+    }
+
+    // Empty List
+    @Test
+    public void formatNumberedListWithHighlight_emptyList_returnEmptyString() {
+        assertEquals("", StringUtil.formatNumberedListWithHighlight(new ArrayList<>(), 0));
+    }
+
+    // List with single object
+    @Test
+    public void formatNumberedListWithHighlight_singleElement_highlightsOnlyElement() {
+        assertEquals("*1 list\n",
+                StringUtil.formatNumberedListWithHighlight(List.of(LIST_COMMAND), 0)
+        );
+    }
+
+    // List with multiple objects
+    @Test
+    public void formatNumberedListWithHighlight_multipleElements_highlightsMiddleElement() {
+        String expectedResult = " 1 " + ADD_PERSON_COMMAND + "\n"
+                + "*2 " + DELETE_PERSON_COMMAND + "\n"
+                + " 3 " + LIST_COMMAND + "\n";
+
+        assertEquals(expectedResult,
+            StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, 1));
+    }
+
+    // Index out of range
+    @Test
+    public void formatNumberedListWithHighlight_negativeIndex_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, ()
+                -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1)
+        );
+    }
 }

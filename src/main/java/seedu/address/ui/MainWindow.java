@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -123,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic::getPreviousCommand, logic::getNextCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED,
@@ -143,8 +144,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleUpDownKeyPress(KeyEvent event, CommandBox commandBox) {
         String command = switch (event.getCode()) {
-        case UP -> logic.getPreviousCommand();
-        case DOWN -> logic.getNextCommand();
+        case UP -> logic.getNextCommand();
+        case DOWN -> logic.getPreviousCommand();
         default -> null;
         };
 
@@ -152,6 +153,9 @@ public class MainWindow extends UiPart<Stage> {
             commandBox.setCommandText(command);
             String commandHistory = logic.getCommandHistory();
             resultDisplay.setFeedbackToUser(commandHistory);
+        }
+
+        if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN) {
             event.consume();
         }
     }
@@ -209,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            logic.addCommand(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.getSortStatusText() != null) {
