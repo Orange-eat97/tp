@@ -3,10 +3,10 @@ layout: page
 title: User Guide
 ---
 
-CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by 
+CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by
 connecting beneficiaries to volunteers as quickly as possible. 🤝
 
-NGOs often serve a large number of beneficiaries with a limited pool of volunteers, 
+NGOs often serve a large number of beneficiaries with a limited pool of volunteers,
 making it challenging to respond promptly to those in need.
 
 By consolidating beneficiary and volunteer data into a single, streamlined system 📚, CareLink enables dispatchers to:
@@ -45,7 +45,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
       - [Locating contacts: `find`](#locating-contacts-find)
 
       - [Sorting contacts: `sort`](#sorting-contacts-sort)
-      
+
       - [Searching for closest contacts: `closest`](#searching-for-closest-contact-closest)
 
     - <a href="#advanced-features">Advanced Features</a>
@@ -180,7 +180,7 @@ Shows a message explaining how to access the help page.
 **📘 Example:**
 * `help`<br>![help message](images/helpMessage.png)
 
-Simply click the `Copy URL` button to copy the link and paste it in your web browser of choice 
+Simply click the `Copy URL` button to copy the link and paste it in your web browser of choice
 (e.g. Google Chrome or Safari) to access the User Guide website.
 
 <br><br>
@@ -209,7 +209,7 @@ Adds a contact to the address book.
 </div>
 
 **📘 Examples:**
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` 
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
 will add John Doe to the list and set his attributes to the given attributes
 * `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
 will add Betsy Crowe to the list and set her attributes to the given attributes
@@ -314,7 +314,7 @@ Shows a list of all contacts in the address book.
 
 **📘 Example:**
 * `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
-Displays all volunteers and beneficiaries' contact details in the address book. At the panel below the command box, 
+Displays all volunteers and beneficiaries' contact details in the address book. At the panel below the command box,
 you can see the total number of contacts.
 
 <br><br>
@@ -344,7 +344,7 @@ Filters contacts whose fields match the keywords.
 **📘 Examples:**
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-Displays all volunteers and beneficiaries' contact details named Alex and David in the address book. 
+Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
 At the panel below the command box, you can see the total number of contacts.
 <br><br>
 
@@ -424,17 +424,19 @@ This allows easy selection of volunteers to dispatch.
 
 Cycles between commands in the command history.
 
-<div markdown="block" class="alert alert-info">
-
 **⌨ Usage:**<br>
 * Press `⬆ UP Key`: Goes to the previous command in history
 
 * Press `⬇ DOWN Key`: Goes to the next command in history
 
+<div markdown="block" class="alert alert-info">
+
 :information_source: **Important Note:**
 * When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
 * If you are at the most recent command, pressing the `⬇ UP Key` will retrieve the oldest command
 * Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
+
+</div>
 
 **📘 Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
@@ -452,6 +454,7 @@ Provides suggestions to autocomplete your input text. Autocompletes command word
 
 **⌨ Usage:**<br>
 * Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
 </div>
