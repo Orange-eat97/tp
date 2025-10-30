@@ -313,14 +313,12 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Autocomplete
 Autocomplete consists of three classes:
-1. ghost: interacteds with commandTextField.
-2. autoCompleteParser: parses text passed in by ghost, generates "command" array that is
-an array of string that passes necessary information to be used by ghost.
-3. autoCompleteSupplier: provides autocomplete suggestions and "tail", that is the substring
-of suggestion to be filled upon user confirmation.
+1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
+2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
+Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
+3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
+suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
-Autocomplete is not implemented as a command, as it does not interact with storage classes. For similar reasons, its
-parser also does not implement parser interface.
 
 <img src="images/AutoComplete-sequence.png" width="850" />
 <img src="images/AutoComplete activity diagram main.png" width="850" />
