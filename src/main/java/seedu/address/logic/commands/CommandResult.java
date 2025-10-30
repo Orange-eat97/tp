@@ -23,6 +23,8 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified fields and Status Text
+     * @param sortStatusText sort status text to be updated, only updated if non-null
+     * @param findStatusText find status text to be updated, only updated if non-null
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
             String sortStatusText, String findStatusText) {
@@ -33,6 +35,7 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
+     * Does not update sort or find status text
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -43,6 +46,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
+     * Does not update sort or find status text
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
