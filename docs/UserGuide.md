@@ -542,7 +542,7 @@ Digits only, at least 3 numbers long.
 Regions must be a valid region (listed below):
 
 <details>
-  <summary>Click to view all regions</summary>
+<summary>Click to view all regions</summary>
 
 * Woodlands
 * Yishun
