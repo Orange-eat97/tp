@@ -273,17 +273,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target User profile**:
 
-1. Social services dispatcher or coordinator that prefer CLI over GUI
-2. They enjoy shortcuts so commands can be performed quickly even while on a call
+1. Social services dispatcher or coordinator that prefer CLI over GUI.
+2. They enjoy shortcuts so commands can be performed quickly even while on a call.
 
 **Value proposition**:
 
-1. Manages a database of social workers and beneficiaries
-2. Ability to find the closest worker to beneficiary
-3. Upgraded Find command with additive filters and a wider range of filters, including prefix matching
-4. Sorting for names and locations
-5. Autocomplete for commands
-6. Command history and reusing past commands
+1. Manages a database of social workers and beneficiaries.
+2. Ability to find the closest worker to beneficiary.
+3. Upgraded Find command with additive filters and a wider range of filters, including prefix matching.
+4. Sorting for all attributes for volunteers and beneficiaries, with additive comparators.
+5. Autocomplete for commands to speed up processes.
+6. Command history and reusing past commands.
 7. Command Undo to reverse commands (not implemented yet).
 
 ### User stories
@@ -320,7 +320,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS:**
 
 1.  User requests to add a person with specified details.
-2.  AddressBook adds the person to list of persons. 
+2.  AddressBook adds the person to list of persons.
 
     Use case ends.
 
@@ -330,8 +330,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. AddressBook shows an error.
 
       Use case ends.
-  
-  
+
+
 * 1b. The person to be added already exists in the list.
 
     * 1b1. AddressBook shows an error.
@@ -349,7 +349,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
     * 2a1. AddressBook tells user list is empty.
-      
+
       Use case ends.
 
 **Use case: UC03 - Delete a person**
@@ -384,8 +384,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. AddressBook shows an error.
 
       Use case resumes from step 2.
-  
-  
+
+
 * 2b. The new details are invalid.
 
     * 2b1. AddressBook shows an error.
@@ -402,7 +402,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 * 1a. The keyword provided is invalid for that attribute.
     * 1a1. AddressBook shows an error.
-    
+
       Use case ends
 
 **Use case: UC06 - Sort persons by attributes**
@@ -442,15 +442,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User partially types a command word.
 2. AddressBook shows an autocomplete suggestion.
 3. User accepts the suggested autocomplete.
-4. AddressBook inserts the suggestion. 
+4. AddressBook inserts the suggestion.
 5. AddressBook stops displaying suggestion.
 
    Use case ends.
 
 **Extensions:**
 * 2a. User ignores the suggestion and continues typing.
-      
-      Use case resumes from step 5. 
+
+      Use case resumes from step 5.
 
 *{More to be added}*
 
@@ -459,9 +459,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Should run on Windows, macOS, Linux as long as Java17+ is installed, with no OS-specific setup.
 2. Should start up to a usable prompt on a mid-range laptop with ~10k contacts with reasonable latency.
 3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
-4. Should show autocomplete suggestions almost instantly. 
-5. Should display clear error messages that say what went wrong and how to fix it. 
-6. Should validate inputs and keep phone/email unique across contacts. 
+4. Should show autocomplete suggestions almost instantly.
+5. Should display clear error messages that say what went wrong and how to fix it.
+6. Should validate inputs and keep phone/email unique across contacts.
 7. Should only be for local use, no internet is required.
 8. Should be tailored towards navigating with keyboard.
 
@@ -471,8 +471,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **CLI**: Command Line Interface
 * **GUI**: Graphical User Interface
 * **API**: Application Programming Interface
-* **Beneficiary**: Person who benefits from the social service. 
-* **Volunteer**: Person who provides social service to beneficiaries. 
+* **Beneficiary**: Person who benefits from the social service.
+* **Volunteer**: Person who provides social service to beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
 
 --------------------------------------------------------------------------------------------------------------------
