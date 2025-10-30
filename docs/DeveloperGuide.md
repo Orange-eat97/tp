@@ -474,7 +474,7 @@ Team size: 5
    `DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
    command history.
 2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion,
-   pressing `UP` or `DOWN` key selects the autoComplete suggestion. As this is caused by the default behaviour of the 
+   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the 
    JavaFX label, we plan to override this behaviour so that only command history has control over the 
 `UP` or `DOWN` key.
 3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
