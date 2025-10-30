@@ -46,7 +46,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
       - [Sorting contacts: `sort`](#sorting-contacts-sort)
       
-      - [Searching for closest persons: `closest`](#searching-for-closest-person-closest)
+      - [Searching for closest contacts: `closest`](#searching-for-closest-contact-closest)
 
     - <a href="#advanced-features">Advanced Features</a>
 
@@ -386,9 +386,9 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 ------
 
-### Searching for closest person: `closest`
+### Searching for closest contact: `closest`
 
-Sorts volunteers according to how close their region is to the region of the identified person by the index provided
+Sorts volunteers according to how close their region is to the region of the identified contact by the index provided
 
 **✏️ Format:**<br>
 `closest INDEX`
@@ -409,7 +409,7 @@ This allows easy selection of volunteers to dispatch.
 
 **🎯 Expected Outcome:**
 * Displays all volunteers sorted according to how close their region is to the region of the identified person by the index provided.
-  * e.g. `closest 1` when person at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+  * e.g. `closest 1` when contact at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
 
 <br><br>
 
