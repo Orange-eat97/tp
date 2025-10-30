@@ -83,10 +83,13 @@ public class ParserUtil {
      */
     public static Set<KeywordMatch> parseKeywords(String keywordStr, Prefix prefix) throws ParseException {
         requireNonNull(keywordStr);
+        requireNonNull(prefix);
         String trimmedKeywords = keywordStr.trim();
         List<String> separatedKeywords = List.of(StringUtil.getAllElements(trimmedKeywords));
-
         ValidationRule rule = VALIDATION_RULES.get(prefix);
+        if (separatedKeywords.isEmpty()) {
+            throw new ParseException(rule.messageConstraint);
+        }
         if (rule == null) {
             throw new UnsupportedOperationException("Prefix not supported for attribute validation.");
         }

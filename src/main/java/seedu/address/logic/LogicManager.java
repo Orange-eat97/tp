@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -12,7 +13,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -24,22 +24,24 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
-    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT = "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CommandHistory commandHistory;
 
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and
+     * {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        commandHistory = new CommandHistory();
     }
 
     @Override
@@ -81,7 +83,6 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-
     @Override
     public ObservableList<Person> getDisplayList() {
         return model.getDisplayList();
@@ -89,21 +90,21 @@ public class LogicManager implements Logic {
 
     @Override
     public void addCommand(String commandText) {
-        model.addCommand(commandText);
+        commandHistory.addCommand(commandText);
     }
 
     @Override
     public String getPreviousCommand() {
-        return model.getPreviousCommand();
+        return commandHistory.getPreviousCommand();
     }
 
     @Override
     public String getNextCommand() {
-        return model.getNextCommand();
+        return commandHistory.getNextCommand();
     }
 
     @Override
     public String getCommandHistory() {
-        return model.getCommandHistory();
+        return commandHistory.toString();
     }
 }

@@ -9,6 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
+* Used in the definition of natural sort order in the glossary https://en.wikipedia.org/wiki/Natural_sort_order
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -155,14 +156,69 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-## Find command
+### Find command
 
-### Current Implementation
+#### Current Implementation
 A case-insensitive search is performed with each additional field added to the find command narrowing down the results.
 Below is a given sequence diagram illustrating how the find command is executed through the Logic component.
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
+### Closest command
+
+#### Current Implementation
+Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
+As such it is heavily dependent on the Sort command's implementation.
+
+It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
+
+![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
+
+### Closest command
+
+#### Current Implementation
+Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
+As such it is heavily dependent on the Sort command's implementation.
+
+It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
+
+![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
+
+### Sort command parsing
+
+#### Current Implementation
+The `SortCommandParser` supports sorting using one or more prefixes.
+Each prefix corresponds to an attribute in the `Person` model (name, phone, address, etc.)
+
+How the `SortCommandParser` works:
+1. Takes in a list of prefixes.
+2. Iterates through each prefix and builds a comparator chain using Java's
+`Comparator` interface.
+   * For the first prefix, `comparing(...)` is used to initialise a new comparator
+   * For subsequent prefixes, `thenComparing(...)` is called to chain additional comparators
+3. The resulting `personComparator` compares the attribute in the order the prefixes appear in the command.
+
+Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
+
+![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+
+## Command History
+
+### Current Implementation
+Command history tracks all commands entered during the current session and allows users to navigate through previously
+entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+through the `Logic` component.
+
+How `CommandHistory` works:
+1. The MainWindow class listens for an UP or DOWN key press
+2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
+3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
+4. The Key press event is then consumed within MainWindow
+
+Below is a given sequence diagram illustrating how the command history navigation is
+executed through the Logic component.
+
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -256,15 +312,15 @@ _{Explain here how the data archiving feature will be implemented}_
 <img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
 ### Autocomplete
-Autocomplete consists of three classes: 
+Autocomplete consists of three classes:
 1. ghost: interacteds with commandTextField.
-2. autoCompleteParser: parses text passed in by ghost, generates "command" array that is 
+2. autoCompleteParser: parses text passed in by ghost, generates "command" array that is
 an array of string that passes necessary information to be used by ghost.
-3. autoCompleteSupplier: provides autocomplete suggestions and "tail", that is the substring 
+3. autoCompleteSupplier: provides autocomplete suggestions and "tail", that is the substring
 of suggestion to be filled upon user confirmation.
 
-Autocomplete is not implemented as a command, as it does not interact with storage classes. For similar reasons, its 
-parser also does not implement parser interface. 
+Autocomplete is not implemented as a command, as it does not interact with storage classes. For similar reasons, its
+parser also does not implement parser interface.
 
 <img src="images/AutoComplete-sequence.png" width="850" />
 <img src="images/AutoComplete activity diagram main.png" width="850" />
@@ -287,33 +343,39 @@ parser also does not implement parser interface.
 
 **Target User profile**:
 
-1. Social services dispatcher or coordinator that prefer CLI over GUI
-2. They enjoy shortcuts so commands can be performed quickly even while on a call
+1. Social services dispatcher or coordinator that prefer CLI over GUI.
+2. They enjoy shortcuts so commands can be performed quickly even while on a call.
 
 **Value proposition**:
 
-1. Manages a database of social workers and beneficiaries
-2. Ability to find the closest worker to beneficiary
-3. Upgraded Find command with additive filters and a wider range of filters
-4. Sorting for names and locations
-5. Autocomplete for commands
-6. Command Undo to reverse commands
-7. Command history and reusing past commands
+1. Manages a database of social workers and beneficiaries.
+2. Ability to find the closest worker to beneficiary.
+3. Upgraded Find command with additive filters and a wider range of filters, including prefix matching.
+4. Sorting for all attributes for volunteers and beneficiaries, with additive comparators.
+5. Autocomplete for commands to speed up processes.
+6. Command history and reusing past commands.
+7. Command Undo to reverse commands (not implemented yet).
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​               | I want to …​                                   | So that I can…​                                                                      |
-|----------|-----------------------|------------------------------------------------|--------------------------------------------------------------------------------------|
-| `* * *`  | user                  | delete beneficiaries/volunteer                 |                                                                                      |
-| `* * *`  | user                  | add beneficiaries/volunteer                    |                                                                                      |
-| `* * *`  | user                  | update beneficiaries/volunteer                 |                                                                                      |
-| `* * *`  | user                  | view list of beneficiaries/volunteer details   |                                                                                      |
-| `* *`    | careless person       | see a confirmation tab when deleting a contact | prevent accidentally deleting someone wrongly                                        |
-| `* *`    | social Service Worker | filter people staying in a district or region  | easily identify people to dispatch to that region                                    |
-| `* *`    | social Service Worker | view detailed information about beneficiaries  | inform social workers and provide them a summary of how to approach them effectively |
-| `* *`    | social Service Worker | group certain social workers in teams          | search for social workers easily by their groups                                     |
+| Priority | As a …​                    | I want to …​                                    | So that I can…​                                                                       |
+|----------|----------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
+| `* * *`  | user                       | delete beneficiaries/volunteers                 |                                                                                       |
+| `* * *`  | user                       | add beneficiaries/volunteers                    |                                                                                       |
+| `* * *`  | user                       | update beneficiaries/volunteers                 |                                                                                       |
+| `* * *`  | user                       | view list of beneficiaries'/volunteers' details |                                                                                       |
+| `* * `   | user                       | recall a previous command                       | quickly reuse or edit a previously used command                                       |
+| `* *`    | careless person            | see a confirmation tab when deleting a contact  | prevent accidentally deleting someone wrongly.                                        |
+| `* *`    | careless person            | undo a previous command                         | prevent permanent data loss due to mistype or wrong command used.                     |
+| `* *`    | forgetful person           | filter people by partial keywords               | easily find the right person even if I don't remember their exact name or email.      |
+| `* *`    | forgetful person           | autocomplete commands as I type                 | easily key in the correct format even without checking the guide.                     |
+| `* *`    | fast typer                 | autocomplete commands as I type                 | increase speed that I execute commands.                                               |
+| `* *`    | social service coordinator | filter people staying in a district or region   | easily identify people to dispatch to that region.                                    |
+| `* *`    | social service coordinator | find the closest volunteers to a beneficiary    | assign volunteers to beneficiaries quickly or react to emergencies.                   |
+| `* *`    | social service coordinator | view detailed information about beneficiaries   | inform social workers and provide them a summary of how to approach them effectively. |
+| `* *`    | social service coordinator | group certain social workers in teams           | search for social workers easily by their groups.                                     |
 
 
 
@@ -328,7 +390,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS:**
 
 1.  User requests to add a person with specified details.
-2.  AddressBook adds the person to list of persons. 
+2.  AddressBook adds the person to list of persons.
 
     Use case ends.
 
@@ -338,8 +400,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. AddressBook shows an error.
 
       Use case ends.
-  
-  
+
+
 * 1b. The person to be added already exists in the list.
 
     * 1b1. AddressBook shows an error.
@@ -357,21 +419,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
     * 2a1. AddressBook tells user list is empty.
-      
+
       Use case ends.
 
-**Use case: UC03 - Delete a person**
+**Use case: UC03 - Delete person(s)**
 
 **MSS:**
 1. User requests to <u>list persons (UC02)</u>.
-2. User requests to delete a specific person in the list.
+2. User requests to delete specific person(s) in the list.
 3. AddressBook deletes the person.
 
    Use case ends.
 
 **Extensions:**
 
-* 2a. Invalid/missing identifier for person to delete.
+* 2a. Invalid/missing identifier(s) for person(s) to delete.
 
     * 2a1. AddressBook shows an error.
 
@@ -392,14 +454,74 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. AddressBook shows an error.
 
       Use case resumes from step 2.
-  
-  
+
+
 * 2b. The new details are invalid.
 
     * 2b1. AddressBook shows an error.
 
       Use case resumes from step 2.
-  
+
+**Use case: UC05 - Find persons by keywords**
+
+1. User requests to find person with a set of keywords for each attribute.
+2. AddressBook shows a filtered list of persons matching requirements.
+
+    Use case ends.
+
+**Extensions:**
+* 1a. The keyword provided is invalid for that attribute.
+    * 1a1. AddressBook shows an error.
+
+      Use case ends
+
+**Use case: UC06 - Sort persons by attributes**
+
+1. User requests to <u>find persons(UC05)</u>.
+2. User requests to sort displayed persons by certain attribute.
+3. AddressBook shows a sorted list of persons.
+
+   Use case ends.
+
+**Use case: UC07 - Find closest volunteers to beneficiary**
+
+1. User requests to <u>find persons(UC05)</u> to find a beneficiary.
+2. User requests to find the volunteers closest to a specified beneficiary.
+3. AddressBook shows a list of volunteers sorted by closeness.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. Invalid/missing identifier for beneficiary.
+
+    * 2a1. AddressBook shows an error.
+
+      Use case resumes from step 2.
+
+**Use case: UC08 - Recall previous command**
+
+1. User executes some command.
+2. User requests to cycle to a previous command.
+3. AddressBook selects the previous command for user and displays command history.
+4. User chooses a selected recalled command.
+
+   Use case ends.
+
+**Use case: UC09 - Autocomplete command**
+
+1. User partially types a command word.
+2. AddressBook shows an autocomplete suggestion.
+3. User accepts the suggested autocomplete.
+4. AddressBook inserts the suggestion.
+5. AddressBook stops displaying suggestion.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. User ignores the suggestion and continues typing.
+
+      Use case resumes from step 5.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -407,9 +529,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Should run on Windows, macOS, Linux as long as Java17+ is installed, with no OS-specific setup.
 2. Should start up to a usable prompt on a mid-range laptop with ~10k contacts with reasonable latency.
 3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
-4. Should show autocomplete suggestions almost instantly. 
-5. Should display clear error messages that say what went wrong and how to fix it. 
-6. Should validate inputs and keep phone/email unique across contacts. 
+4. Should show autocomplete suggestions almost instantly.
+5. Should display clear error messages that say what went wrong and how to fix it.
+6. Should validate inputs and keep phone/email unique across contacts.
 7. Should only be for local use, no internet is required.
 8. Should be tailored towards navigating with keyboard.
 
@@ -419,11 +541,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **CLI**: Command Line Interface
 * **GUI**: Graphical User Interface
 * **API**: Application Programming Interface
-* **Beneficiary**: Person who benefits from the social service. Zero or more social service workers 
-may be assigned to a beneficiary.
-* **Social service worker**: Person who provides social service to beneficiaries. May be assigned to 
-zero or more beneficiaries.
+* **Beneficiary**: Person who benefits from the social service.
+* **Volunteer**: Person who provides social service to beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
+* **Natural sort order**: Ordering of strings in alphabetical order, except that single- and multi-digit numbers are treated atomically, i.e. as if they were a single character, and compared between themselves by their actual numerical values.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -462,6 +583,9 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
+   1. Test case: `delete 1 2`<br>
+      Expected: First and second contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
@@ -470,6 +594,59 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Finding a person
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `find n/John`<br>
+    Expected: Only contacts whose names start with "John" appear in the list.
+   The status bar at the bottom shows what it is finding by.
+   3. Test case: `find n/John t/volunteer`
+    Expected: Only contacts with the name "John" and "volunteer" tag appear.
+   The status bar at the bottom shows what it is finding by.
+   4. Test case: `find n/`<br>
+    Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
+   5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
+2. _{ more test cases …​ }_
+
+
+### Sorting the list
+1. Sorting a list while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `sort n/`<br>
+   Expected: Contacts are rearranged alphabetically by name in the list. The status bar at the bottom shows it is sorted by name.
+   3. Test case: `sort n/123`<br>
+   Expected: Similar to previous.
+   4. Test case: `sort t/ n/`<br>
+   Expected: Contacts are grouped by tags (beneficiary before volunteer), then alphabetically by name. The status bar at
+   the bottom shows it is sorted by tags and name.
+   5. Test case: `sort`<br>
+   Expected: The list does not change. Error details are shown in the status message. Status bar remains the same.
+   6. Other sort commands to try: `sort a/`, `sort r/`<br>
+   Expected: Contacts are sorted by their attribute in natural sort order.
+
+### Autocomplete
+1. Typing in any command in the CLI
+   1. Type `f` then press **Tab**. <br>
+   Expected: Autocompletes to `find`.
+   2. Type `find` and **Space** and then press **Tab**. <br>
+   Expected: Autocompletes to `find n/`
+   3. After typing `find n/`, type "John" as an input. Then, type **Space** and press **Tab**. <br>
+   Expected: Autocompletes to `find n/John p/`
+
+### Command History
+1. Cycling through any past commands
+   1. Prerequisites: Some commands have already been used. Enter `list`, then `find n/Alex`, then `sort n/`.
+   2. Press the ↑ **Up**. <br>
+   Expected: `sort n/` appears in the CLI. Command history appears with a pointer to the most recent command.
+   3. Press the ↑ **Up**. <br>
+   Expected: `list` appears in the CLI. Pointer in command history points to `list`
+   4. Press the ↓ **Down**. <br>
+   Expected: `sort n/` appears in the CLI. Pointer in command history points to `sort n/`.
+   5. Enter a new command `find n/John` and press ↑ **Up**. <br>
+   Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
+
+2. _{ more test cases …​ }_
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -477,3 +654,28 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Command history deletes current command**: Currently, when a command is being typed out and either the `UP` or
+   `DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
+   command history.
+2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion,
+   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the
+   JavaFX label, we plan to override this behaviour so that only command history has control over the
+`UP` or `DOWN` key.
+3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
+   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and
+only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI
+representation in the contact list and make it more readable.
+4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next
+`SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
+once a valid command has been typed fully.
+5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit
+the CLI. We plan to have a keyboard shortcut to access the CLI.
+6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
+avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
