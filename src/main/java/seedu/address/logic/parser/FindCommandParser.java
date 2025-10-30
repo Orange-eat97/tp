@@ -11,10 +11,12 @@ import static seedu.address.logic.parser.ParserUtil.parseKeywords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,6 +38,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             PREFIX_TAG, Person.TAG_STR_GETTER
     );
 
+    private static final Map<Prefix, String> PREFIX_LABELS = Map.of(
+            PREFIX_NAME, "name",
+            PREFIX_ADDRESS, "address",
+            PREFIX_PHONE, "phone number",
+            PREFIX_REGION, "region",
+            PREFIX_EMAIL, "email",
+            PREFIX_TAG, "tag"
+    );
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -54,15 +65,16 @@ public class FindCommandParser implements Parser<FindCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(allPrefixes);
 
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
+        Map<Prefix, Set<KeywordMatch>> prefixMatches = new HashMap<>();
 
         // build predicate for each attribute, will throw parseException if any invalid keywords are provided
         for (Prefix prefix : allPrefixes) {
             if (argMultimap.getValue(prefix).isPresent()) {
                 String keywords = argMultimap.getValue(prefix).get();
                 Function<Person, String> getter = ATTRIBUTE_GETTERS.get(prefix);
-                predicates.add(buildPredicate(
-                        parseKeywords(keywords, prefix), getter
-                ));
+                Set<KeywordMatch> keywordMatches = parseKeywords(keywords, prefix);
+                prefixMatches.put(prefix, keywordMatches);
+                predicates.add(buildPredicate(keywordMatches, getter));
             }
         }
 
@@ -70,7 +82,35 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(new ChainedPredicate(predicates));
+        return new FindCommand(
+                new ChainedPredicate(predicates),
+                createDescription(prefixMatches), createStatusText(prefixMatches));
+    }
+
+    private static String createDescription(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
+        return prefixMatches.entrySet().stream()
+            .map(
+                entry -> {
+                    String keywords = getKeywords(entry.getValue());
+                    return PREFIX_LABELS.get(entry.getKey()) + ": " + keywords;
+                })
+            .collect(Collectors.joining("\n"));
+    }
+
+    private static String createStatusText(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
+        return prefixMatches.entrySet().stream()
+                .map(
+                        entry -> {
+                            String keywords = getKeywords(entry.getValue());
+                            return entry.getKey().getPrefix() + keywords;
+                        })
+                .collect(Collectors.joining(" "));
+    }
+
+    private static String getKeywords(Set<KeywordMatch> keywordMatches) {
+        return keywordMatches.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(" "));
     }
 
     /**

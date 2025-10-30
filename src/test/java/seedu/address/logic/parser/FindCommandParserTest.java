@@ -81,8 +81,11 @@ public class FindCommandParserTest {
                 .map(keyword -> new KeywordMatch(keyword, false))
                 .collect(Collectors.toSet());
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(new ChainedPredicate(
-                List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))));
+        FindCommand expectedFindCommand = new FindCommand(
+                new ChainedPredicate(
+                    List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))),
+                "", ""
+        );
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
