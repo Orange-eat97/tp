@@ -3,6 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.NaturalOrderComparator.NATURAL_ORDER_COMPARATOR;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -12,12 +17,15 @@ import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -38,8 +46,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByName_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
-        SortCommand command = new SortCommand(nameComparator, "name");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• name\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_NAME);
+        SortCommand command = new SortCommand(nameComparator, prefixList);
         expectedModel.updateDisplayList(nameComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getDisplayList());
@@ -48,8 +58,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByEmail_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "email");
-        SortCommand command = new SortCommand(emailComparator, "email");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• email\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_EMAIL);
+        SortCommand command = new SortCommand(emailComparator, prefixList);
         expectedModel.updateDisplayList(emailComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, GEORGE, DANIEL, CARL, BENSON, FIONA, ELLE), model.getDisplayList());
@@ -58,8 +70,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByAddress_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "address");
-        SortCommand command = new SortCommand(addressComparator, "address");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• address\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_ADDRESS);
+        SortCommand command = new SortCommand(addressComparator, prefixList);
         expectedModel.updateDisplayList(addressComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(GEORGE, DANIEL, ALICE, BENSON, FIONA, ELLE, CARL), model.getDisplayList());
@@ -68,8 +82,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByTag_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "tag");
-        SortCommand command = new SortCommand(tagComparator, "tag");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• volunteer/beneficiary tags\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_TAG);
+        SortCommand command = new SortCommand(tagComparator, prefixList);
         expectedModel.updateDisplayList(tagComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ELLE, FIONA, GEORGE, ALICE, BENSON, CARL, DANIEL), model.getDisplayList());
@@ -78,8 +94,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByPhone_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "phone");
-        SortCommand command = new SortCommand(phoneComparator, "phone");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• phone number\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_PHONE);
+        SortCommand command = new SortCommand(phoneComparator, prefixList);
         expectedModel.updateDisplayList(phoneComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ELLE, FIONA, GEORGE, DANIEL, ALICE, CARL, BENSON), model.getDisplayList());
@@ -88,10 +106,14 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortMultipleInput_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name, phone, tag");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• name\n• phone number\n• volunteer/beneficiary tags\n");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_NAME);
+        prefixList.add(PREFIX_PHONE);
+        prefixList.add(PREFIX_TAG);
         Comparator<Person> comparator = nameComparator.thenComparing(phoneComparator)
                 .thenComparing(tagComparator);
-        SortCommand command = new SortCommand(comparator, "name, phone, tag");
+        SortCommand command = new SortCommand(comparator, prefixList);
         expectedModel.updateDisplayList(comparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getDisplayList());
