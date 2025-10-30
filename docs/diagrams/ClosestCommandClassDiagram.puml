@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic as LogicPackage {
+    class "Command" as Command <<abstract>>
+    class "ClosestCommand" as ClosestCommand
+    class "SortCommand" as SortCommand
+    class "CommandResult" as CommandResult
+
+    class "StrAttrContainsKeywords" as StrAttrContainsKeywords
+}
+
+package Model {
+    Class HiddenModel #FFFFFF
+}
+
+ClosestCommand -up-|> Command
+SortCommand -up-|> Command
+
+ClosestCommand ..> SortCommand : <<creates>>
+ClosestCommand --> Model
+ClosestCommand ..> StrAttrContainsKeywords : <<uses>>
+
+SortCommand --> Model
+SortCommand ..> CommandResult : <<creates>>
+
+@enduml
