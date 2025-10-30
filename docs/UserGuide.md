@@ -207,8 +207,10 @@ Adds a contact to the address book.
 </div>
 
 **📘 Examples:**
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` 
+will add John Doe to the list and set his attributes to the given attributes
 * `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
+will add Betsy Crowe to the list and set her attributes to the given attributes
 
 <br><br>
 
