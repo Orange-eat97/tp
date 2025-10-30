@@ -482,7 +482,7 @@ Team size: 5
 only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI 
 representation in the contact list and make it more readable.
 4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next 
-`SPACE` press. A valid command such as `sort \n` may thus require 2 enter presses. We plan to get rid of the suggestion
+`SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
 once a valid command has been typed fully.
 5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit 
 the CLI. We plan to have a keyboard shortcut to access the CLI.
