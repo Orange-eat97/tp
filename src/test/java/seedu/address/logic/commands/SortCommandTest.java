@@ -106,7 +106,8 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortMultipleInput_success() {
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "\n• name\n• phone number\n• volunteer/beneficiary tags\n");
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS,
+                "\n• name\n• phone number\n• volunteer/beneficiary tags\n");
         List<Prefix> prefixList = new ArrayList<>();
         prefixList.add(PREFIX_NAME);
         prefixList.add(PREFIX_PHONE);
