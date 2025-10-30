@@ -92,7 +92,7 @@ public class AutoCompleteSupplier {
     }
 
     /**
-     * abstraction of making the correct suggestion tail. Added new param 
+     * abstraction of making the correct suggestion tail. Added new param
      * @param suggestion full suggestion returned by autocompletesupplier
      * @param prefix existing string in the commandbox
      */
