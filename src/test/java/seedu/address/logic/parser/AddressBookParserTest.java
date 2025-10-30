@@ -9,13 +9,16 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClosestCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -73,11 +76,26 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        Set<KeywordMatch> keywordMatches = keywords.stream()
+                .map(keyword -> new KeywordMatch(keyword, false))
+                .collect(Collectors.toSet());
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + String.join(" ", keywords));
         assertEquals(
-                new FindCommand(new ChainedPredicate(
-                        List.of(new StrAttrContainsKeywords(new HashSet<>(keywords), Person.NAME_STR_GETTER)))),
+                new FindCommand(
+                        new ChainedPredicate(
+                            List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))),
+                        "", ""
+                ),
+                command);
+    }
+
+    @Test
+    public void parseCommand_closest() throws Exception {
+        ClosestCommand command = (ClosestCommand) parser.parseCommand(
+                ClosestCommand.COMMAND_WORD + " 1");
+        assertEquals(
+                new ClosestCommand(Index.fromOneBased(1)),
                 command);
     }
 
