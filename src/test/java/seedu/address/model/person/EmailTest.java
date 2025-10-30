@@ -67,6 +67,39 @@ public class EmailTest {
     }
 
     @Test
+    public void isValidEmailPrefix() {
+        // null email
+        assertThrows(NullPointerException.class, () -> Email.isValidEmailPrefix(null));
+
+        // blank email
+        assertFalse(Email.isValidEmailPrefix("")); // empty string
+        assertFalse(Email.isValidEmailPrefix(" ")); // spaces only
+
+        // valid as email prefix but invalid as email
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1190@example.com")); // underscore in local part
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1190@example.c"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1190@example."));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1190@e"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1190@"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1_12212"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_1_"));
+        assertTrue(Email.isValidEmailPrefix("PeterJack_"));
+        assertTrue(Email.isValidEmailPrefix("P"));
+        assertTrue(Email.isValidEmailPrefix("a_"));
+
+
+        // valid as both email prefix and email
+        assertTrue(Email.isValidEmailPrefix("a@bc")); // minimal
+        assertTrue(Email.isValidEmailPrefix("test@localhost")); // alphabets only
+        assertTrue(Email.isValidEmailPrefix("123@145")); // numeric local part and domain name
+        assertTrue(Email.isValidEmailPrefix("a1+be.d@example1.com")); // mixture of alphanumeric and special characters
+        assertTrue(Email.isValidEmailPrefix("peter_jack@very-very-very-long-example.com")); // long domain name
+        assertTrue(Email.isValidEmailPrefix("if.you.dream.it_you.can.do.it@example.com")); // long local part
+        assertTrue(Email.isValidEmailPrefix("e1234567@u.nus.edu")); // more than one period in domain
+    }
+
+    @Test
     public void equals() {
         Email email = new Email("valid@email");
 

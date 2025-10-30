@@ -9,6 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
+* Used in the definition of natural sort order in the glossary https://en.wikipedia.org/wiki/Natural_sort_order
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -163,12 +164,30 @@ Below is a given sequence diagram illustrating how the find command is executed 
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
+## Sort command parsing
+
+### Current Implementation
+The `SortCommandParser` supports sorting using one or more prefixes.
+Each prefix corresponds to an attribute in the `Person` model (name, phone, address, etc.)
+
+How the `SortCommandParser` works:
+1. Takes in a list of prefixes.
+2. Iterates through each prefix and builds a comparator chain using Java's
+`Comparator` interface. 
+   * For the first prefix, `comparing(...)` is used to initialise a new comparator
+   * For subsequent prefixes, `thenComparing(...)` is called to chain additional comparators 
+3. The resulting `personComparator` compares the attribute in the order the prefixes appear in the command.
+
+Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
+
+![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+
 ## Command History
 
 ### Current Implementation
 Command history tracks all commands entered during the current session and allows users to navigate through previously
-entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed 
-through the `Logic` component. 
+entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+through the `Logic` component.
 
 How `CommandHistory` works:
 1. The MainWindow class listens for an UP or DOWN key press
@@ -176,7 +195,7 @@ How `CommandHistory` works:
 3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
 4. The Key press event is then consumed within MainWindow
 
-Below is a given sequence diagram illustrating how the command history navigation is 
+Below is a given sequence diagram illustrating how the command history navigation is
 executed through the Logic component.
 
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
@@ -424,6 +443,7 @@ may be assigned to a beneficiary.
 * **Social service worker**: Person who provides social service to beneficiaries. May be assigned to 
 zero or more beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
+* **Natural sort order**: Ordering of strings in alphabetical order, except that single- and multi-digit numbers are treated atomically, i.e. as if they were a single character, and compared between themselves by their actual numerical values. 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -472,6 +492,59 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Finding a person
+1. Finding a person while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `find n/John`<br>
+    Expected: Only contacts whose names start with "John" appear in the list.
+   The status bar at the bottom shows what it is finding by.
+   3. Test case: `find n/John t/volunteer`
+    Expected: Only contacts with the name "John" and "volunteer" tag appear. 
+   The status bar at the bottom shows what it is finding by.
+   4. Test case: `find n/`<br>
+    Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
+   5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
+2. _{ more test cases …​ }_
+   
+
+### Sorting the list
+1. Sorting a list while all persons are being shown
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   2. Test case: `sort n/`<br>
+   Expected: Contacts are rearranged alphabetically by name in the list. The status bar at the bottom shows it is sorted by name.
+   3. Test case: `sort n/123`<br>
+   Expected: Similar to previous.
+   4. Test case: `sort t/ n/`<br>
+   Expected: Contacts are grouped by tags (beneficiary before volunteer), then alphabetically by name. The status bar at
+   the bottom shows it is sorted by tags and name.
+   5. Test case: `sort`<br>
+   Expected: The list does not change. Error details are shown in the status message. Status bar remains the same.
+   6. Other sort commands to try: `sort a/`, `sort r/`<br>
+   Expected: Contacts are sorted by their attribute in natural sort order.
+
+### Autocomplete
+1. Typing in any command in the CLI
+   1. Type `f` then press **Tab**. <br>
+   Expected: Autocompletes to `find`.
+   2. Type `find` and **Space** and then press **Tab**. <br>
+   Expected: Autocompletes to `find n/`
+   3. After typing `find n/`, type "John" as an input. Then, type **Space** and press **Tab**. <br> 
+   Expected: Autocompletes to `find n/John p/`
+
+### Command History
+1. Cycling through any past commands
+   1. Prerequisites: Some commands have already been used. Enter `list`, then `find n/Alex`, then `sort n/`.
+   2. Press the ↑ **Up**. <br>
+   Expected: `sort n/` appears in the CLI. Command history appears with a pointer to the most recent command.
+   3. Press the ↑ **Up**. <br>
+   Expected: `list` appears in the CLI. Pointer in command history points to `list`
+   4. Press the ↓ **Down**. <br>
+   Expected: `sort n/` appears in the CLI. Pointer in command history points to `sort n/`.
+   5. Enter a new command `find n/John` and press ↑ **Up**. <br>
+   Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
+
+2. _{ more test cases …​ }_
 
 ### Saving data
 
