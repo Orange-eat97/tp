@@ -88,7 +88,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void addCommand(String commandText) { model.addCommand(commandText); }
+    public void addCommand(String commandText) {
+        model.addCommand(commandText);
+    }
 
     @Override
     public String getPreviousCommand() {
