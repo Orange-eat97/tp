@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+class "CommandBox" as CommandBox
+class "Ghost" as Ghost
+class "AutoCompleteSupplier" as AutoCompleteSupplier
+class "AutoCompleteParser" as AutoCompleteParser
+}
+
+package Logic {
+class HiddenModel #FFFFFF
+}
+
+Ghost .. AutoCompleteParser : <<◀commands>>
+Ghost <-- CommandBox : <<◀reads>>
+AutoCompleteParser .down. AutoCompleteSupplier : <<▲suggests>>
+AutoCompleteSupplier -- HiddenModel
+
+@enduml
