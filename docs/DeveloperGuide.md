@@ -688,6 +688,13 @@ Making sort work for different types of cases for example instead of lexicograph
 **Solved by:**
 Creating our own comparator to compare two strings, using Natural Order
 
+### **Autocomplete**
+**Challenge faced:**
+Dependency design and Segregation of Functions in autocomplete was challenging. The first iteration had high coupling between classes across several packages. When implementing autocomplete for parameters, it was difficult to seperate the text field into different situations to design branching conditions.
+
+**Solved by:**
+We managed to seperate the functional parts of autocomplete, and designed three seperate classes that minimised coupling. Debug mode was also used to stepped through the program to fix the boundary cases of text inputs.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**
