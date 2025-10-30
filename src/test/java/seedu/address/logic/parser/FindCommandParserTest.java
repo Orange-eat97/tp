@@ -21,6 +21,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -84,7 +85,7 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand = new FindCommand(
                 new ChainedPredicate(
                     List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))),
-                "", ""
+                new HashMap<>()
         );
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob", expectedFindCommand);
 
