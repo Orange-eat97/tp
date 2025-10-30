@@ -23,7 +23,10 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose specified fields contain "
-            + "any of the specified case-insensitive keywords for each field, matching only complete words.\n"
+            + "any of the specified case-insensitive keywords for each field, "
+            + "matching either full words or optionally prefixes.\n"
+            + "To match prefix, add % to the end of keyword. Example: Al% matches Alex Lee and Tan Aloysius. "
+            + "NOTE: Prefix matching is NOT supported for address attribute. \n"
             + "Displays matching persons in a numbered list.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME_KEYWORDS] "
@@ -33,8 +36,8 @@ public class FindCommand extends Command {
             + "[" + PREFIX_REGION + "REGION_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Alice Bob Charlie" + " "
-            + PREFIX_TAG + "beneficiary";
+            + PREFIX_NAME + "Al% Bob Charlie" + " "
+            + PREFIX_TAG + "benef%";
     public static final String FIND_SUCCESS_OVERVIEW =
             "Listed %1$d persons matching the following attribute keywords:\n";
     private final Predicate<Person> predicate;
