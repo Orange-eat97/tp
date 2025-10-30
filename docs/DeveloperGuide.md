@@ -326,33 +326,39 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target User profile**:
 
-1. Social services dispatcher or coordinator that prefer CLI over GUI
-2. They enjoy shortcuts so commands can be performed quickly even while on a call
+1. Social services dispatcher or coordinator that prefer CLI over GUI.
+2. They enjoy shortcuts so commands can be performed quickly even while on a call.
 
 **Value proposition**:
 
-1. Manages a database of social workers and beneficiaries
-2. Ability to find the closest worker to beneficiary
-3. Upgraded Find command with additive filters and a wider range of filters
-4. Sorting for names and locations
-5. Autocomplete for commands
-6. Command Undo to reverse commands
-7. Command history and reusing past commands
+1. Manages a database of social workers and beneficiaries.
+2. Ability to find the closest worker to beneficiary.
+3. Upgraded Find command with additive filters and a wider range of filters, including prefix matching.
+4. Sorting for all attributes for volunteers and beneficiaries, with additive comparators.
+5. Autocomplete for commands to speed up processes.
+6. Command history and reusing past commands.
+7. Command Undo to reverse commands (not implemented yet).
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​               | I want to …​                                   | So that I can…​                                                                      |
-|----------|-----------------------|------------------------------------------------|--------------------------------------------------------------------------------------|
-| `* * *`  | user                  | delete beneficiaries/volunteer                 |                                                                                      |
-| `* * *`  | user                  | add beneficiaries/volunteer                    |                                                                                      |
-| `* * *`  | user                  | update beneficiaries/volunteer                 |                                                                                      |
-| `* * *`  | user                  | view list of beneficiaries/volunteer details   |                                                                                      |
-| `* *`    | careless person       | see a confirmation tab when deleting a contact | prevent accidentally deleting someone wrongly                                        |
-| `* *`    | social Service Worker | filter people staying in a district or region  | easily identify people to dispatch to that region                                    |
-| `* *`    | social Service Worker | view detailed information about beneficiaries  | inform social workers and provide them a summary of how to approach them effectively |
-| `* *`    | social Service Worker | group certain social workers in teams          | search for social workers easily by their groups                                     |
+| Priority | As a …​                    | I want to …​                                    | So that I can…​                                                                       |
+|----------|----------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
+| `* * *`  | user                       | delete beneficiaries/volunteers                 |                                                                                       |
+| `* * *`  | user                       | add beneficiaries/volunteers                    |                                                                                       |
+| `* * *`  | user                       | update beneficiaries/volunteers                 |                                                                                       |
+| `* * *`  | user                       | view list of beneficiaries'/volunteers' details |                                                                                       |
+| `* * `   | user                       | recall a previous command                       | quickly reuse or edit a previously used command                                       |
+| `* *`    | careless person            | see a confirmation tab when deleting a contact  | prevent accidentally deleting someone wrongly.                                        |
+| `* *`    | careless person            | undo a previous command                         | prevent permanent data loss due to mistype or wrong command used.                     |
+| `* *`    | forgetful person           | filter people by partial keywords               | easily find the right person even if I don't remember their exact name or email.      |
+| `* *`    | forgetful person           | autocomplete commands as I type                 | easily key in the correct format even without checking the guide.                     |
+| `* *`    | fast typer                 | autocomplete commands as I type                 | increase speed that I execute commands.                                               |
+| `* *`    | social service coordinator | filter people staying in a district or region   | easily identify people to dispatch to that region.                                    |
+| `* *`    | social service coordinator | find the closest volunteers to a beneficiary    | assign volunteers to beneficiaries quickly or react to emergencies.                   |
+| `* *`    | social service coordinator | view detailed information about beneficiaries   | inform social workers and provide them a summary of how to approach them effectively. |
+| `* *`    | social service coordinator | group certain social workers in teams           | search for social workers easily by their groups.                                     |
 
 
 
@@ -439,6 +445,66 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
+**Use case: UC05 - Find persons by keywords**
+
+1. User requests to find person with a set of keywords for each attribute.
+2. AddressBook shows a filtered list of persons matching requirements.
+
+    Use case ends.
+
+**Extensions:**
+* 1a. The keyword provided is invalid for that attribute.
+    * 1a1. AddressBook shows an error.
+
+      Use case ends
+
+**Use case: UC06 - Sort persons by attributes**
+
+1. User requests to <u>find persons(UC05)</u>.
+2. User requests to sort displayed persons by certain attribute.
+3. AddressBook shows a sorted list of persons.
+
+   Use case ends.
+
+**Use case: UC07 - Find closest volunteers to beneficiary**
+
+1. User requests to <u>find persons(UC05)</u> to find a beneficiary.
+2. User requests to find the volunteers closest to a specified beneficiary.
+3. AddressBook shows a list of volunteers sorted by closeness.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. Invalid/missing identifier for beneficiary.
+
+    * 2a1. AddressBook shows an error.
+
+      Use case resumes from step 2.
+
+**Use case: UC08 - Recall previous command**
+
+1. User executes some command.
+2. User requests to cycle to a previous command.
+3. AddressBook selects the previous command for user and displays command history.
+4. User chooses a selected recalled command.
+
+   Use case ends.
+
+**Use case: UC09 - Autocomplete command**
+
+1. User partially types a command word.
+2. AddressBook shows an autocomplete suggestion.
+3. User accepts the suggested autocomplete.
+4. AddressBook inserts the suggestion.
+5. AddressBook stops displaying suggestion.
+
+   Use case ends.
+
+**Extensions:**
+* 2a. User ignores the suggestion and continues typing.
+
+      Use case resumes from step 5.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -458,10 +524,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **CLI**: Command Line Interface
 * **GUI**: Graphical User Interface
 * **API**: Application Programming Interface
-* **Beneficiary**: Person who benefits from the social service. Zero or more social service workers
-may be assigned to a beneficiary.
-* **Social service worker**: Person who provides social service to beneficiaries. May be assigned to
-zero or more beneficiaries.
+* **Beneficiary**: Person who benefits from the social service.
+* **Volunteer**: Person who provides social service to beneficiaries.
 * **Social service coordinator**: Person who manages dispatching of social service workers to beneficiaries.
 * **Natural sort order**: Ordering of strings in alphabetical order, except that single- and multi-digit numbers are treated atomically, i.e. as if they were a single character, and compared between themselves by their actual numerical values.
 
@@ -504,7 +568,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `delete 1 2`<br>
       Expected: First and second contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
-   
+
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
@@ -584,17 +648,17 @@ Team size: 5
    `DOWN` key is pressed, the current command typed out gets lost. We plan to temporarily store the typed command in the
    command history.
 2. **Command history key selecting autocomplete suggestion**: When the command has a autocomplete suggestion,
-   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the 
-   JavaFX label, we plan to override this behaviour so that only command history has control over the 
+   pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the
+   JavaFX label, we plan to override this behaviour so that only command history has control over the
 `UP` or `DOWN` key.
 3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
-   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and 
-only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI 
+   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and
+only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI
 representation in the contact list and make it more readable.
-4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next 
+4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next
 `SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
 once a valid command has been typed fully.
-5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit 
+5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit
 the CLI. We plan to have a keyboard shortcut to access the CLI.
-6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to 
+6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
 avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
