@@ -168,7 +168,15 @@ Below is a given sequence diagram illustrating how the find command is executed 
 ### Current Implementation
 Command history tracks all commands entered during the current session and allows users to navigate through previously
 entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed 
-through the `Logic` component. Below is a given sequence diagram illustrating how the command history navigation is 
+through the `Logic` component. 
+
+How `CommandHistory` works:
+1. The MainWindow class listens for an UP or DOWN key press
+2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
+3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
+4. The Key press event is then consumed within MainWindow
+
+Below is a given sequence diagram illustrating how the command history navigation is 
 executed through the Logic component.
 
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
