@@ -74,7 +74,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 Function<Person, String> getter = ATTRIBUTE_GETTERS.get(prefix);
                 Set<KeywordMatch> keywordMatches = parseKeywords(keywords, prefix);
                 prefixMatches.put(prefix, keywordMatches);
-                predicates.add(buildPredicate(keywordMatches, getter));
+                predicates.add(new StrAttrContainsKeywords(keywordMatches, getter));
             }
         }
 
@@ -113,15 +113,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .collect(Collectors.joining(" "));
     }
 
-    /**
-     * Builds predicate based on a string of keywords and a Person attribute getter
-     * @param keywords containing keywords to search for
-     * @return predicate that evaluates to true if at least one of the keywords is found in the attribute
-     */
-    private static StrAttrContainsKeywords buildPredicate(
-            Set<KeywordMatch> keywords, Function<Person, String> attributeGetter) {
-        return new StrAttrContainsKeywords(keywords, attributeGetter);
-    }
     private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Arrays.stream(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
