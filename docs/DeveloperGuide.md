@@ -181,6 +181,25 @@ How the `SortCommandParser` works:
 Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
 
 ![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+
+## Command History
+
+### Current Implementation
+Command history tracks all commands entered during the current session and allows users to navigate through previously
+entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+through the `Logic` component.
+
+How `CommandHistory` works:
+1. The MainWindow class listens for an UP or DOWN key press
+2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
+3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
+4. The Key press event is then consumed within MainWindow
+
+Below is a given sequence diagram illustrating how the command history navigation is
+executed through the Logic component.
+
+![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -268,9 +287,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -363,18 +379,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case ends.
 
-**Use case: UC03 - Delete a person**
+**Use case: UC03 - Delete person(s)**
 
 **MSS:**
 1. User requests to <u>list persons (UC02)</u>.
-2. User requests to delete a specific person in the list.
+2. User requests to delete specific person(s) in the list.
 3. AddressBook deletes the person.
 
    Use case ends.
 
 **Extensions:**
 
-* 2a. Invalid/missing identifier for person to delete.
+* 2a. Invalid/missing identifier(s) for person(s) to delete.
 
     * 2a1. AddressBook shows an error.
 
@@ -402,7 +418,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. AddressBook shows an error.
 
       Use case resumes from step 2.
-  
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -466,6 +482,9 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
+   1. Test case: `delete 1 2`<br>
+      Expected: First and second contacts are deleted from the list. Details of the deleted contacts shown in the status message. Timestamp in the status bar is updated.
+   
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 

@@ -115,24 +115,6 @@ public interface Model {
     /** Returns an unmodifiable view of the person list */
     ObservableList<Person> getDisplayList();
 
-    /** Adds the command {@code commandText} to the command history. */
-    void addCommand(String commandText);
-
-    /**
-     * Returns the previous command
-     */
-    String getPreviousCommand();
-
-    /**
-     * Returns the next command
-     */
-    String getNextCommand();
-
-    /**
-     * Returns the command history
-     */
-    String getCommandHistory();
-
     /**
      * Clear any sorting comparator
      */

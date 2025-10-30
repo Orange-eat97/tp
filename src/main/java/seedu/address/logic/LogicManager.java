@@ -32,14 +32,17 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CommandHistory commandHistory;
 
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and
+     * {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        commandHistory = new CommandHistory();
     }
 
     @Override
@@ -81,7 +84,6 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-
     @Override
     public ObservableList<Person> getDisplayList() {
         return model.getDisplayList();
@@ -89,21 +91,21 @@ public class LogicManager implements Logic {
 
     @Override
     public void addCommand(String commandText) {
-        model.addCommand(commandText);
+        commandHistory.addCommand(commandText);
     }
 
     @Override
     public String getPreviousCommand() {
-        return model.getPreviousCommand();
+        return commandHistory.getPreviousCommand();
     }
 
     @Override
     public String getNextCommand() {
-        return model.getNextCommand();
+        return commandHistory.getNextCommand();
     }
 
     @Override
     public String getCommandHistory() {
-        return model.getCommandHistory();
+        return commandHistory.toString();
     }
 }

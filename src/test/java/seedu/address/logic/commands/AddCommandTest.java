@@ -195,26 +195,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCommand(String commandText) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String getPreviousCommand() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String getNextCommand() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String getCommandHistory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void clearSorting() {
             throw new AssertionError("This method should not be called.");
 
