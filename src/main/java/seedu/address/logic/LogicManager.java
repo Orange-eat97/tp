@@ -90,7 +90,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void addCommand(String commandText) { commandHistory.addCommand(commandText); }
+    public void addCommand(String commandText) {
+        commandHistory.addCommand(commandText);
+    }
 
     @Override
     public String getPreviousCommand() {
