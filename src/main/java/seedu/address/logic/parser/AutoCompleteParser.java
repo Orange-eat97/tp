@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.ui.AutoCompleteSupplier;
 
@@ -52,12 +53,13 @@ public class AutoCompleteParser {
         }
 
         if (isParamsArea(firstSpace, text, caret) //case like "add " -> to suggest a param signature
-                && (containsAdd(text) || containsSort(text))) {
+                && (containsAdd(text) || containsSort(text) || containsFind(text))) {
 
-            assert (text.contains("add") || text.contains("sort"));
+            assert (text.contains("add") || text.contains("sort") || text.contains("find"));
 
-            next = AutoCompleteSupplier.giveAddSortParams(text);
-            tail = AutoCompleteSupplier.makeTail("add", next, prefix);
+            next = AutoCompleteSupplier.giveAddSortFindParams(text);
+            tail = AutoCompleteSupplier.makeTail("add", next, prefix); //add sort and find have the same param
+            //list
 
             return makeCommandsArray(next, start, tail);
 
@@ -185,6 +187,15 @@ public class AutoCompleteParser {
      */
     public static boolean containsSort(String text) {
         return text.contains(SortCommand.COMMAND_WORD);
+    }
+
+    /**
+     * checks if string contains find
+     * @param text
+     * @return
+     */
+    public static boolean containsFind(String text) {
+        return text.contains(FindCommand.COMMAND_WORD);
     }
 
     /**
