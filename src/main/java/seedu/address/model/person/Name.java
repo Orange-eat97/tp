@@ -18,6 +18,13 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
+    /*
+     * The prefix must be an alphanumeric word,
+     * no whitespace accepted unlike name.
+     */
+    public static final String PREFIX_VALIDATION_REGEX = "[\\p{Alnum}]+";
+
+
     public final String fullName;
 
     /**
@@ -36,6 +43,13 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid name prefix.
+     */
+    public static boolean isValidNamePrefix(String test) {
+        return test.matches(PREFIX_VALIDATION_REGEX);
     }
 
 
