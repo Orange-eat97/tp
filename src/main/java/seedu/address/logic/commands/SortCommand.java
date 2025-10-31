@@ -152,7 +152,7 @@ public class SortCommand extends Command {
         case "r/":
             return "region";
         default:
-            return null;
+            throw new UnsupportedOperationException("Prefix not supported for label.");
 
         }
     }
