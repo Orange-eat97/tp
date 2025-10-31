@@ -9,9 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.parser.KeywordMatch;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -40,8 +45,16 @@ public class FindCommand extends Command {
             + PREFIX_NAME + "Al% Bob Charlie" + " "
             + PREFIX_TAG + "benef%";
     public static final String FIND_SUCCESS_OVERVIEW =
-            "Listed %1$d persons matching the following attribute keywords:\n";
+            "Listed %1$d persons matching the following attribute keywords\n";
     public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
+    private static final Map<Prefix, String> PREFIX_LABELS = Map.of(
+            PREFIX_NAME, "name",
+            PREFIX_ADDRESS, "address",
+            PREFIX_PHONE, "phone number",
+            PREFIX_REGION, "region",
+            PREFIX_EMAIL, "email",
+            PREFIX_TAG, "tag"
+    );
     private final Predicate<Person> predicate;
     private final String description;
     private final String statusText;
@@ -50,13 +63,44 @@ public class FindCommand extends Command {
     /**
      * Creates FindCommand to filter persons based on predicates.
      * @param predicate a filter for persons
-     * @param description describes the predicate filters, part of the success message displayed
-     * @param statusText brief overview of the filters
+     * @param prefixMatches mapping of attribute {@code Prefix} to keywords, used for description and status
      */
-    public FindCommand(Predicate<Person> predicate, String description, String statusText) {
+    public FindCommand(Predicate<Person> predicate, Map<Prefix, Set<KeywordMatch>> prefixMatches) {
         this.predicate = predicate;
-        this.description = description;
-        this.statusText = statusText;
+        this.description = createDescription(prefixMatches);
+        this.statusText = createStatusText(prefixMatches);
+    }
+
+    private static String createDescription(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
+        if (prefixMatches.isEmpty()) {
+            return "";
+        }
+        return "• " + prefixMatches.entrySet().stream()
+                .map(
+                        entry -> {
+                            String keywords = getKeywords(entry.getValue());
+                            return PREFIX_LABELS.get(entry.getKey()) + ": " + keywords;
+                        })
+                .collect(Collectors.joining("\n• "));
+    }
+
+    private String createStatusText(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
+        if (prefixMatches.isEmpty()) {
+            return "";
+        }
+        return prefixMatches.entrySet().stream()
+                .map(
+                        entry -> {
+                            String keywords = getKeywords(entry.getValue());
+                            return entry.getKey().getPrefix() + keywords;
+                        })
+                .collect(Collectors.joining(" "));
+    }
+
+    private static String getKeywords(Set<KeywordMatch> keywordMatches) {
+        return keywordMatches.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(" "));
     }
 
     @Override
