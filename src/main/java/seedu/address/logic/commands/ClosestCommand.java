@@ -59,9 +59,10 @@ public class ClosestCommand extends Command {
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
         model.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
-
-        return new SortCommand(personComparator,
+        CommandResult res = new SortCommand(personComparator,
                 "closest volunteer to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
+        return new CommandResult(res.getFeedbackToUser(), res.isShowHelp(), res.isExit(),
+                res.getSortStatusText(), "");
     }
 
     /**
