@@ -40,7 +40,6 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getDisplayList();
 
         List<Index> sortedIndices = new ArrayList<>();
-
         for (Index index : targetIndices) {
             if (!sortedIndices.contains(index)) {
                 sortedIndices.add(index);
