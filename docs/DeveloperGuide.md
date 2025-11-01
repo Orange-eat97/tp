@@ -531,7 +531,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
 4. Should show autocomplete suggestions almost instantly.
 5. Should display clear error messages that say what went wrong and how to fix it.
-6. Should validate inputs and keep phone/email unique across contacts.
+6. Should validate inputs and no two contacts should have both the same name and phone number.
 7. Should only be for local use, no internet is required.
 8. Should be tailored towards navigating with keyboard.
 
