@@ -4,6 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDICES_THREE_PERSONS;
 
 import java.util.List;
 
@@ -24,12 +25,29 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_singleValidIndex_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(List.of(INDEX_FIRST_PERSON)));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    public void parse_singleInvalidIndex_throwsParseException() {
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleValidIndexes_returnsDeleteCommand() {
+        assertParseSuccess(parser, "3 2 1", new DeleteCommand(INDICES_THREE_PERSONS));
+    }
+
+    @Test
+    public void parse_multipleValidIndexesWithExtraSpaces_returnsDeleteCommand() {
+        assertParseSuccess(parser, " 3  2    1 ", new DeleteCommand(INDICES_THREE_PERSONS));
+    }
+
+    @Test
+    public void parse_multipleValidAndInvalidIndexes_throwsParseException() {
+        assertParseFailure(parser, "1 2 a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }
