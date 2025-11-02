@@ -54,6 +54,8 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
       - [Autocomplete : `TAB_Key`](#autocomplete)
 
+      - [Copying data via Clipboard button](#copying-data-via-clipboard-button)
+
       - [Saving the data](#saving-the-data)
 
       - [Editing the data file](#editing-the-data-file)
@@ -110,7 +112,7 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
 3.  Run CareLink:
 
-    `java -jar addressbook.jar`
+    `java -jar carelink.jar`
 
 <br>
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
@@ -337,7 +339,7 @@ Filters contacts whose fields match the keywords.
 * The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`.
  Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`.
 * Keywords can be:
-  * full words e.g. `n/Alex` 
+  * full words e.g. `n/Alex`
   * prefixes e.g. `n/Al%` where `%` indicates a prefix
 * If keyword is a full word, only full words will be matched.
   * e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`.
@@ -469,6 +471,20 @@ Press **Tab** to complete the prefix and start typing an attribute. When you fin
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
 Typing the letter 'd' in an attempt to type the `delete` command will prompt autocomplete to suggest 'elete'. Pressing
 `Tab` autocompletes the command rendering 'delete' in the command box.
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
+### Copying data via Clipboard button
+
+For each entry in the display list, users can copy and paste details like Phone, Email and Address using the clipboard button that appears on hover.
+
+**📘 Examples:**
+* Copying details from the display list <br>
+![Example of copying](ClipboardButtonScreenshot.png)
 
 <br><br>
 
