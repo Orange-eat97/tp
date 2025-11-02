@@ -7,16 +7,16 @@ skinparam classBackgroundColor UI_COLOR
 package UI <<Rectangle>>{
 class "CommandBox" as CommandBox
 class "Ghost" as Ghost
-class "AutoCompleteSupplier" as AutoCompleteSupplier
-class "AutoCompleteParser" as AutoCompleteParser
+
 }
 
 package Logic {
-class HiddenModel #FFFFFF
+class "AutoCompleteSupplier" as AutoCompleteSupplier
+class "AutoCompleteParser" as AutoCompleteParser
 }
 
 Ghost .. AutoCompleteParser : <<◀commands>>
 Ghost <-- CommandBox : <<◀reads>>
 AutoCompleteParser .down. AutoCompleteSupplier : <<▲suggests>>
-AutoCompleteSupplier -- HiddenModel
+
 @enduml

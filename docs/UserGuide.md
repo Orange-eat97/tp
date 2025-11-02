@@ -465,6 +465,8 @@ Provides suggestions to autocomplete your input text. Autocompletes command word
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
+
+Typing "c", "cl", autocomplete suggests tail of "closest". Type at least "cle" to complete "clear".
 </div>
 
 **📘 Examples:**

@@ -222,6 +222,29 @@ executed through the Logic component.
 
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
+### Autocomplete
+
+#### Current Implementation
+Autocomplete consists of ghost (UI), autoCompleteParser(interface) and autoCompleteSupplier(logic). Such a class relation
+observes better SoC and decreases coupling between autocomplete classes with the other classes, such as Command classes.
+As a live process, autocomplete handles possible invalid inputs with logging, then assertion, and no exception, as the default state
+would just be hide the ghost preview. 
+
+How `Autocomplete` works:
+1. CommandBox class now has two additional listeners: one for refreshing ghost preview, one for handling "tab" event.
+2. As user types, ghost reads the text from commandTextField, sending the text and caret position to autoCompleteParser.
+3. AutoCompleteParser parses the text, and calls autoCompleteSupplier with appropriate texts for completing.
+4. AutoCompleteSupplier returns the tail and suggestion to autoCompleteParser, the later makes an array of string 
+containing command for ghost to `SHOW` or `HIDE`, suggestion, tail, and new caret position.
+5. Ghost shows or hides suggestions according to the command array.
+6. Upon user pressing "tab", ghost updates the commandTextField with the showing suggestion.
+
+Below are class diagram and sequence diagrams for autocomplete.
+<img src="images/AutoComplete-sequence.png" width="850" />
+<img src="images/AutoComplete activity diagram main.png" width="850" />
+<img src="images/AutoComplete parser activity diagram.png" width="850" />
+<img src="images/AutoComplete class diagram.png" width="850" />
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -310,21 +333,6 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
-
-### Autocomplete
-Autocomplete consists of three classes:
-1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
-2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
-Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
-3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
-suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
-
-<img src="images/AutoComplete-sequence.png" width="850" />
-<img src="images/AutoComplete activity diagram main.png" width="850" />
-<img src="images/AutoComplete parser activity diagram.png" width="850" />
-<img src="images/AutoComplete class diagram.png" width="850" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
