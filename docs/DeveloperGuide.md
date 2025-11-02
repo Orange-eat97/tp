@@ -659,7 +659,13 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Ensure the data file is corrupted by opening `data/addressbook.json` and modifying it contain invalid
    JSON format. <br>
    2. Launch CareLink. <br>
-   Expected: The contact list will be cleared. 
+   Expected: The contact list will be cleared.
+3. Dealing with invalid input
+   1. Prerequisites: Ensure the data file contains invalid input such as giving someone both
+    beneficiary and volunteer tags.
+   2. Launch CareLink. <br>
+   Expected: The contact list will be cleared.
+   3. Fix it by removing one of the invalid values such as one of the tags.
    
 
 --------------------------------------------------------------------------------------------------------------------

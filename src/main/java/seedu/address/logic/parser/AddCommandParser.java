@@ -49,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Region region = ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        if (!(tagList.contains(new Tag("volunteer")) ^ tagList.contains(new Tag("beneficiary")))) {
+        if (tagList.contains(new Tag("volunteer")) == tagList.contains(new Tag("beneficiary"))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
