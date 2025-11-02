@@ -67,14 +67,13 @@ public class ClosestCommand extends Command {
         String filteredByString = isPersonVolunteer ? "beneficiary" : "volunteer";
 
         CommandResult resultFind = new FindCommand(
-            isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS, 
+            isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS,
             Map.of(PREFIX_TAG, Set.of(new KeywordMatch(filteredByString, false)))).execute(model);
 
         String regionName = personToSortBy.getRegion().value.getDisplayName();
         CommandResult resultSort = new SortCommand(personComparator, "closest volunteer to %s".formatted(regionName))
                 .execute(model);
 
-        
         return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(filteredByString, regionName),
                 false, false, resultSort.getSortStatusText(), resultFind.getFindStatusText());
     }
@@ -84,7 +83,7 @@ public class ClosestCommand extends Command {
      * their region is to the region of the given person.
      *
      * @param personToCompareTo is the person whose region is used to sort the
-     * closeness of each person's region to
+     *     closeness of each person's region to
      * @return personComparator
      */
     public static Comparator<Person> createClosestComparator(Person personToCompareTo) {
