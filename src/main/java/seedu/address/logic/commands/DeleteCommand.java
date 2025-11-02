@@ -39,7 +39,13 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getDisplayList();
 
-        List<Index> sortedIndices = new ArrayList<>(targetIndices);
+        List<Index> sortedIndices = new ArrayList<>();
+        for (Index index : targetIndices) {
+            if (!sortedIndices.contains(index)) {
+                sortedIndices.add(index);
+            }
+        }
+
         sortedIndices.sort(Comparator.comparing(Index::getZeroBased).reversed());
         List<Person> personsToDelete = new ArrayList<>();
         for (Index index : sortedIndices) {

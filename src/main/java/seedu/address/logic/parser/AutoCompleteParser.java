@@ -1,10 +1,13 @@
 package seedu.address.logic.parser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seedu.address.logic.AutoCompleteSupplier;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.ui.AutoCompleteSupplier;
 
 /**
  * a parser that processes information related to autocomplete. Does not really return a string so it does not extend
@@ -13,6 +16,8 @@ import seedu.address.ui.AutoCompleteSupplier;
 public class AutoCompleteParser {
     public static final String HIDE_COMMAND = "HIDE";
     public static final String SHOW_COMMAND = "SHOW";
+
+    private static Logger hideLogger = Logger.getLogger("hideLogger");
 
     /**
      * tells how ghost should function, with the essential information for this purpose. Cases:
@@ -70,6 +75,7 @@ public class AutoCompleteParser {
             tail = AutoCompleteSupplier.makeTail("edit", next, prefix);
 
             if (isHideEditParams(text)) { //case when text has no index, hide
+                hideLogger.log(Level.FINE, "Hiding edit text =" + text + " tail = " + tail);
                 return makeCommandsArray(null, 0, null);
             } else if (isEndWithSpace(text)) { //case of "edit 1 " -> suggest param signature
                 return makeCommandsArray(next, start, tail);
@@ -84,6 +90,7 @@ public class AutoCompleteParser {
             }
 
             if (nullOrEmpty(next) || next.equals(prefix) || start >= end) {
+                hideLogger.log(Level.FINE, "invalid next=" + next + " prefix = " + prefix);
                 return makeCommandsArray(null, 0, null);
             }
 

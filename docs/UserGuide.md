@@ -54,6 +54,8 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
       - [Autocomplete : `TAB_Key`](#autocomplete)
 
+      - [Copying data via Clipboard button](#copying-data-via-clipboard-button)
+
       - [Saving the data](#saving-the-data)
 
       - [Editing the data file](#editing-the-data-file)
@@ -110,7 +112,7 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
 3.  Run CareLink:
 
-    `java -jar addressbook.jar`
+    `java -jar carelink.jar`
 
 <br>
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
@@ -407,7 +409,7 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 ### Searching for closest contact: `closest`
 
-Sorts volunteers according to how close their region is to the region of the identified contact by the index provided
+Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified stakeholder is a volunteer, the list will only show beneficiaries and vice versa.
 
 **✏️ Format:**<br>
 `closest INDEX`
@@ -427,8 +429,8 @@ This allows easy selection of volunteers to dispatch.
 </div>
 
 **🎯 Expected Outcome:**
-* Displays all volunteers sorted according to how close their region is to the region of the identified person by the index provided.
-  * e.g. `closest 1` when contact at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+* Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the identified beneficiary/volunteer by the index provided.
+  * e.g. `closest 1` when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
 
 <br><br>
 
@@ -489,6 +491,21 @@ Typing the letter 'd' in an attempt to type the `delete` command will prompt aut
 
 ------
 
+### Copying data via Clipboard button
+
+For each entry in the display list, users can copy and paste details like Phone, Email and Address using the clipboard button that appears on hover.
+
+**📘 Examples:**
+* Copying details from the display list <br>
+![Example of copying](images/ClipboardButtonScreenshot.png)
+Hovering your mouse over the attribute you want to copy, reveals the Clipboard button that allows copying the data.
+
+<br><br>
+
+[▲ Back to Table of Contents](#table-of-contents)
+
+------
+
 ### Saving the data
 
 CareLink data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -531,13 +548,13 @@ Exits the program.
 ## Valid Attributes
 ### 👤 Name
 
-Alphanumeric + spaces only, not blank.
+Names can only contain alphanumeric characters, hyphens, and apostrophes, must not be blank, must not exceed 50 characters, and names cannot be purely numeric.
 
 * `Alice Tan`
-* `John Doe`
+* `John'O'Doe`
 * `Li Wei`
 * `Aisyah`
-* `Bob 2`
+* `Bob-2`
 
 ### 📧 Email
 
@@ -552,7 +569,7 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 
 ### 📞 Phone Number
 
-Digits only, at least 3 numbers long.
+Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
 
 * `999`
 * `98765432`
@@ -628,7 +645,7 @@ Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
-**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
+**A**: In a folder named `data` in the same directory of `carelink.jar`, you can find the data file named `carelink.json`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>

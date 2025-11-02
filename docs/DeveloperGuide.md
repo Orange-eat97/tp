@@ -531,7 +531,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Should feel snappy: typical commands (add/view/update/delete) should complete in 2 seconds.
 4. Should show autocomplete suggestions almost instantly.
 5. Should display clear error messages that say what went wrong and how to fix it.
-6. Should validate inputs and keep phone/email unique across contacts.
+6. Should validate inputs and no two contacts should have both the same name and phone number.
 7. Should only be for local use, no internet is required.
 8. Should be tailored towards navigating with keyboard.
 
@@ -670,13 +670,6 @@ If the Predicate::and method is used to combine predicates, while the command ca
 
 **Solved by:**
 To increase testability, a custom subclass ChainedPredicate was created to override equality of predicates such that it is no longer referential and depends on its constituent predicates. This allows for easier testing of the FindCommand parser.
-
-### **Region model**
-**Challenge faced:**
-In order to get the closest volunteer and beneficiary, we needed a way to check the distance between them and the address attribute was inadequate for this job.
-
-**Solved by:**
-To calculate distance, an adjacency matrix is instantiated through BFS along with a Valid Region enum, allowing for dynamic updates to region adjacency in the future.
 
 ### **Region model**
 **Challenge faced:**

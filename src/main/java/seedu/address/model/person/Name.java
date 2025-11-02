@@ -2,28 +2,35 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Person's name in the address book. Guarantees: immutable; is
+ * valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names and prefixes should only contain alphanumeric characters, hyphens, and apostrophes, "
+            + "must not be blank, must not exceed 50 characters, and names cannot be purely numeric.";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    * Names:
+    * - Start with an alphanumeric character
+    * - May include spaces, apostrophes, or hyphens
+    * - Must contain at least one letter (not purely digits)
+    * - Length 1–50 characters
+    */
+    public static final String VALIDATION_REGEX = "^(?=.*[A-Za-z])[\\p{Alnum}][\\p{Alnum}'\\- ]{0,49}$";
 
     /*
-     * The prefix must be an alphanumeric word,
-     * no whitespace accepted unlike name.
-     */
-    public static final String PREFIX_VALIDATION_REGEX = "[\\p{Alnum}]+";
-
+    * Prefixes:
+    * - Start with alphanumeric
+    * - Can include apostrophes or hyphens
+    * - No spaces
+    * - Length 1–50 characters
+    */
+    public static final String PREFIX_VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum}'\\-]{0,49}$";
 
     public final String fullName;
 
@@ -35,14 +42,14 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = normalizeInnerSpaces(name);
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return normalizeInnerSpaces(test).matches(VALIDATION_REGEX);
     }
 
     /**
@@ -51,7 +58,6 @@ public class Name {
     public static boolean isValidNamePrefix(String test) {
         return test.matches(PREFIX_VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {

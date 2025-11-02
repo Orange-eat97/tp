@@ -137,4 +137,26 @@ public class StringUtil {
         }
         return result.toString();
     }
+
+    /**
+     * Normalizes whitespace within a string by converting multiple consecutive
+     * spaces, tabs, or other whitespace characters into a single space.
+     * Leading and trailing whitespace are also trimmed.
+     *
+     * Examples:
+     *   "James         Chan"  → "James Chan"
+     *   "James    Chan    Jim" → "James Chan Jim"
+     *   "  \tJames \t Chan   " → "James Chan"
+     *
+     * @param input the string to normalize
+     * @return a cleaned version of the string with single spaces between words,
+     *         or the original string if it is null
+     */
+    public static String normalizeInnerSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+
+        return input.trim().replaceAll("\\s+", " ");
+    }
 }

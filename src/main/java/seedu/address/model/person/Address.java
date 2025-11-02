@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
 
 /**
  * Represents a Person's address in the address book.
@@ -27,14 +28,14 @@ public class Address {
     public Address(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = normalizeInnerSpaces(address);
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return normalizeInnerSpaces(test).matches(VALIDATION_REGEX);
     }
 
     @Override
