@@ -15,5 +15,5 @@ public class TypicalIndexes {
     public static final List<Index> INDICES_THREE_PERSONS = List.of(INDEX_THIRD_PERSON,
             INDEX_SECOND_PERSON, INDEX_FIRST_PERSON);
     public static final List<Index> DUPLICATE_INDICES = List.of(INDEX_FIRST_PERSON,
-            INDEX_SECOND_PERSON, INDEX_FIRST_PERSON);
+            INDEX_SECOND_PERSON, INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
 }
