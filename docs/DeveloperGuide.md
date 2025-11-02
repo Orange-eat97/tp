@@ -208,17 +208,28 @@ Below is a given sequence diagram showing how `SortCommandParser` constructs the
 
 #### Current Implementation
 Command history tracks all commands entered during the current session and allows users to navigate through previously
-entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+entered commands using the `UP` and `DOWN` arrow keys. The command history is managed by the `CommandHistory` class and accessed
 through the `Logic` component.
 
-How `CommandHistory` works:
-1. The MainWindow class listens for an UP or DOWN key press
-2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
-3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
-4. The Key press event is then consumed within MainWindow
+How adding commands to `CommandHistory` works:
+1. The `CommandBox` class listens for an `ENTER` key press
+2. The `MainWindow#executeCommand` method is called
+3. If the command entered was valid, the command text is passed to `Logic#addCommand`
+4. `Logic#addCommand` in turn calls `CommandHistory#addCommand` and the command is added to the command history
+
+Below is a given sequence diagram illustrating how commands are added to the command history:
+
+![CommandExecutionSequenceDiagram](images/CommandExecutionSequenceDiagram.png)
+
+How the `CommandHistory` navigation works:
+1. The MainWindow class listens for an `UP` or `DOWN` key press
+2. Depending on which key is pressed, the `getNextCommand` or `getPreviousCommand` method is called by `Logic`
+3. After `MainWindow` has received the corresponding command, `Logic` then retrieves the full command history through 
+`getCommandHistory`
+4. The Key press event is then consumed within `MainWindow`
 
 Below is a given sequence diagram illustrating how the command history navigation is
-executed through the Logic component.
+executed through the Logic component:
 
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
