@@ -1,17 +1,21 @@
 package seedu.address.logic.commands;
 
-import java.util.Comparator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.ClosestCommand.PREDICATE_SHOW_ALL_BENEFICIARY;
+import static seedu.address.logic.commands.ClosestCommand.PREDICATE_SHOW_ALL_VOLUNTEERS;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Comparator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import static seedu.address.logic.commands.ClosestCommand.PREDICATE_SHOW_ALL_BENEFICIARY;
-import static seedu.address.logic.commands.ClosestCommand.PREDICATE_SHOW_ALL_VOLUNTEERS;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -19,9 +23,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class ClosestCommandTest {
 
@@ -75,9 +76,11 @@ public class ClosestCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         for (int i = 0; i < model.getDisplayList().size() - 1; i++) {
-            boolean isBeneficiary = model.getDisplayList().get(i).getTags().contains(new Tag("beneficiary"));
+            boolean isBeneficiary = model.getDisplayList().get(i)
+                    .getTags().contains(new Tag("beneficiary"));
 
-            assertTrue(isBeneficiary, "%s is not a beneficiary".formatted(model.getDisplayList().get(i).getName().fullName));
+            assertTrue(isBeneficiary,
+                    "%s is not a beneficiary".formatted(model.getDisplayList().get(i).getName().fullName));
         }
     }
 
@@ -96,9 +99,11 @@ public class ClosestCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         for (int i = 0; i < model.getDisplayList().size() - 1; i++) {
-            boolean isVolunteer = model.getDisplayList().get(i).getTags().contains(new Tag("volunteer"));
+            boolean isVolunteer = model.getDisplayList().get(i)
+                    .getTags().contains(new Tag("volunteer"));
 
-            assertTrue(isVolunteer, "%s is not a volunteer".formatted(model.getDisplayList().get(i).getName().fullName));
+            assertTrue(isVolunteer,
+                    "%s is not a volunteer".formatted(model.getDisplayList().get(i).getName().fullName));
         }
     }
 
