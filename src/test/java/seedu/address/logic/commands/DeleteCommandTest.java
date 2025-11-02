@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalIndexes.DUPLICATE_INDICES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDICES_THREE_PERSONS;
@@ -105,6 +106,25 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(List.of(outOfBoundIndex, INDEX_FIRST_PERSON));
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_duplicateIndices_success() {
+        DeleteCommand deleteCommand = new DeleteCommand(DUPLICATE_INDICES);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        StringBuilder personsInfo = new StringBuilder();
+
+        Person firstPersonToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPersonToDelete = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        personsInfo.append(Messages.format(secondPersonToDelete)).append("\n");
+        personsInfo.append(Messages.format(firstPersonToDelete)).append("\n");
+
+        expectedModel.deletePerson(secondPersonToDelete);
+        expectedModel.deletePerson(firstPersonToDelete);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                personsInfo);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
