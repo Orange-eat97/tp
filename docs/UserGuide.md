@@ -439,7 +439,7 @@ Cycles between commands in the command history.
 
 :information_source: **Important Note:**
 * When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
-* If you are at the most recent command, pressing the `⬇ UP Key` will retrieve the oldest command
+* If you are at the most recent command, pressing the `⬆ UP Key` will retrieve the oldest command
 * Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
 
 </div>
