@@ -32,7 +32,7 @@ public class AutoCompleteSupplierTest {
         assertNull(AutoCompleteSupplier.giveAddSortFindParams(""));
         assertNull(AutoCompleteSupplier.giveAddSortFindParams("Add"));
         assertNull(AutoCompleteSupplier.giveAddSortFindParams("edit"));
-        assertNull(AutoCompleteSupplier.giveEditParams("find n/ p/ e/ a/ r/ t/"));
+        assertNull(AutoCompleteSupplier.giveAddSortFindParams("find n/ p/ e/ a/ r/ t/"));
     }
 
     @Test
@@ -65,28 +65,28 @@ public class AutoCompleteSupplierTest {
     }
 
     @Test
-    public void makeTailNoCommand_prefixCompleted_ReturnEmpty() {
+    public void makeTailNoCommand_prefixCompleted_returnEmpty() {
         assertEquals("", AutoCompleteSupplier.makeTail("add", "add"));
     }
 
     @Test
-    public void makeTailNoCommand_suggestionPrefixMismatch_ReturnEmpty() {
+    public void makeTailNoCommand_suggestionPrefixMismatch_returnEmpty() {
         assertEquals("", AutoCompleteSupplier.makeTail("add", "q"));
         assertEquals("", AutoCompleteSupplier.makeTail("n/", "q"));
     }
 
     @Test
-    public void makeTailNoCommand_noSuggestion_ReturnEmpty() {
+    public void makeTailNoCommand_noSuggestion_returnEmpty() {
         assertEquals("", AutoCompleteSupplier.makeTail(null, "q"));
     }
 
     @Test
-    public void makeTailNoCommand_prefiexLongerThanSuggestion_ReturnEmpty() {
+    public void makeTailNoCommand_prefiexLongerThanSuggestion_returnEmpty() {
         assertEquals("", AutoCompleteSupplier.makeTail("add", "addition"));
     }
 
     @Test
-    public void makeTailNoCommand_prefixIsNullOrValidPrefix_ReturnCommand() {
+    public void makeTailNoCommand_prefixIsNullOrValidPrefix_returnCommand() {
         assertEquals("dd", AutoCompleteSupplier.makeTail("add", "a"));
         assertEquals("add", AutoCompleteSupplier.makeTail("add", null));
     }

@@ -63,7 +63,7 @@ public class AutoCompleteParserTest {
      * EP = text has command + !letter for param signature + !ends with space = hide
      */
     @Test
-    public void command_afterInvalidLetter_Hide() {
+    public void command_afterInvalidLetter_hide() {
         String text = "add q";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
