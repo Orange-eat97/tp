@@ -271,9 +271,13 @@ Deletes one or more specified contacts from the address book.
 **📘 Examples:**
 * `list` followed by `delete 2` 
 <br>![result for 'list'](images/listBeforeDelete.png)
-Running the `list` lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
+Running `list` lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
 Running `delete 2` deletes the second person in the list.
-* `find n/alice` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
+* `find n/alice` followed by `delete 1 2`
+<br>![result for 'find n/alice'](images/findAlice.png)
+Running `find n/alice` displays all contacts named 'Alice'
+<br>![result for 'delete 1 2'](images/findAlice.png)
+`delete 1 2` deletes the first two contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
