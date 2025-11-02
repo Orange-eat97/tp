@@ -172,7 +172,7 @@ How the `FindCommand` works:
 5. The collective list of predicates is passed to `ChainedPredicate`, which acts like an `AND` logic operator.
 This is the final predicate used to filter persons.
 
-Below is a given sequence diagram for the flow of find command. 
+Below is a given sequence diagram for the flow of find command.
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
@@ -224,7 +224,7 @@ Below is a given sequence diagram illustrating how commands are added to the com
 How the `CommandHistory` navigation works:
 1. The MainWindow class listens for an `UP` or `DOWN` key press
 2. Depending on which key is pressed, the `getNextCommand` or `getPreviousCommand` method is called by `Logic`
-3. After `MainWindow` has received the corresponding command, `Logic` then retrieves the full command history through 
+3. After `MainWindow` has received the corresponding command, `Logic` then retrieves the full command history through
 `getCommandHistory`
 4. The Key press event is then consumed within `MainWindow`
 
@@ -324,8 +324,8 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Autocomplete
 Autocomplete consists of three classes:
 1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
-2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
-Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
+2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display.
+Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa.
 3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
 suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
