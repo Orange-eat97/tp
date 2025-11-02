@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -15,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Region;
 import seedu.address.model.person.StrAttrContainsKeywords;
+import seedu.address.model.tag.Tag;
 
 /**
  * Sorts people according to how close their region is to the region of the
@@ -25,13 +28,17 @@ public class ClosestCommand extends Command {
     public static final String COMMAND_WORD = "closest";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts all persons according to distance to region of the person identified"
-            + "by the index number used in the displayed person list.\n"
+            + ": Sorts all persons according to distance to region of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Displays only volunteers if selected beneficiary and only beneficiaries if selected volunteer.\n"
+
             + "Parameters: INDEX (must be a positive integer) " + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
-            Set.of(new KeywordMatch("volunteer", false)),
-            Person.TAG_STR_GETTER);
+            Set.of(new KeywordMatch("volunteer", false)), Person.TAG_STR_GETTER);
+
+    public static final Predicate<Person> PREDICATE_SHOW_ALL_BENEFICIARY = new StrAttrContainsKeywords(
+            Set.of(new KeywordMatch("beneficiary", false)), Person.TAG_STR_GETTER);
 
     private final Index index;
 
@@ -58,18 +65,27 @@ public class ClosestCommand extends Command {
 
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
-        model.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
-        CommandResult res = new SortCommand(personComparator,
-                "closest volunteer to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
-        return new CommandResult(res.getFeedbackToUser(), res.isShowHelp(), res.isExit(),
-                res.getSortStatusText(), "");
+        boolean isPersonVolunteer = personToSortBy.getTags().contains(new Tag("volunteer"));
+        String filteredByString = isPersonVolunteer ? "beneficiary" : "volunteer";
+
+        CommandResult resultFind = new FindCommand(
+            isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS,
+            Map.of(PREFIX_TAG, Set.of(new KeywordMatch(filteredByString, false)))).execute(model);
+
+        String regionName = personToSortBy.getRegion().value.getDisplayName();
+        CommandResult resultSort = new SortCommand(personComparator, "closest volunteer to %s".formatted(regionName))
+                .execute(model);
+
+        return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(filteredByString, regionName),
+                false, false, resultSort.getSortStatusText(), resultFind.getFindStatusText());
     }
 
     /**
-     * Creates a Person comparator that sorts people according to how close their region is to the region of the
-     * given person.
+     * Creates a Person comparator that sorts people according to how close
+     * their region is to the region of the given person.
      *
-     * @param personToCompareTo is the person whose region is used to sort the closeness of each person's region to
+     * @param personToCompareTo is the person whose region is used to sort the
+     *     closeness of each person's region to
      * @return personComparator
      */
     public static Comparator<Person> createClosestComparator(Person personToCompareTo) {
