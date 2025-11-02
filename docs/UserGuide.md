@@ -431,23 +431,26 @@ This allows easy selection of volunteers to dispatch.
 Cycles between commands in the command history.
 
 **⌨ Usage:**<br>
-* Press `⬆ UP Key`: Goes to the previous command in history
+* Press `⬆ UP Key`: Cycles to more recent commands
 
-* Press `⬇ DOWN Key`: Goes to the next command in history
+* Press `⬇ DOWN Key`: Cycles to older commands
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
 * When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
-* If you are at the most recent command, pressing the `⬆ UP Key` will retrieve the oldest command
-* Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
+* If you are at the most recent command (the top most command), pressing the `⬆ UP Key` will retrieve the oldest command
+* Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the 
+most recent command
 
 </div>
 
 **📘 Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
   <br>
-  The current command in the command history is prefixed with a `*`.
+  After pressing either the `⬆ UP Key` or the `⬇ DOWN Key` for the first time since a valid command was executed,
+the command history list is rendered in the result display.
+The current command in the command history is prefixed with a `*` and is typed out in the command box.
   <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
