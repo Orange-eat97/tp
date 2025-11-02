@@ -262,4 +262,46 @@ public class StringUtilTest {
                 -> StringUtil.formatNumberedListWithHighlight(LIST_OF_COMMANDS, -1)
         );
     }
+
+    @Test
+    public void normalizeInnerSpaces_leadingTrailingInnerSpaces_normalized() {
+        assertEquals("This is a test string",
+                StringUtil.normalizeInnerSpaces("  This   is  a    test string  "));
+    }
+
+    @Test
+    public void normalizeInnerSpaces_nullInput_returnsNull() {
+        assertEquals(null, StringUtil.normalizeInnerSpaces(null));
+    }
+
+    @Test
+    public void normalizeInnerSpaces_onlyWhitespace_returnsEmptyString() {
+        assertEquals("",
+                StringUtil.normalizeInnerSpaces("     \t   \n  "));
+    }
+
+    @Test
+    public void standardiseName_allUpperCase_returnsLowerCase() {
+        assertEquals("john doe", StringUtil.standardiseName("JOHN DOE"));
+    }
+
+    @Test
+    public void standardiseName_includeSpecialChars_returnsLowerCase() {
+        assertEquals("john doe", StringUtil.standardiseName("john'- doe"));
+    }
+
+    @Test
+    public void standardiseName_upperCaseWithSpecialChars_returnsLowerCase() {
+        assertEquals("john doe", StringUtil.standardiseName("JOHN'- DOE"));
+    }
+
+    @Test
+    public void removeAllWhiteSpace_noChange_returnsSameString() {
+        assertEquals("12345678", StringUtil.standardiseName("12345678"));
+    }
+
+    @Test
+    public void removeAllWhiteSpace_withSpaces_returnsStringWithoutSpaces() {
+        assertEquals("12345678", StringUtil.removeAllWhitespace("  1 23456  78 "));
+    }
 }
