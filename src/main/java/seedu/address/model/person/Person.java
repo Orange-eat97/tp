@@ -1,7 +1,8 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.StringUtil.*;
+import static seedu.address.commons.util.StringUtil.removeAllWhitespace;
+import static seedu.address.commons.util.StringUtil.standardiseName;
 
 import java.util.Collections;
 import java.util.HashSet;
