@@ -535,13 +535,13 @@ Exits the program.
 ## Valid Attributes
 ### 👤 Name
 
-Alphanumeric + spaces only, not blank.
+Names can only contain alphanumeric characters, hyphens, and apostrophes, must not be blank, must not exceed 50 characters, and names cannot be purely numeric.
 
 * `Alice Tan`
-* `John Doe`
+* `John'O'Doe`
 * `Li Wei`
 * `Aisyah`
-* `Bob 2`
+* `Bob-2`
 
 ### 📧 Email
 
@@ -556,7 +556,7 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 
 ### 📞 Phone Number
 
-Digits only, at least 3 numbers long.
+Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
 
 * `999`
 * `98765432`
