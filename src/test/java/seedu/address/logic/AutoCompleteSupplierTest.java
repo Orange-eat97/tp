@@ -48,19 +48,19 @@ public class AutoCompleteSupplierTest {
     }
 
     @Test
-    public void makeTailWithCommand_Param_returnSlash() {
+    public void makeTailWithCommand_param_returnSlash() {
         assertEquals("/", AutoCompleteSupplier.makeTail("add", "n/", "n"));
         assertEquals("/", AutoCompleteSupplier.makeTail("add", "n/", "p"));
     }
 
     @Test
-    public void makeTailWithCommand_EmptyText_returnParamSlash() {
+    public void makeTailWithCommand_emptyText_returnParamSlash() {
         assertEquals("n/", AutoCompleteSupplier.makeTail("add", "n/", null));
         assertEquals("n/", AutoCompleteSupplier.makeTail("add", "n/", ""));
     }
 
     @Test
-    public void makeTailWithCommand_InvalidLetter_returnEmpty() {
+    public void makeTailWithCommand_invalidLetter_returnEmpty() {
         assertEquals("", AutoCompleteSupplier.makeTail("add", "n/", "q"));
     }
 
