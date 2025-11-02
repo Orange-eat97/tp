@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.StringUtil.removeNonAlnum;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -87,8 +88,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getName().equals(getName());
+                && removeNonAlnum(otherPerson.getPhone().value).equals(removeNonAlnum(getPhone().value))
+                && removeNonAlnum(otherPerson.getName().fullName).equals(removeNonAlnum(getName().fullName));
     }
 
     /**

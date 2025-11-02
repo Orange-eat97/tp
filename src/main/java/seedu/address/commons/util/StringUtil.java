@@ -159,4 +159,14 @@ public class StringUtil {
 
         return input.trim().replaceAll("\\s+", " ");
     }
+
+    /**
+     * Removes all non-alphanumeric characters. Mainly used for stricter duplicate detection.
+     */
+    public static String removeNonAlnum(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
 }
