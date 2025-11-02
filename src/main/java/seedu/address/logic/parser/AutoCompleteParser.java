@@ -75,7 +75,7 @@ public class AutoCompleteParser {
             tail = AutoCompleteSupplier.makeTail("edit", next, prefix);
 
             if (isHideEditParams(text)) { //case when text has no index, hide
-                hideLogger.log(Level.INFO, "Hiding edit text =" + text + " tail = " + tail);
+                hideLogger.log(Level.FINE, "Hiding edit text =" + text + " tail = " + tail);
                 return makeCommandsArray(null, 0, null);
             } else if (isEndWithSpace(text)) { //case of "edit 1 " -> suggest param signature
                 return makeCommandsArray(next, start, tail);
@@ -90,7 +90,7 @@ public class AutoCompleteParser {
             }
 
             if (nullOrEmpty(next) || next.equals(prefix) || start >= end) {
-                hideLogger.log(Level.INFO, "invalid next=" + next + " prefix = " + prefix);
+                hideLogger.log(Level.FINE, "invalid next=" + next + " prefix = " + prefix);
                 return makeCommandsArray(null, 0, null);
             }
 

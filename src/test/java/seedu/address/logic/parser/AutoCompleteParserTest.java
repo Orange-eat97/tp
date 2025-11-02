@@ -20,7 +20,7 @@ public class AutoCompleteParserTest {
      * EP = text is substring of command + !ends with space = show command
      */
     @Test
-    public void noSpaceShowCommand() {
+    public void command_noSpaceAndSubstringOfCommand_showCommand() {
         String text = "ad";
         int caret = text.length(); // 2
         String[] expected = show("add", 0, "d");
@@ -31,7 +31,7 @@ public class AutoCompleteParserTest {
      * EP = text is full command + !ends with space = hide
      */
     @Test
-    public void noSpaceHide() {
+    public void command_noSpaceCompleteCommand_hide() {
         String text = "add";
         int caret = text.length(); // 2
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -41,7 +41,7 @@ public class AutoCompleteParserTest {
      * EP = text is full command + ends with space = show param
      */
     @Test
-    public void spaceAfterCommandShowParam() {
+    public void command_spaceAfterCommand_showParam() {
         String text = "add ";
         int caret = text.length();
         String[] expected = show("n/", caret, "n/");
@@ -52,7 +52,7 @@ public class AutoCompleteParserTest {
      * EP = text has command + letter for param signature + !ends with space = show /
      */
     @Test
-    public void afterParamLetterShowSlash() {
+    public void command_afterParamLetter_showSlash() {
         String text = "add n";
         int caret = text.length();
         String[] expected = show("n/", 4, "/");
@@ -63,7 +63,7 @@ public class AutoCompleteParserTest {
      * EP = text has command + !letter for param signature + !ends with space = hide
      */
     @Test
-    public void afterInvalidLetterHide() {
+    public void command_afterInvalidLetter_Hide() {
         String text = "add q";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -73,7 +73,7 @@ public class AutoCompleteParserTest {
      * EP = text has edit + has index + ends with space = show param
      */
     @Test
-    public void spaceAfterEditWithIndexShowParam() {
+    public void command_spaceAfterEditWithIndex_showParam() {
         String text = "edit 1 ";
         int caret = text.length();
         String[] expected = show("n/", caret, "n/");
@@ -84,7 +84,7 @@ public class AutoCompleteParserTest {
      * EP = text has edit + has index + !ends with space = hide
      */
     @Test
-    public void afterEditNoIndexHide() {
+    public void coomand_afterEditNoIndex_hide() {
         String text = "edit 1";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -94,7 +94,7 @@ public class AutoCompleteParserTest {
      * EP = text has edit + !has index + !ends with space = hide
      */
     @Test
-    public void afterEditAndLetterNoIndexHide() {
+    public void command_afterEditAndLetterNoIndex_hide() {
         String text = "edit n";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -104,7 +104,7 @@ public class AutoCompleteParserTest {
      * EP = text has edit + !has index + ends with space = hide
      */
     @Test
-    public void afterEditAndLetterEndsSpaceNoIndexHide() {
+    public void command_afterEditAndLetterEndsSpaceNoIndex_hide() {
         String text = "edit n ";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -114,7 +114,7 @@ public class AutoCompleteParserTest {
      * EP = invalid prefix = hide
      */
     @Test
-    public void invalidPrefixHide() {
+    public void command_invalidPrefix_hide() {
         String text = "AD";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -124,7 +124,7 @@ public class AutoCompleteParserTest {
      * EP = text ends with / = hide
      */
     @Test
-    public void textEndWithSlashHide() {
+    public void command_textEndWithSlash_hide() {
         String text = "add n/";
         int caret = text.length();
         assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
@@ -134,7 +134,7 @@ public class AutoCompleteParserTest {
      * EP = text = null = hide
      */
     @Test
-    void nullTextHide() {
+    void command_nullText_hide() {
         assertArrayEquals(hide(), AutoCompleteParser.command(null, 0));
     }
 
