@@ -28,7 +28,8 @@ public class ClosestCommand extends Command {
     public static final String COMMAND_WORD = "closest";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts all persons according to distance to region of the person identified. Displays only volunteers if selected beneficiary and only beneficiaries if selected volunteer. "
+            + ": Sorts all persons according to distance to region of the person identified. 
+            Displays only volunteers if selected beneficiary and only beneficiaries if selected volunteer. "
             + "by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) " + "Example: " + COMMAND_WORD + " 1 ";
 
