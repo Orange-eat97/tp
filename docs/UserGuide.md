@@ -572,8 +572,8 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
 
 * `999`
-* `98765432`
-* `65123456`
+* `9876 5432`
+* `65 1234 5600`
 * `1800123`
 
 ### 🌍 Region
