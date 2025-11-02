@@ -262,16 +262,18 @@ Deletes one or more specified contacts from the address book.
 * Each index refers to the index number shown in the displayed contact list.
 * A minimum of one index must be specified
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
-* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
-contacts
+* The order of the indexes do not matter 
+* Spaces must be used to separate indexes 
+* Duplicate but valid indexes will be ignored
 </div>
 
 
 **📘 Examples:**
-* `list` followed by `delete 2` deletes the 2nd contact in the address book.
-* `find n/Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
-
+* `list` followed by `delete 2` 
+<br>![result for 'list'](images/listBeforeDelete.png)
+Running the `list` lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
+Running `delete 2` deletes the second person in the list.
+* `find n/alice` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
