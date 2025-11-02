@@ -321,9 +321,6 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
-
 ### Autocomplete
 Autocomplete consists of three classes:
 1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
