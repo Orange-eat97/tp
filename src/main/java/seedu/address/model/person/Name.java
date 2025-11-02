@@ -10,19 +10,26 @@ import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
  */
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS = "Names and prefixes should only contain alphanumeric characters, hyphens, and apostrophes, "
-            + "must not be blank, and must not exceed 50 characters.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Names and prefixes should only contain alphanumeric characters, hyphens, and apostrophes, "
+            + "must not be blank, must not exceed 50 characters, and names cannot be purely numeric.";
 
     /*
-     * Names: start with alphanumeric, can include spaces, apostrophes, or
-     * hyphens, and must be 1–50 characters long.
-     */
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum}'\\- ]{0,49}$";
+    * Names:
+    * - Start with an alphanumeric character
+    * - May include spaces, apostrophes, or hyphens
+    * - Must contain at least one letter (not purely digits)
+    * - Length 1–50 characters
+    */
+    public static final String VALIDATION_REGEX = "^(?=.*[A-Za-z])[\\p{Alnum}][\\p{Alnum}'\\- ]{0,49}$";
 
     /*
-     * Prefixes: start with alphanumeric, can include apostrophes or hyphens, no
-     * spaces, and must be 1–50 characters long.
-     */
+    * Prefixes:
+    * - Start with alphanumeric
+    * - Can include apostrophes or hyphens
+    * - No spaces
+    * - Length 1–50 characters
+    */
     public static final String PREFIX_VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum}'\\-]{0,49}$";
 
     public final String fullName;
