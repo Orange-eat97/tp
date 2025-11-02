@@ -264,7 +264,7 @@ Deletes one or more specified contacts from the address book.
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
 * The order of the indexes do not matter 
 * Spaces must be used to separate indexes 
-* Duplicate but valid indexes will be ignored
+* Duplicate indexes will be ignored
 </div>
 
 
@@ -448,6 +448,7 @@ Cycles between commands in the command history.
 * If you are at the most recent command (the top most command), pressing the `⬆ UP Key` will retrieve the oldest command
 * Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the 
 most recent command
+* Only the 5 most recent commands will be displayed in the command history
 
 </div>
 
