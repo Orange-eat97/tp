@@ -484,7 +484,8 @@ For each entry in the display list, users can copy and paste details like Phone,
 
 **📘 Examples:**
 * Copying details from the display list <br>
-![Example of copying](ClipboardButtonScreenshot.png)
+![Example of copying](images/ClipboardButtonScreenshot.png)
+Hovering your mouse over the attribute you want to copy, reveals the Clipboard button that allows copying the data.
 
 <br><br>
 
@@ -631,7 +632,7 @@ Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
 
 ## FAQ
 **Q**: Where are my data files stored?<br>
-**A**: In a folder named `data` in the same directory of `addressbook.jar`, you can find the data file named `addressbook.json`.
+**A**: In a folder named `data` in the same directory of `carelink.jar`, you can find the data file named `carelink.json`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
