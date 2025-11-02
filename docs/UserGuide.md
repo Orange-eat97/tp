@@ -325,7 +325,8 @@ you can see the total number of contacts.
 
 ### Locating contacts: `find`
 
-Filters contacts whose fields match the keywords.
+Filters contacts whose fields match the keywords. 
+You can use this to quickly identify or filter volunteers and beneficiaries based on their attributes!
 
 **✏️ Format:**<br>
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
@@ -333,31 +334,43 @@ Filters contacts whose fields match the keywords.
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
-* The search is <u>case-insensitive</u> e.g `n/hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`.
- Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`.
 * Keywords can be:
-  * full words e.g. `n/Alex` 
-  * prefixes e.g. `n/Al%` where `%` indicates a prefix
-* If keyword is a full word, only full words will be matched.
-  * e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`.
-* If keyword is a prefix, any prefix of attribute can be matched.
-  * e.g. `n/Han%` can match `Hans` and `Bo Hans`.
+  * full words: `n/Alex` 
+  * prefixes: `n/Al%` using `%` to indicate a prefix keyword
+* If keyword is a full word, only full words will be matched for that attribute.
+  * `n/Han` will not match name `Hans`, `r/BukitTimah` will not match region `Bukit Timah`.
+* If keyword is a prefix, any word containing the prefix will be matched for that attribute.
+  * `n/Han%` can match name `Hans` and `Bo Hans`.
+* Keywords are <u>case-insensitive</u>.
+* The order of the keywords does not matter.
+* Multiple keywords per field are allowed.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+* Prefix keyword searches are not supported for addresses.
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` does not follow any specific order.
+</div>
 
 </div>
 
 
 **📘 Examples:**
-* `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
-At the panel below the command box, you can see the total number of contacts.
+* `find n/aleX DAViD t/volunteer`<br>
+Uses only full-word keywords to search for volunteers named Alex or David.
+
 <br><br>
 
-* `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
+* `find n/ale davi` <br>
+No results found as no volunteers have the full words `ale` or `davi` in their names.
+
+<br><br>
+
+* `find n/ibra% bernice r/woodlands` <br>
     ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
-Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
-At the panel below the command box, you can see the total number of contacts.
+Uses a mix of prefix and full-word keywords to find `Bernice` and `Irfan Ibrahim` who stay in Woodlands.
+
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
