@@ -49,8 +49,8 @@ public class SortCommandParserTest {
         prefixList.add(PREFIX_EMAIL);
 
         SortCommand expectedSortCommand = new SortCommand(comparator, prefixList);
-        assertParseSuccess(parser, " " + PREFIX_NAME + ", "
-                + PREFIX_ADDRESS + ", " + PREFIX_EMAIL, expectedSortCommand);
+        assertParseSuccess(parser, " " + PREFIX_NAME + " "
+                + PREFIX_ADDRESS + " " + PREFIX_EMAIL, expectedSortCommand);
 
     }
 }

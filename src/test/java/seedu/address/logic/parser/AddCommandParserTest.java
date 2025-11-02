@@ -59,10 +59,10 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + REGION_DESC_BOB + TAG_DESC_BENEFICIARY, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_BENEFICIARY, VALID_TAG_VOLUNTEER)
+        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_BENEFICIARY)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
+                + REGION_DESC_BOB + TAG_DESC_BENEFICIARY,
                 new AddCommand(expectedPersonMultipleTags));
     }
 
