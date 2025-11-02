@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing or incorrect!";
 
     private final String name;
     private final String phone;
@@ -124,6 +124,10 @@ class JsonAdaptedPerson {
         final Region modelRegion = new Region(region);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        if (!modelTags.contains(new Tag("volunteer")) && !modelTags.contains(new Tag("beneficiary"))) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Tag.MESSAGE_CONSTRAINTS));
+        }
+
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRegion, modelTags);
     }
 

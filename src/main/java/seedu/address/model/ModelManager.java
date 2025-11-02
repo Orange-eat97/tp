@@ -169,12 +169,14 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDisplayList(Predicate<Person> predicate) {
+        logger.info("Updating display list filter");
         updateFilteredPersonList(predicate);
 
     }
 
     @Override
     public void updateDisplayList(Comparator<Person> comparator) {
+        logger.info("Updating display list sort order");
         updateSortedPersonList(comparator);
 
     }

@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -11,9 +12,22 @@ public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
-    public static final String PREFIX_VALIDATION_REGEX = "^\\d+$";
+        "Phone numbers should contain only digits and spaces, "
+        + "must start and end with digits, have at least 3 digits, and must not exceed 50 characters.";
+
+    /*
+    * Allows digits and single or multiple inner spaces.
+    * No leading/trailing spaces.
+    * Total length between 3 and 50 characters.
+    */
+    public static final String VALIDATION_REGEX = "^[0-9](?:[0-9 ]{1,48}[0-9])?$";
+
+    /*
+    * Prefix version: allows only digits, no spaces.
+    * Between 1 and 50 digits.
+    */
+    public static final String PREFIX_VALIDATION_REGEX = "^\\d{1,50}$";
+
     public final String value;
 
     /**
@@ -24,14 +38,14 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        value = normalizeInnerSpaces(phone);
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return normalizeInnerSpaces(test).matches(VALIDATION_REGEX);
     }
 
     /**
