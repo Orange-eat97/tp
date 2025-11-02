@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -72,8 +71,8 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        if (tags.contains(new JsonAdaptedTag("volunteer")) &&
-                tags.contains(new JsonAdaptedTag("beneficiary"))) {
+        if (tags.contains(new JsonAdaptedTag("volunteer"))
+                && tags.contains(new JsonAdaptedTag("beneficiary"))) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
         final List<Tag> personTags = new ArrayList<>();
