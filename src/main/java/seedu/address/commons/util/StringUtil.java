@@ -161,12 +161,22 @@ public class StringUtil {
     }
 
     /**
-     * Removes all non-alphanumeric characters. Mainly used for stricter duplicate detection.
+     * Removes all characters that are not alphanumeric/spaces. Mainly used for stricter duplicate detection.
      */
-    public static String removeNonAlnum(String input) {
+    public static String standardiseName(String name) {
+        if (name == null) {
+            return null;
+        }
+        return name.replaceAll("[^a-zA-Z0-9 ]", "").toLowerCase();
+    }
+
+    /**
+     * Removes all whitespace characters.
+     */
+    public static String removeAllWhitespace(String input) {
         if (input == null) {
             return null;
         }
-        return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        return input.replaceAll("\\s+", "");
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.StringUtil.removeNonAlnum;
+import static seedu.address.commons.util.StringUtil.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -79,7 +79,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name and phone number.
+     * Returns true if both persons have the same name (ignoring special characters) and phone number (ignoring spaces).
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -88,8 +88,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && removeNonAlnum(otherPerson.getPhone().value).equals(removeNonAlnum(getPhone().value))
-                && removeNonAlnum(otherPerson.getName().fullName).equals(removeNonAlnum(getName().fullName));
+                && removeAllWhitespace(otherPerson.getPhone().value).equals(removeAllWhitespace(getPhone().value))
+                && standardiseName(otherPerson.getName().fullName).equals(standardiseName(getName().fullName));
     }
 
     /**
