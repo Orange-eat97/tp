@@ -76,7 +76,7 @@ public class ClosestCommand extends Command {
 
         
         return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(filteredByString, regionName),
-                false, false, resultFind.getFindStatusText(), resultSort.getSortStatusText());
+                false, false, resultSort.getSortStatusText(), resultFind.getFindStatusText());
     }
 
     /**
