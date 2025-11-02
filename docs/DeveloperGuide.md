@@ -159,20 +159,22 @@ This section describes some noteworthy details on how certain features are imple
 ### Find command
 
 #### Current Implementation
-A case-insensitive search is performed with each additional field added to the find command narrowing down the results.
-Below is a given sequence diagram illustrating how the find command is executed through the Logic component.
+The `FindCommand` supports filtering the persons by certain attribute keywords. Keywords for a given prefix will only
+match the attribute corresponding to the given prefix. Keywords can either be **words**, which match only full words in
+the attribute, or **prefixes**, which match any word's prefix in the attribute. Multiple keywords can be used for each
+attribute and each additional attribute included further narrows the search space (similar to AND logic).
+
+How the `FindCommand` works:
+1. Takes in a list of keywords for each attribute.
+2. For each attribute, parses keywords to distinguish prefix and full-word keywords. Prefix keywords end with a `%`.
+3. Keywords undergo validation to ensure they are either valid words or prefixes depending on the attribute.
+4. This set of keywords form one `StrAttrContainsKeywords` predicate.
+5. The collective list of predicates is passed to `ChainedPredicate`, which acts like an `AND` logic operator.
+This is the final predicate used to filter persons.
+
+Below is a given sequence diagram for the flow of find command. 
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
-
-### Closest command
-
-#### Current Implementation
-Currently the closest command takes advantage of the Sort command's execution to sort the people by distance to a region and to generate a Command Result.
-As such it is heavily dependent on the Sort command's implementation.
-
-It also uses the StrAttrContainsKeywords Predicate class that the Find command uses.
-
-![ClosestCommandClassDiagram](images/ClosestCommandClassDiagram.png)
 
 ### Closest command
 
@@ -200,11 +202,11 @@ How the `SortCommandParser` works:
 
 Below is a given sequence diagram showing how `SortCommandParser` constructs the comparator incrementally.
 
-![SortSequenceDiagram.png](diagrams/SortSequenceDiagram.png)
+![SortSequenceDiagram.png](images/SortSequenceDiagram.png)
 
-## Command History
+### Command History
 
-### Current Implementation
+#### Current Implementation
 Command history tracks all commands entered during the current session and allows users to navigate through previously
 entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
 through the `Logic` component.
@@ -308,6 +310,21 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Command History
+<img src="images/CommandHistorySequenceDiagram.png" width="850" />
+
+### Autocomplete
+Autocomplete consists of three classes:
+1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
+2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
+Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
+3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
+suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
+
+<img src="images/AutoComplete-sequence.png" width="850" />
+<img src="images/AutoComplete activity diagram main.png" width="850" />
+<img src="images/AutoComplete parser activity diagram.png" width="850" />
+<img src="images/AutoComplete class diagram.png" width="850" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -503,7 +520,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 * 2a. User ignores the suggestion and continues typing.
 
-      Use case resumes from step 5.
+   Use case resumes from step 5.
 
 *{More to be added}*
 
@@ -641,6 +658,62 @@ testers are expected to do more *exploratory* testing.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Effort**
+
+This project has developed a small set of features, however we placed extra emphasis to develop them with code quality, software engineering principles and patterns in mind.
+
+These features were developed with many considerations in mind to face challenges we faced. Here is a summary:
+
+### **Find Command with additive filters**
+**Challenge faced:**
+If the Predicate::and method is used to combine predicates, while the command can successfully run, it becomes much more difficult to test since equality of FindCommands should be determined by the equality of predicates, but Predicate equality is mainly referential.
+
+**Solved by:**
+To increase testability, a custom subclass ChainedPredicate was created to override equality of predicates such that it is no longer referential and depends on its constituent predicates. This allows for easier testing of the FindCommand parser.
+
+### **Region model**
+**Challenge faced:**
+In order to get the closest volunteer and beneficiary, we needed a way to check the distance between them and the address attribute was inadequate for this job.
+
+**Solved by:**
+To calculate distance, an adjacency matrix is instantiated through BFS along with a Valid Region enum, allowing for dynamic updates to region adjacency in the future.
+
+### **Region model**
+**Challenge faced:**
+In order to get the closest volunteer and beneficiary, we needed a way to check the distance between them and the address attribute was inadequate for this job.
+
+**Solved by:**
+To calculate distance, an adjacency matrix is instantiated through BFS along with a Valid Region enum, allowing for dynamic updates to region adjacency in the future.
+
+### **Command History**
+**Challenge faced:**
+Pressing UP/DOWN key for the first time does not render the most recent command. Thus, it was important to determine whether a key press was the first.
+
+**Solved by:**
+This was solved through the isInitialPress method of CommandHistory. When a command is added, the queueIndex is set to -1, indicating the next key press should retrieve the most recent command. isInitialPress essentially acts as a boolean flag by checking if the current queueIndex is equal to -1, in which case the command history should retrieve the most recent command.
+
+**Challenge faced:**
+To prevent the command history from becoming too big and overflowing the result display, the number of commands needed to be limited. Additionally, it made more sense for the most recent command to be on top.
+
+**Solved by:**
+Store the command history in a queue and check if the queue is "full" in which case the oldest command would be polled out. Then, to display the command history, create a list from the queue and reverse the list such that the most recent command would be the first in the list.
+
+### **Sort**
+**Challenge faced:**
+Making sort work for different types of cases for example instead of lexicographical order, sort had to work in a intuitive way for humans to order things.
+
+**Solved by:**
+Creating our own comparator to compare two strings, using Natural Order
+
+### **Autocomplete**
+**Challenge faced:**
+Dependency design and Segregation of Functions in autocomplete was challenging. The first iteration had high coupling between classes across several packages. When implementing autocomplete for parameters, it was difficult to seperate the text field into different situations to design branching conditions.
+
+**Solved by:**
+We managed to seperate the functional parts of autocomplete, and designed three seperate classes that minimised coupling. Debug mode was also used to stepped through the program to fix the boundary cases of text inputs.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Appendix: Planned Enhancements**
 
 Team size: 5
@@ -652,14 +725,12 @@ Team size: 5
    pressing `UP` or `DOWN` key selects the autocomplete suggestion. As this is caused by the default behaviour of the
    JavaFX label, we plan to override this behaviour so that only command history has control over the
 `UP` or `DOWN` key.
-3. **Utilisation of vertical space by command result messages is poor**: Currently, whenever the Person string
-   representation is used in the result box like in `Edit`, `Add` ie `Delete`, it puts it in one continuous line and
-only wraps around at the boundary. Separating each attribute into separate lines could better match the GUI
-representation in the contact list and make it more readable.
-4. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next
+3. **Autocomplete blocks "enter" from sending the command**: The autocompleted prefix suggestion lingers until the next
 `SPACE` press. A valid command such as `sort n/` may thus require 2 enter presses. We plan to get rid of the suggestion
 once a valid command has been typed fully.
-5. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit
+4. **Shortcut for accessing the CLI for UI**: Clicking the copy button on the contact person's information will exit
 the CLI. We plan to have a keyboard shortcut to access the CLI.
-6. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
+5. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
 avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
+6. **Find command does not have a default filter option**: We plan to allow the find function to have a default search e.g `find KEYWORDS...` which will search the keyword across all attributes
+7. **Allow closest and sort command to be additive**: Currently, the closest command performs a sort, so it overrides the previous sort status, we plan to allow sorting by a specific region.

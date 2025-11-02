@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,15 +35,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             PREFIX_REGION, Person.REGION_STR_GETTER,
             PREFIX_EMAIL, Person.EMAIL_STR_GETTER,
             PREFIX_TAG, Person.TAG_STR_GETTER
-    );
-
-    private static final Map<Prefix, String> PREFIX_LABELS = Map.of(
-            PREFIX_NAME, "name",
-            PREFIX_ADDRESS, "address",
-            PREFIX_PHONE, "phone number",
-            PREFIX_REGION, "region",
-            PREFIX_EMAIL, "email",
-            PREFIX_TAG, "tag"
     );
 
     /**
@@ -74,7 +64,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 Function<Person, String> getter = ATTRIBUTE_GETTERS.get(prefix);
                 Set<KeywordMatch> keywordMatches = parseKeywords(keywords, prefix);
                 prefixMatches.put(prefix, keywordMatches);
-                predicates.add(buildPredicate(keywordMatches, getter));
+                predicates.add(new StrAttrContainsKeywords(keywordMatches, getter));
             }
         }
 
@@ -82,46 +72,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(
-                new ChainedPredicate(predicates),
-                createDescription(prefixMatches), createStatusText(prefixMatches));
+        return new FindCommand(new ChainedPredicate(predicates), prefixMatches);
     }
 
-    private static String createDescription(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
-        return prefixMatches.entrySet().stream()
-            .map(
-                entry -> {
-                    String keywords = getKeywords(entry.getValue());
-                    return PREFIX_LABELS.get(entry.getKey()) + ": " + keywords;
-                })
-            .collect(Collectors.joining("\n"));
-    }
-
-    private static String createStatusText(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
-        return prefixMatches.entrySet().stream()
-                .map(
-                        entry -> {
-                            String keywords = getKeywords(entry.getValue());
-                            return entry.getKey().getPrefix() + keywords;
-                        })
-                .collect(Collectors.joining(" "));
-    }
-
-    private static String getKeywords(Set<KeywordMatch> keywordMatches) {
-        return keywordMatches.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(" "));
-    }
-
-    /**
-     * Builds predicate based on a string of keywords and a Person attribute getter
-     * @param keywords containing keywords to search for
-     * @return predicate that evaluates to true if at least one of the keywords is found in the attribute
-     */
-    private static StrAttrContainsKeywords buildPredicate(
-            Set<KeywordMatch> keywords, Function<Person, String> attributeGetter) {
-        return new StrAttrContainsKeywords(keywords, attributeGetter);
-    }
     private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Arrays.stream(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

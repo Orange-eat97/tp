@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -85,7 +86,7 @@ public class AddressBookParserTest {
                 new FindCommand(
                         new ChainedPredicate(
                             List.of(new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER))),
-                        "", ""
+                        new HashMap<>()
                 ),
                 command);
     }

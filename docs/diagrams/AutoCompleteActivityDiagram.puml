@@ -1,0 +1,23 @@
+@startuml
+' https://plantuml.com/activity-diagram
+start
+: type ;
+
+: AutoCompleteParser.command;
+note right
+  (Ψ, see seperate activity diagram)
+end note
+
+: user tabs ;
+
+if (suggestion exists?) then (yes)
+  : acCommitSuggestion;
+else (no)
+
+endif
+
+stop
+@enduml
+
+
+

@@ -6,44 +6,55 @@ box Autocomplete Process LOGIC_COLOR_T1
 actor "user" as user
 participant ":CommandBox" as commandbox LOGIC_COLOR
 participant "ghost:Ghost" as ghost LOGIC_COLOR
-participant "autocompleteSupplier:AutocompleteSupplier" as autocompleteSupplier LOGIC_COLOR
-participant ":javaFx" as javaFx LOGIC_COLOR
+participant "AutocompleteParser" as autocompleteParser <<class>> LOGIC_COLOR
+participant "AutocompleteSupplier" as autocompleteSupplier <<class>> LOGIC_COLOR
 end box
 
-user-> commandbox : type
+user -> commandbox : type
 activate commandbox
 
-commandbox -> ghost: acRefreshGhostPreview(commandField)
+commandbox -> ghost : acRefreshGhostPreview(commandField)
 activate ghost
 
-    alt param
-    ghost -> autocompleteSupplier: giveParam(text, list of params)
-    activate autocompleteSupplier
-    return param tag
+    ghost -> autocompleteParser : command(text, caret)
+    activate autocompleteParser
 
-    else command
-    ghost -> autocompleteSupplier: findBestMatch(text)
-    activate autocompleteSupplier
-    return command tail
+    alt command = add or sort
+        autocompleteParser -> autocompleteSupplier : giveAddSortParams(text)
+        activate autocompleteSupplier
+        return suggestion
+    else command = edit
+        autocompleteParser -> autocompleteSupplier : giveEditParams(text)
+        activate autocompleteSupplier
+        return suggestion
+    else complete command
+        autocompleteParser -> autocompleteSupplier : bestMatch(text)
+        activate autocompleteSupplier
+        return suggestion
     end
 
-    ghost -> javaFx: label.setText(command tail)
-    activate javaFx
+    autocompleteParser -> autocompleteSupplier : makeTail(suggestion, prefix)
+    activate autocompleteSupplier
+    return tail
+return command
 
-return new label content
+alt "show" command: command[0] = "show"
+  ghost -> ghost : updateState(command[1], command[2])
+  ghost -> ghost : updateLabelAndShow(command[3], acGhostItem, commandField)
+else "hide" command: command[0] = "hide"
+  ghost -> ghost : acGhostHide()
+end
 
-ghost -> ghost: ghostShow()
-return
-
-
-user-> commandbox : tab
-commandbox -> ghost: acCommitSuggestion(commandField)
+user -> commandbox : tab
+opt ghost != null
+commandbox -> ghost : acCommitSuggestion(commandField)
 activate ghost
 return modified commandField
+end
 return
 
-
 @enduml
+
 
 
 

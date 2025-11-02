@@ -31,8 +31,7 @@ public class ClosestCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
-            Set.of(new KeywordMatch("volunteer", false)),
-            Person.TAG_STR_GETTER);
+            Set.of(new KeywordMatch("volunteer", false)), Person.TAG_STR_GETTER);
 
     public static final Predicate<Person> PREDICATE_SHOW_ALL_BENEFICIARY = new StrAttrContainsKeywords(
             Set.of(new KeywordMatch("beneficiary", false)), Person.TAG_STR_GETTER);
@@ -66,20 +65,20 @@ public class ClosestCommand extends Command {
         model.updateDisplayList(isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS);
 
         String regionName = personToSortBy.getRegion().value.getDisplayName();
-        CommandResult result = new SortCommand(personComparator,
-                "closest volunteer to %s".formatted(regionName)).execute(model);
+        CommandResult result = new SortCommand(personComparator, "closest volunteer to %s".formatted(regionName))
+                .execute(model);
 
         String sortedByString = isPersonVolunteer ? "beneficiary" : "volunteer";
-        return new CommandResult(
-            "Sorted and filtered to find closest %s to %s".formatted(sortedByString, regionName),
-            false, false, "tag: %s".formatted(sortedByString), result.getSortStatusText());
+        return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(sortedByString, regionName),
+                false, false, "tag: %s".formatted(sortedByString), result.getSortStatusText());
     }
 
     /**
-     * Creates a Person comparator that sorts people according to how close their region is to the region of the
-     * given person.
+     * Creates a Person comparator that sorts people according to how close
+     * their region is to the region of the given person.
      *
-     * @param personToCompareTo is the person whose region is used to sort the closeness of each person's region to
+     * @param personToCompareTo is the person whose region is used to sort the
+     * closeness of each person's region to
      * @return personComparator
      */
     public static Comparator<Person> createClosestComparator(Person personToCompareTo) {

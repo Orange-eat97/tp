@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +32,9 @@ public class SortCommandParserTest {
     @Test
     public void parse_validPrefixArgs_returnsSortCommand() {
         Comparator<Person> comparator = Comparator.comparing(Person.NAME_STR_GETTER, NATURAL_ORDER_COMPARATOR);
-        SortCommand expectedSortCommand = new SortCommand(comparator, "name");
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_NAME);
+        SortCommand expectedSortCommand = new SortCommand(comparator, prefixList);
         assertParseSuccess(parser, " " + PREFIX_NAME, expectedSortCommand);
 
     }
@@ -39,8 +43,12 @@ public class SortCommandParserTest {
         Comparator<Person> comparator = Comparator.comparing(Person.NAME_STR_GETTER, NATURAL_ORDER_COMPARATOR);
         comparator = comparator.thenComparing(Person.ADDRESS_STR_GETTER, NATURAL_ORDER_COMPARATOR);
         comparator = comparator.thenComparing(Person.EMAIL_STR_GETTER, NATURAL_ORDER_COMPARATOR);
+        List<Prefix> prefixList = new ArrayList<>();
+        prefixList.add(PREFIX_NAME);
+        prefixList.add(PREFIX_ADDRESS);
+        prefixList.add(PREFIX_EMAIL);
 
-        SortCommand expectedSortCommand = new SortCommand(comparator, "name, address, email");
+        SortCommand expectedSortCommand = new SortCommand(comparator, prefixList);
         assertParseSuccess(parser, " " + PREFIX_NAME + ", "
                 + PREFIX_ADDRESS + ", " + PREFIX_EMAIL, expectedSortCommand);
 

@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -47,13 +46,11 @@ public class SortCommandParser implements Parser<SortCommand> {
                 .filter(p -> !p.getPrefix().isEmpty())
                 .collect(Collectors.toList());
 
-        List<String> labels = new ArrayList<>();
 
         Comparator<Person> personComparator = null;
         for (int i = 0; i < prefixList.size(); i++) {
             Prefix prefix = prefixList.get(i);
             Function<Person, String> personPrefixValue = getPersonPrefixValue(prefix);
-            labels.add(getPrefixLabel(prefix));
             if (i == 0) {
                 personComparator = Comparator.comparing(personPrefixValue, NATURAL_ORDER_COMPARATOR);
 
@@ -63,8 +60,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         }
 
-        String description = "\n• " + String.join("\n• ", labels);
-        return new SortCommand(personComparator, description);
+        return new SortCommand(personComparator, prefixList);
 
     }
 
