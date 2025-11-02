@@ -41,7 +41,7 @@ public class SortCommandTest {
     private final Comparator<Person> nameComparator = prepareComparator(Person.NAME_STR_GETTER);
     private final Comparator<Person> emailComparator = prepareComparator(Person.EMAIL_STR_GETTER);
     private final Comparator<Person> addressComparator = prepareComparator(Person.ADDRESS_STR_GETTER);
-    private final Comparator<Person> phoneComparator = prepareComparator(Person.PHONE_STR_GETTER);
+    private final Comparator<Person> phoneComparator = prepareComparator(Person.PHONE_UNSPACED_STR_GETTER);
     private final Comparator<Person> tagComparator = prepareComparator(Person.ROLE_TAG_STR_GETTER);
 
     @Test

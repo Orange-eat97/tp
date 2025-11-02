@@ -20,7 +20,8 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
     public static final Function<Person, String> NAME_STR_GETTER = person -> person.getName().fullName;
-    public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
+    public static final Function<Person, String> PHONE_UNSPACED_STR_GETTER =
+            person -> removeAllWhitespace(person.getPhone().value);
     public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
     public static final Function<Person, String> TAG_STR_GETTER =

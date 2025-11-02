@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     private static final Map<Prefix, Function<Person, String>> ATTRIBUTE_GETTERS = Map.of(
             PREFIX_NAME, Person.NAME_STR_GETTER,
             PREFIX_ADDRESS, Person.ADDRESS_STR_GETTER,
-            PREFIX_PHONE, Person.PHONE_STR_GETTER,
+            PREFIX_PHONE, Person.PHONE_UNSPACED_STR_GETTER,
             PREFIX_REGION, Person.REGION_STR_GETTER,
             PREFIX_EMAIL, Person.EMAIL_STR_GETTER,
             PREFIX_TAG, Person.TAG_STR_GETTER

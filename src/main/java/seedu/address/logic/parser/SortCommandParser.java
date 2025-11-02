@@ -69,7 +69,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         case "n/":
             return Person.NAME_STR_GETTER;
         case "p/":
-            return Person.PHONE_STR_GETTER;
+            return Person.PHONE_UNSPACED_STR_GETTER;
         case "e/":
             return Person.EMAIL_STR_GETTER;
         case "t/":
