@@ -20,7 +20,7 @@ public class Phone {
     * No leading/trailing spaces.
     * Total length between 3 and 50 characters.
     */
-    public static final String VALIDATION_REGEX = "^[0-9](?:[0-9 ]{1,48}[0-9])?$";
+    public static final String VALIDATION_REGEX = "^(?=([0-9 ]*[0-9]){3})[0-9][0-9 ]{0,48}[0-9]$";
 
     /*
     * Prefix version: allows only digits, no spaces.
