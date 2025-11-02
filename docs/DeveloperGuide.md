@@ -678,13 +678,6 @@ In order to get the closest volunteer and beneficiary, we needed a way to check 
 **Solved by:**
 To calculate distance, an adjacency matrix is instantiated through BFS along with a Valid Region enum, allowing for dynamic updates to region adjacency in the future.
 
-### **Region model**
-**Challenge faced:**
-In order to get the closest volunteer and beneficiary, we needed a way to check the distance between them and the address attribute was inadequate for this job.
-
-**Solved by:**
-To calculate distance, an adjacency matrix is instantiated through BFS along with a Valid Region enum, allowing for dynamic updates to region adjacency in the future.
-
 ### **Command History**
 **Challenge faced:**
 Pressing UP/DOWN key for the first time does not render the most recent command. Thus, it was important to determine whether a key press was the first.
