@@ -1,9 +1,10 @@
-package seedu.address.ui;
+package seedu.address.logic;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClosestCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -22,12 +23,13 @@ public class AutoCompleteSupplier {
             AddCommand.COMMAND_WORD,
             EditCommand.COMMAND_WORD,
             DeleteCommand.COMMAND_WORD,
-            ClearCommand.COMMAND_WORD,
+            ClosestCommand.COMMAND_WORD,
             FindCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
-            SortCommand.COMMAND_WORD);
+            SortCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_WORD);
 
 
     /**
