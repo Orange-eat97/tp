@@ -114,7 +114,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Region"));
         }
         if (!isValidRegion(region)) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Region.class.getSimpleName()));
+            throw new IllegalValueException(Region.MESSAGE_CONSTRAINTS);
         }
         final Region modelRegion = new Region(region);
 

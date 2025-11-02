@@ -78,7 +78,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same name and phone number.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -87,6 +87,7 @@ public class Person {
         }
 
         return otherPerson != null
+                && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getName().equals(getName());
     }
 
@@ -110,13 +111,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && region.equals(otherPerson.region)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, region, tags);
     }
 
     @Override
@@ -126,6 +128,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("region", region)
                 .add("tags", tags)
                 .toString();
     }
