@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -62,15 +64,19 @@ public class ClosestCommand extends Command {
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
         boolean isPersonVolunteer = personToSortBy.getTags().contains(new Tag("volunteer"));
-        model.updateDisplayList(isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS);
+        String filteredByString = isPersonVolunteer ? "beneficiary" : "volunteer";
+
+        CommandResult resultFind = new FindCommand(
+            isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS, 
+            Map.of(PREFIX_TAG, Set.of(new KeywordMatch(filteredByString, false)))).execute(model);
 
         String regionName = personToSortBy.getRegion().value.getDisplayName();
-        CommandResult result = new SortCommand(personComparator, "closest volunteer to %s".formatted(regionName))
+        CommandResult resultSort = new SortCommand(personComparator, "closest volunteer to %s".formatted(regionName))
                 .execute(model);
 
-        String sortedByString = isPersonVolunteer ? "beneficiary" : "volunteer";
-        return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(sortedByString, regionName),
-                false, false, "tag: %s".formatted(sortedByString), result.getSortStatusText());
+        
+        return new CommandResult("Sorted and filtered to find closest %s to %s".formatted(filteredByString, regionName),
+                false, false, resultFind.getFindStatusText(), resultSort.getSortStatusText());
     }
 
     /**
