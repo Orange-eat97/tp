@@ -396,7 +396,7 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 ### Searching for closest contact: `closest`
 
-Sorts volunteers according to how close their region is to the region of the identified contact by the index provided
+Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified stakeholder is a volunteer, the list will only show beneficiaries and vice versa.
 
 **✏️ Format:**<br>
 `closest INDEX`
@@ -416,8 +416,8 @@ This allows easy selection of volunteers to dispatch.
 </div>
 
 **🎯 Expected Outcome:**
-* Displays all volunteers sorted according to how close their region is to the region of the identified person by the index provided.
-  * e.g. `closest 1` when contact at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+* Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the identified beneficiary/volunteer by the index provided.
+  * e.g. `closest 1` when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
 
 <br><br>
 
