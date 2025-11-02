@@ -432,7 +432,7 @@ This allows easy selection of volunteers to dispatch.
 ## Advanced Features
 -----
 
-### Cycling between commands
+### Command History
 
 Cycles between commands in the command history.
 
