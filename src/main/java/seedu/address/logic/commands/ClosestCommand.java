@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Region;
 import seedu.address.model.person.StrAttrContainsKeywords;
+import seedu.address.model.tag.Tag;
 
 /**
  * Sorts people according to how close their region is to the region of the
@@ -32,6 +33,9 @@ public class ClosestCommand extends Command {
     public static final Predicate<Person> PREDICATE_SHOW_ALL_VOLUNTEERS = new StrAttrContainsKeywords(
             Set.of(new KeywordMatch("volunteer", false)),
             Person.TAG_STR_GETTER);
+
+    public static final Predicate<Person> PREDICATE_SHOW_ALL_BENEFICIARY = new StrAttrContainsKeywords(
+            Set.of(new KeywordMatch("beneficiary", false)), Person.TAG_STR_GETTER);
 
     private final Index index;
 
@@ -58,10 +62,17 @@ public class ClosestCommand extends Command {
 
         Comparator<Person> personComparator = createClosestComparator(personToSortBy);
 
-        model.updateDisplayList(PREDICATE_SHOW_ALL_VOLUNTEERS);
+        boolean isPersonVolunteer = personToSortBy.getTags().contains(new Tag("volunteer"));
+        model.updateDisplayList(isPersonVolunteer ? PREDICATE_SHOW_ALL_BENEFICIARY : PREDICATE_SHOW_ALL_VOLUNTEERS);
 
-        return new SortCommand(personComparator,
-                "closest volunteer to %s".formatted(personToSortBy.getRegion().value.getDisplayName())).execute(model);
+        String regionName = personToSortBy.getRegion().value.getDisplayName();
+        CommandResult result = new SortCommand(personComparator,
+                "closest volunteer to %s".formatted(regionName)).execute(model);
+
+        String sortedByString = isPersonVolunteer ? "beneficiary" : "volunteer";
+        return new CommandResult(
+            "Sorted and filtered to find closest %s to %s".formatted(sortedByString, regionName),
+            false, false, "tag: %s".formatted(sortedByString), result.getSortStatusText());
     }
 
     /**
