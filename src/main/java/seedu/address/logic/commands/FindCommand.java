@@ -30,7 +30,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose specified fields contain "
             + "any of the specified case-insensitive keywords for each field, "
-            + "matching either a full word or optionally, the prefix of a word.\n"
+            + "matching either a full word or optionally, the prefix of a word.\n\n"
             + "To match prefix, add % to the end of keyword. Example: Al% matches Alex Lee and Tan Aloysius. "
             + "NOTE: Prefix matching is NOT supported for address attribute. \n"
             + "Displays matching persons in a numbered list.\n"
