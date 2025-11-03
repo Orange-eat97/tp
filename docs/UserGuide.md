@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by
-connecting beneficiaries to volunteers as quickly as possible. 
+connecting beneficiaries to volunteers as quickly as possible.
 
 NGOs often serve a large number of beneficiaries with a limited pool of volunteers,
 making it challenging to respond promptly to those in need.
@@ -16,7 +16,7 @@ By consolidating beneficiary and volunteer data into a single, streamlined syste
 * automatically identify the **closest available volunteer**
 * reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records. 
+In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records.
 
 ## Table of Contents
 
@@ -104,7 +104,7 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
 2.  Navigate to your CareLink Home folder:
 
-    `cd path/to/home_folder` 
+    `cd path/to/home_folder`
 
     For example, if CareLink Home folder is `C:/usr/Downloads/CareLink`, run the command `cd C:/usr/Downloads/CareLink`.
 
@@ -270,14 +270,14 @@ Deletes one or more specified contacts from the address book.
 * Each index refers to the index number shown in the displayed contact list.
 * A minimum of one index must be specified.
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter. 
+* The order of the indexes do not matter.
 * Spaces must be used to separate indexes.
 * Duplicate indexes will be ignored.
 </div>
 
 
 **Examples:**
-* `list` followed by `delete 2` 
+* `list` followed by `delete 2`
 <br>![result for 'list'](images/listBeforeDelete.png)
 Running `list` lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
 Running `delete 2` deletes the second person in the list.
@@ -339,7 +339,7 @@ you can see the total number of contacts.
 
 ### Locating contacts: `find`
 
-Filters contacts whose fields match the keywords. 
+Filters contacts whose fields match the keywords.
 You can use this to quickly identify or filter volunteers and beneficiaries based on their attributes.
 
 **Format:**<br>
@@ -349,7 +349,7 @@ You can use this to quickly identify or filter volunteers and beneficiaries base
 
 :information_source: **Important Note:** <br>
 * Keywords can be:
-  * full words: `n/Alex` 
+  * full words: `n/Alex`
   * prefixes: `n/Al%` using `%` to indicate a prefix keyword
 * If keyword is a full word, that attribute will only match full words.
   * `n/Han` will not match name `Hans`, `r/BukitTimah` will not match region `Bukit Timah`.
@@ -364,7 +364,7 @@ You can use this to quickly identify or filter volunteers and beneficiaries base
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Prefix keyword searches are not supported for addresses.
 </div>
-<br>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` does not follow any specific order.
 </div>
@@ -383,7 +383,7 @@ CareLink found no results found as no volunteers have the full words `ale` in th
 * `find n/david ber% r/serangoon` <br>
     ![result for 'find n/david ber% r/serangoon'](images/findDavidBerniceSerangoonResult.png)
 Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` who stay in Serangoon.
-<br>
+<br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
@@ -465,7 +465,7 @@ Cycles between commands in the command history.
 :information_source: **Important Note:**
 * When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up.
 * If you are at the most recent command (the top most command), pressing the `⬆ UP Key` will retrieve the oldest command.
-* Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the 
+* Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the
 most recent command.
 * Only the 5 most recent commands will be displayed in the command history.
 
@@ -509,7 +509,7 @@ Typing the letter 'd' in an attempt to type the `delete` command will prompt aut
 
 For each entry in the display list, CareLink helps you quickly copy and paste details like Phone, Email and Address.
 
-**Examples:**
+**Example:**
 * Copying details from the display list <br>
 ![Example of copying](images/ClipboardButtonScreenshot.png) <br>
 Hover your mouse over the attribute you want to copy to reveal the 📋 button that allows copying the data.
