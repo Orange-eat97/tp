@@ -281,6 +281,11 @@ public class StringUtilTest {
     }
 
     @Test
+    public void standardiseName_null_returnsNull() {
+        assertEquals(null, StringUtil.standardiseName(null));
+    }
+
+    @Test
     public void standardiseName_allUpperCase_returnsLowerCase() {
         assertEquals("john doe", StringUtil.standardiseName("JOHN DOE"));
     }
@@ -293,6 +298,11 @@ public class StringUtilTest {
     @Test
     public void standardiseName_upperCaseWithSpecialChars_returnsLowerCase() {
         assertEquals("john doe", StringUtil.standardiseName("JOHN'- DOE"));
+    }
+
+    @Test
+    public void removeAllWhiteSpace_null_returnsNull() {
+        assertEquals(null, StringUtil.removeAllWhitespace(null));
     }
 
     @Test
