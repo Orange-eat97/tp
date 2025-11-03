@@ -334,8 +334,8 @@ suggestions for ghost to use. It is only associated with the interface to keep m
 
 <img src="images/AutoComplete-sequence.png" width="850" />
 <img src="images/AutoComplete-activity-diagram-main.png" width="850" />
-<img src="images/AutoComplete-parser-activity-diagram.png" width="850" />
-<img src="images/AutoComplete-class-diagram.png" width="850" />
+<img src="images/Autocomplete-parser-activity-diagram.png" width="850" />
+<img src="images/Autocomplete-class-diagram.png" width="850" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
