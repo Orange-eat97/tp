@@ -287,13 +287,15 @@ Deletes one or more specified contacts from Carelink.
 **Examples:**
 * `list` followed by `delete 2`
 <br>![result for 'list'](images/listBeforeDelete.png)
-Lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
-Deletes the second person in the displayed contact list.
+Lists all contacts.
+<br>![result for 'delete 2'](images/afterDeleteTwo.png)
+Deletes the second person in the displayed contact list. <br>
+
 * `find n/alice` followed by `delete 1 2`
 <br>![result for 'find n/alice'](images/findAlice.png)
-Filters contacts whose name contains full word `Alice`
+Filters contacts whose name contains full word `Alice`.
 <br>![result for 'delete 1 2'](images/deleteFirstTwo.png)
-`delete 1 2` deletes the first two contacts in the results of the `find` command.
+Deletes the first two contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
@@ -316,7 +318,7 @@ Deletes all contacts in Carelink.
 `clear`
 
 **Example:**
-* `clear` deletes all contacts in CareLink.
+* `clear` <br> Deletes all contacts in CareLink.
 
 <br><br>
 
@@ -335,9 +337,9 @@ Shows a list of all contacts in Carelink.
 `list`
 
 **Example:**
-* `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
-CareLink displays all volunteers' and beneficiaries' contact details. At the panel below the command box,
-you can see the total number of contacts.
+* `list`
+<br>![result for 'find alex david'](images/list-success-screenshot.png)
+Displays all contact details. At the panel below the command box, you can see the total number of contacts.
 
 <br><br>
 
@@ -379,9 +381,9 @@ Use [sort](#sorting-contacts-sort) to rank the filtered contacts since `find` do
 
 
 **Examples:**
-* `find n/aleX iRfAn t/volunteer`<br>
-Uses only full-word keywords to search for volunteers named Alex or Irfan.
-  ![result for 'find n/aleX iRfAn t/volunteer'](images/findAlexIrfanResult.png)
+* `find n/aleX iRfAn t/volunteer`
+<br>![result for 'find n/aleX iRfAn t/volunteer'](images/findAlexIrfanResult.png)
+Uses only full-word keywords to search for volunteers named `Alex` or `Irfan`.
 <br>
 
 * `find n/ale` <br>
@@ -391,6 +393,7 @@ CareLink found no results found as no volunteers have the full words `ale` in th
 * `find n/david ber% r/serangoon` <br>
     ![result for 'find n/david ber% r/serangoon'](images/findDavidBerniceSerangoonResult.png)
 Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` who stay in Serangoon.
+
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
@@ -399,7 +402,7 @@ Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` 
 
 ### Sorting contacts: `sort`
 
-Sorts contacts by the fields in the order of the attribute prefixes
+Sorts contacts by the fields in the order of the attribute prefixes.
 
 **Format:**<br>
 `sort [n/] [p/] [e/] [a/] [t/]`
@@ -415,9 +418,14 @@ Sorts contacts by the fields in the order of the attribute prefixes
 </div>
 
 **Examples:**
-* `sort n/` will return all contacts sorted by their names in alphabetical order
-* `sort n/ p/` will return all contacts sorted by name then phone number
-* `sort p/ n/` will return all contacts sorted by phone number then name
+* `sort n/`
+<br>![Before sorting by name](images/sort-by-name-before-screenshot.png)
+Before sorting
+<br>![After sorting by name](images/sort-by-name-screenshot.png)
+Sorts contacts by their names in alphabetical order
+
+* `sort n/ p/` <br> Sorts contacts by name then phone number
+* `sort p/ n/` <br> Sorts contacts by phone number then name
 
 <br><br>
 
