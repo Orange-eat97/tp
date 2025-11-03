@@ -52,6 +52,10 @@ public class AutoCompleteParser {
         String caretChunk = text.substring(segStart, Math.min(caret, text.length())); //finds a substring that starts
         //after the latest space, ie "add n/" -> "/n"
 
+        if (!caretChunk.isEmpty() && !Character.isLetter(caretChunk.charAt(0))) {
+            return makeCommandsArray(null, 0, null);
+        } //case like "add #"
+
         if (caretChunk.indexOf('/') >= 0) { //case when current text has something like "add n/"-> hide,
             //case like "add n/james p" -> "p", so go to the other blocks
             return makeCommandsArray(null, 0, null);

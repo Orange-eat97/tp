@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BENEFICIARY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OWESMONEY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_VOLUNTEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -94,12 +95,15 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_BENEFICIARY + TAG_DESC_VOLUNTEER + TAG_EMPTY,
+        assertParseFailure(parser, "1" + TAG_DESC_BENEFICIARY + TAG_DESC_OWESMONEY + TAG_EMPTY,
                 Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_BENEFICIARY + TAG_EMPTY + TAG_DESC_VOLUNTEER,
+        assertParseFailure(parser, "1" + TAG_DESC_BENEFICIARY + TAG_EMPTY + TAG_DESC_OWESMONEY,
                 Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_BENEFICIARY + TAG_DESC_VOLUNTEER,
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_BENEFICIARY + TAG_DESC_OWESMONEY,
                 Tag.MESSAGE_CONSTRAINTS);
+
+        // parsing both volunteer and beneficiary tags
+        assertParseFailure(parser, "1" + TAG_DESC_BENEFICIARY + TAG_DESC_VOLUNTEER, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
@@ -110,11 +114,11 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_VOLUNTEER
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_BENEFICIARY;
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_VOLUNTEER, VALID_TAG_BENEFICIARY).build();
+                .withTags(VALID_TAG_VOLUNTEER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

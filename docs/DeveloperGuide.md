@@ -580,7 +580,7 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+
 
 ### Deleting a person
 
@@ -600,7 +600,7 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+
 
 ### Finding a person
 1. Finding a person while all persons are being shown
@@ -614,7 +614,7 @@ testers are expected to do more *exploratory* testing.
    4. Test case: `find n/`<br>
     Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
    5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
-2. _{ more test cases …​ }_
+
 
 
 ### Sorting the list
@@ -654,15 +654,27 @@ testers are expected to do more *exploratory* testing.
    5. Enter a new command `find n/John` and press **enter** to execute it. Press ↑ **Up**. <br>
    Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
 
-2. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Prerequisites: Ensure the data folder exists but the data file `data/addressbook.json` is missing.
+   2. Launch CareLink. <br>
+   Expected: A new data file should be created when changes are made.
 
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data file
+   1. Prerequisites: Ensure the data file is corrupted by opening `data/addressbook.json` and modifying it contain invalid
+   JSON format. <br>
+   2. Launch CareLink. <br>
+   Expected: The contact list will be cleared.
+3. Dealing with invalid input
+   1. Prerequisites: Ensure the data file contains invalid input such as giving someone both
+    beneficiary and volunteer tags.
+   2. Launch CareLink. <br>
+   Expected: The contact list will be cleared.
+   3. Fix it by removing one of the invalid values such as one of the tags.
+   
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -2,7 +2,6 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -20,7 +19,7 @@ public class Phone {
     * No leading/trailing spaces.
     * Total length between 3 and 50 characters.
     */
-    public static final String VALIDATION_REGEX = "^[0-9](?:[0-9 ]{1,48}[0-9])?$";
+    public static final String VALIDATION_REGEX = "^(?=([0-9 ]*[0-9]){3})[0-9][0-9 ]{0,48}[0-9]$";
 
     /*
     * Prefix version: allows only digits, no spaces.
@@ -38,14 +37,14 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = normalizeInnerSpaces(phone);
+        value = phone.trim();
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return normalizeInnerSpaces(test).matches(VALIDATION_REGEX);
+        return test.trim().matches(VALIDATION_REGEX);
     }
 
     /**

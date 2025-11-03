@@ -30,8 +30,11 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_BOB_SPECIAL = "Bob' Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY_SPACED = "1111 1111";
+    public static final String VALID_PHONE_BOB_SPACED = "2222 2222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -40,6 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_REGION_BOB = "Jurong East";
     public static final String VALID_TAG_VOLUNTEER = "volunteer";
     public static final String VALID_TAG_BENEFICIARY = "beneficiary";
+    public static final String VALID_TAG_OWESMONEY = "owesMoney";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -53,6 +57,7 @@ public class CommandTestUtil {
     public static final String REGION_DESC_BOB = " " + PREFIX_REGION + VALID_REGION_BOB;
     public static final String TAG_DESC_BENEFICIARY = " " + PREFIX_TAG + VALID_TAG_BENEFICIARY;
     public static final String TAG_DESC_VOLUNTEER = " " + PREFIX_TAG + VALID_TAG_VOLUNTEER;
+    public static final String TAG_DESC_OWESMONEY = " " + PREFIX_TAG + VALID_TAG_OWESMONEY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

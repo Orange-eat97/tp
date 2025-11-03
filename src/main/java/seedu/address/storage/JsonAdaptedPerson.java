@@ -71,6 +71,10 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
+        if (tags.contains(new JsonAdaptedTag("volunteer"))
+                && tags.contains(new JsonAdaptedTag("beneficiary"))) {
+            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+        }
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
@@ -119,7 +123,7 @@ class JsonAdaptedPerson {
         final Region modelRegion = new Region(region);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        if (!modelTags.contains(new Tag("volunteer")) && !modelTags.contains(new Tag("beneficiary"))) {
+        if (modelTags.contains(new Tag("volunteer")) == modelTags.contains(new Tag("beneficiary"))) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Tag.MESSAGE_CONSTRAINTS));
         }
 

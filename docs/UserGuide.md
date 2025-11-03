@@ -205,7 +205,7 @@ Adds a contact to the address book.
 
 :information_source: **Important Note:** <br>
 * Attributes must follow [Valid Attributes](#valid-attributes).
-* A contact can have any number of tags, but must have a tag that is either volunteer or beneficiary.
+* A contact can have multiple tags, which must include a tag that is either one of volunteer or beneficiary (not both).
 * A contact's attributes can be edited via [edit](#editing-a-contact--edit) later on, however all attributes must first be provided.
 
 </div>
@@ -236,7 +236,7 @@ Edits an existing contact in the address book.
 * The index is affected by `find` and `sort`.
 * At least one of the optional fields must be provided.
 * Attributes must follow [Valid Attributes](#valid-attributes).
-* If tags are edited, must include a tag indicating volunteer or beneficiary.
+* If tags are edited, must include a tag indicating volunteer or beneficiary (not both).
 * Existing values will be updated to the input values.
 </div>
 
