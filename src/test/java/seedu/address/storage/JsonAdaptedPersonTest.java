@@ -29,7 +29,6 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_REGION = BENSON.getRegion().toString();
-    private static final String VOLUNTEER_TAG = "volunteer";
     private static final String BENEFICIARY_TAG = "beneficiary";
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
