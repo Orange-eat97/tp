@@ -179,7 +179,7 @@ Shows a message explaining how to access CareLink's help page.
 **Format:**<br>
 `help`
 
-**📘 Example:**
+**Example:**
 * `help`<br>![help message](images/helpMessage.png)
 
 Simply click the `Copy URL` button to copy the link and paste it in your web browser of choice
@@ -371,21 +371,19 @@ Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` doe
 
 
 **Examples:**
-* `find n/aleX DAViD t/volunteer`<br>
-Uses only full-word keywords to search for volunteers named Alex or David.
+* `find n/aleX iRfAn t/volunteer`<br>
+Uses only full-word keywords to search for volunteers named Alex or Irfan.
+  ![result for 'find n/aleX iRfAn t/volunteer'](images/findAlexIrfanResult.png)
+<br>
 
-<br><br>
+* `find n/ale` <br>
+CareLink found no results found as no volunteers have the full words `ale` in their names (in the sample data).
+<br>
 
-* `find n/ale davi` <br>
-CareLink found no results found as no volunteers have the full words `ale` or `davi` in their names.
-
-<br><br>
-
-* `find n/ibra% bernice r/woodlands` <br>
-    ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
-Uses a mix of prefix and full-word keywords to find `Bernice` and `Irfan Ibrahim` who stay in Woodlands.
-
-<br><br>
+* `find n/david ber% r/serangoon` <br>
+    ![result for 'find n/david ber% r/serangoon'](images/findDavidBerniceSerangoonResult.png)
+Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` who stay in Serangoon.
+<br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
