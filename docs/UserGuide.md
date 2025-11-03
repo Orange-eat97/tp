@@ -358,14 +358,14 @@ You can use this to quickly identify or filter volunteers and beneficiaries base
 * The order of the keywords does not matter.
 * Multiple keywords per field are allowed.
 
+</div>
+
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Prefix keyword searches are not supported for addresses.
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` does not follow any specific order.
-</div>
-
 </div>
 
 
