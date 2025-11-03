@@ -237,7 +237,8 @@ Edits an existing contact in the address book.
 * At least one of the optional fields must be provided.
 * Attributes must follow [Valid Attributes](#valid-attributes).
 * If tags are edited, must include a tag indicating volunteer or beneficiary.
-* Existing values will be updated to the input values. 
+* Existing values will be updated to the input values.
+</div>
 
 <div markdown="block" class="alert alert-warning">
 
@@ -245,11 +246,11 @@ Edits an existing contact in the address book.
 When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 </div>
 
-</div>
-
 **Examples:**
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower` Edits the name of the 2nd contact to be `Betsy Crower`
+*  `edit 1 p/91234567 e/johndoe@example.com` <br>
+Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower` <br>
+Edits the name of the 2nd contact to be `Betsy Crower`
 
 <br><br>
 
@@ -439,7 +440,7 @@ Use [find](#locating-persons-find) and [sort](#sorting-persons-sort) to narrow d
 This allows easy selection of volunteers to dispatch.
 </div>
 
-**Expected Outcome:**
+**Example:**
 * Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the identified beneficiary/volunteer by the index provided.
   * e.g. `closest 1` when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
 
