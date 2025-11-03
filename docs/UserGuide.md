@@ -242,7 +242,7 @@ Edits an existing contact in the address book.
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution:** <br>
+:exclamation: **Caution:**
 When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 </div>
 
