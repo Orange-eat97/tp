@@ -18,5 +18,6 @@ repeat while () is ([more keywords])
 repeat while () is ([more attributes])
 :combine predicates with AND logic;
 :update model's filter;
+stop
 
 @enduml
