@@ -595,45 +595,45 @@ Digits and spaces only, must start and end with digits, have at least 3 digits, 
 Regions must be a valid region (listed below):
 
 <details markdown="1">
-    <summary>Click to view all regions</summary>
+<summary>Click to view all regions</summary>
 
-    * Woodlands
-    * Yishun
-    * Sembawang
-    * Mandai
-    * Sungei Kadut
-    * Punggol
-    * Sengkang
-    * Hougang
-    * Seletar
-    * Serangoon
-    * Pasir Ris
-    * Tampines
-    * Bedok
-    * Paya Lebar
-    * Changi
-    * Toa Payoh
-    * Bishan
-    * Ang Mo Kio
-    * Novena
-    * Geylang
-    * Marine Parade
-    * Kallang
-    * Queenstown
-    * Bukit Merah
-    * Bukit Timah
-    * Tanglin
-    * River Valley
-    * Jurong West
-    * Jurong East
-    * Boon Lay
-    * Clementi
-    * Bukit Batok
-    * Bukit Panjang
-    * Tuas
-    * Lim Chu Kang
-    * Western Water Catchment
-    * Tengah
+* Woodlands
+* Yishun
+* Sembawang
+* Mandai
+* Sungei Kadut
+* Punggol
+* Sengkang
+* Hougang
+* Seletar
+* Serangoon
+* Pasir Ris
+* Tampines
+* Bedok
+* Paya Lebar
+* Changi
+* Toa Payoh
+* Bishan
+* Ang Mo Kio
+* Novena
+* Geylang
+* Marine Parade
+* Kallang
+* Queenstown
+* Bukit Merah
+* Bukit Timah
+* Tanglin
+* River Valley
+* Jurong West
+* Jurong East
+* Boon Lay
+* Clementi
+* Bukit Batok
+* Bukit Panjang
+* Tuas
+* Lim Chu Kang
+* Western Water Catchment
+* Tengah
 
 </details>
 
