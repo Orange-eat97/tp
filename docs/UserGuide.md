@@ -127,9 +127,9 @@ Some useful examples for volunteer admin staff:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the Carelink.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the CareLink.
 
-   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to Carelink.
+   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to CareLink.
 
    * `find n/Tim% John` : Filters contacts whose name starts with `Tim` or contains the full word `John`
 
@@ -204,7 +204,7 @@ Simply click the `Copy URL` button to copy the link and paste it in your web bro
 
 ### Adding a contact: `add`
 
-Adds a contact to Carelink.
+Adds a contact to CareLink.
 
 **Format:**<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
@@ -232,7 +232,7 @@ Adds Betsy Crowe to the list and set her attributes to the given attributes.
 
 ### Editing a contact : `edit`
 
-Edits an existing contact in Carelink.
+Edits an existing contact in CareLink.
 
 **Format:**<br>
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
@@ -267,7 +267,7 @@ Edits the name of the 2nd contact to be `Betsy Crower`.
 ------
 ### Deleting a contact : `delete`
 
-Deletes one or more specified contacts from Carelink.
+Deletes one or more specified contacts from CareLink.
 
 **Format:**<br>
 `delete INDEX [MORE_INDEXES]...`
@@ -304,12 +304,12 @@ After `delete 1 2`, deletes the first two contacts in the results of the `find` 
 
 ### Clearing all entries : `clear`
 
-Deletes all contacts in Carelink.
+Deletes all contacts in CareLink.
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:** <br>
-* This command will permanently delete **all** contacts in Carelink.
+* This command will permanently delete **all** contacts in CareLink.
 * Please think carefully before executing this **irreversible** action.
 * No extra input is needed.
 </div>
@@ -331,7 +331,7 @@ Deletes all contacts in Carelink.
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in Carelink.
+Shows a list of all contacts in CareLink.
 
 **Format:**<br>
 `list`
