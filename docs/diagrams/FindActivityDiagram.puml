@@ -1,0 +1,22 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:command parsed as FindCommand;
+:separate keywords by attributes;
+repeat :parse keywords of attribute;
+repeat
+if () then ([contains prefix symbol and not address attribute])
+    :remove prefix symbol;
+    :validate with prefix rules;
+else ([full word])
+    :validate with full word rules;
+endif
+repeat while () is ([more keywords])
+:create predicate;
+repeat while () is ([more attributes])
+:combine predicates with AND logic;
+:update model's filter;
+
+@enduml

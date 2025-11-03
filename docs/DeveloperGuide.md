@@ -69,7 +69,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The ****API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
@@ -84,7 +84,7 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
-### Logic component
+### Logic component**
 
 **API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
@@ -172,7 +172,10 @@ How the `FindCommand` works:
 5. The collective list of predicates is passed to `ChainedPredicate`, which acts like an `AND` logic operator.
 This is the final predicate used to filter persons.
 
-Below is a given sequence diagram for the flow of find command.
+You can use the activity diagram below to understand the logic flow of FindCommand parsing.
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+Use the below given sequence diagram for how it is implemented and interacts with `Model`.
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
@@ -734,4 +737,9 @@ the CLI. We plan to have a keyboard shortcut to access the CLI.
 5. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
 avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
 6. **Find command does not have a default filter option**: We plan to allow the find function to have a default search e.g `find KEYWORDS...` which will search the keyword across all attributes
-7. **Allow closest and sort command to be additive**: Currently, the closest command performs a sort, so it overrides the previous sort status, we plan to allow sorting by a specific region.
+7. **Allow closest and sort command to be additive**: Currently, the sort command and closest command override each other's order. We plan to make proximity-based sorting be additive with sorting based on other attributes, 
+so users can sort by proximity, then by name, for example.
+8. **Make some parameters optional for add**: Attributes like email and address could be made optional, with a UI that shows it was intentionally left empty. 
+This would better suit real-world use cases where not all information may be available at the time of addition. 
+9. **Allow multiple phone numbers**: In real life, people may have multiple phone numbers (e.g. personal, office).
+This would allow users to store more complete contact information, so they can reach the contact through a secondary number in an emergency.
