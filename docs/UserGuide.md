@@ -28,7 +28,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
     - [Viewing help : `help`](#viewing-help--help)
 
-    - <a href="#contacts-management">Contacts Management</a>
+    - <a href="#contact-management">Contact Management</a>
 
       - [Adding a contact: `add`](#adding-a-contact-add)
 
@@ -199,7 +199,7 @@ Simply click the `Copy URL` button to copy the link and paste it in your web bro
 
 ------
 
-## Contacts Management
+## Contact Management
 -----
 
 ### Adding a contact: `add`
@@ -420,12 +420,12 @@ Sorts contacts by the fields in the order of the attribute prefixes.
 **Examples:**
 * `sort n/`
 <br>![Before sorting by name](images/sort-by-name-before-screenshot.png)
-Before sorting
+Before sorting by names.
 <br>![After sorting by name](images/sort-by-name-screenshot.png)
-Sorts contacts by their names in alphabetical order
+Sorts contacts by their names in alphabetical order.
 
-* `sort n/ p/` <br> Sorts contacts by name then phone number
-* `sort p/ n/` <br> Sorts contacts by phone number then name
+* `sort n/ p/` <br> Sorts contacts by name then phone number.
+* `sort p/ n/` <br> Sorts contacts by phone number then name.
 
 <br><br>
 
@@ -443,20 +443,19 @@ Sorts volunteers/beneficiaries according to how close their region is to the reg
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
-* Overrides existing sort order
-* Overrides existing find filters
+* Overrides existing sort order.
+* Overrides existing find filters.
 
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use [find](#locating-persons-find) and [sort](#sorting-persons-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
+Use [find](#locating-contacts-find) and [sort](#sorting-contacts-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
 
 This allows easy selection of volunteers to dispatch.
 </div>
 
 **Example:**
-* Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the identified beneficiary/volunteer by the index provided.
-  * e.g. `closest 1` when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+* `closest 1` <br> Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the 1st contact in displayed list. (e.g.  when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands)
 
 <br><br>
 
@@ -490,10 +489,9 @@ most recent command.
 **Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
   <br>
-  After pressing either the `⬆ UP Key` or the `⬇ DOWN Key` for the first time since a valid command was executed,
-the command history list is rendered in the result display.
-The current command in the command history is prefixed with a `*` and is typed out in the command box.
-  <br><br>
+  After pressing either the `⬆ UP Key` or the `⬇ DOWN Key` for the first time since a valid command was executed, the command history list is rendered in the result display. The current command in the command history is prefixed with a `*` and is typed out in the command box.
+
+<br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
@@ -503,14 +501,14 @@ The current command in the command history is prefixed with a `*` and is typed o
 
 Provides suggestions to autocomplete your input text. Autocompletes command words and attribute prefixes like `n/`.
 
-**⌨ Usage:**<br>
+**Usage:**<br>
 * Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
 </div>
 
-**Examples:**
+**Example:**
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
 Typing the letter 'd' in an attempt to type the `delete` command will prompt autocomplete to suggest 'elete'. Pressing
 `Tab` autocompletes the command rendering 'delete' in the command box.
@@ -565,7 +563,7 @@ _Details coming soon ..._
 
 Exits the program.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `exit`
 
 
@@ -691,7 +689,7 @@ If the data folder does not exist yet, you can simply copy over the entire `data
 
 ------
 
-## :warning:Known issues
+## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
