@@ -19,12 +19,14 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.REGION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BENEFICIARY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_OWESMONEY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_VOLUNTEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BENEFICIARY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_OWESMONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -58,10 +60,10 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + REGION_DESC_BOB + TAG_DESC_BENEFICIARY, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_BENEFICIARY)
+        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_BENEFICIARY, VALID_TAG_OWESMONEY)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + REGION_DESC_BOB + TAG_DESC_BENEFICIARY,
+                + REGION_DESC_BOB + TAG_DESC_BENEFICIARY + TAG_DESC_OWESMONEY,
                 new AddCommand(expectedPersonMultipleTags));
     }
 
@@ -165,28 +167,32 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_VOLUNTEER + REGION_DESC_BOB + TAG_DESC_BENEFICIARY, Name.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_VOLUNTEER + REGION_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Phone.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Email.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Address.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER, Address.MESSAGE_CONSTRAINTS);
 
         // invalid region
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_REGION_DESC + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY,
+                + INVALID_REGION_DESC + TAG_DESC_VOLUNTEER,
                 Region.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + REGION_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_BENEFICIARY, Tag.MESSAGE_CONSTRAINTS);
+                + REGION_DESC_BOB + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+
+        // volunteer and beneficiary tag
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + REGION_DESC_BOB + TAG_DESC_VOLUNTEER + TAG_DESC_BENEFICIARY, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser,
