@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
@@ -143,7 +147,7 @@ public class FindCommandTest {
      * Prepares description string from {@code Map<Prefix, Set<KeywordMatch>>}.
      */
     private String prepareDescription(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
-        Map<Prefix, String> PREFIX_LABELS = Map.of(
+        Map<Prefix, String> prefixLabels = Map.of(
                 PREFIX_NAME, "name",
                 PREFIX_ADDRESS, "address",
                 PREFIX_PHONE, "phone number",
@@ -160,7 +164,7 @@ public class FindCommandTest {
                             String keywords = entry.getValue().stream()
                                     .map(String::valueOf)
                                     .collect(Collectors.joining(" "));
-                            return PREFIX_LABELS.get(entry.getKey()) + ": " + keywords;
+                            return prefixLabels.get(entry.getKey()) + ": " + keywords;
                         })
                 .collect(Collectors.joining("\n• "));
     }

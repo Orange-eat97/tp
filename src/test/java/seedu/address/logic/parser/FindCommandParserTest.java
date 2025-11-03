@@ -54,7 +54,8 @@ public class FindCommandParserTest {
     public void parse_preamblePresent_throwsParseException() {
         // any non-empty preamble should cause invalid command format
         String inputWithPreamble = "unexpectedPreamble " + PHONE_DESC_AMY;
-        assertParseFailure(parser, inputWithPreamble, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, inputWithPreamble,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
