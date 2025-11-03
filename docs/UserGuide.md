@@ -127,9 +127,9 @@ Some useful examples for volunteer admin staff:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the Carelink.
 
-   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to the Address Book.
+   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to Carelink.
 
    * `find n/Tim% John` : Filters contacts whose name starts with Tim or contains the full word John
 
