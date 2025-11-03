@@ -264,16 +264,22 @@ Deletes one or more specified contacts from the address book.
 * Each index refers to the index number shown in the displayed contact list.
 * A minimum of one index must be specified
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
-* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
-contacts
+* The order of the indexes do not matter 
+* Spaces must be used to separate indexes 
+* Duplicate indexes will be ignored
 </div>
 
 
 **📘 Examples:**
-* `list` followed by `delete 2` deletes the 2nd contact in the address book.
-* `find n/Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
-
+* `list` followed by `delete 2` 
+<br>![result for 'list'](images/listBeforeDelete.png)
+Running `list` lists all contacts.<br>![result for 'delete 2'](images/afterDeleteTwo.png)
+Running `delete 2` deletes the second person in the list.
+* `find n/alice` followed by `delete 1 2`
+<br>![result for 'find n/alice'](images/findAlice.png)
+Running `find n/alice` displays all contacts named 'Alice'
+<br>![result for 'delete 1 2'](images/findAlice.png)
+`delete 1 2` deletes the first two contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
@@ -441,28 +447,32 @@ This allows easy selection of volunteers to dispatch.
 ## Advanced Features
 -----
 
-### Cycling between commands
+### Command History
 
 Cycles between commands in the command history.
 
 **⌨ Usage:**<br>
-* Press `⬆ UP Key`: Goes to the previous command in history
+* Press `⬆ UP Key`: Cycles to more recent commands
 
-* Press `⬇ DOWN Key`: Goes to the next command in history
+* Press `⬇ DOWN Key`: Cycles to older commands
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
 * When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
-* If you are at the most recent command, pressing the `⬇ UP Key` will retrieve the oldest command
-* Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
+* If you are at the most recent command (the top most command), pressing the `⬆ UP Key` will retrieve the oldest command
+* Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the 
+most recent command
+* Only the 5 most recent commands will be displayed in the command history
 
 </div>
 
 **📘 Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
   <br>
-  The current command in the command history is prefixed with a `*`.
+  After pressing either the `⬆ UP Key` or the `⬇ DOWN Key` for the first time since a valid command was executed,
+the command history list is rendered in the result display.
+The current command in the command history is prefixed with a `*` and is typed out in the command box.
   <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)

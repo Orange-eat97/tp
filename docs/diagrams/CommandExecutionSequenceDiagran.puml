@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+title Adding Commands to Command History
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":CommandHistory" as commandHistory LOGIC_COLOR_T1
+
+user -> ui : executeCommand(commandText)
+activate ui
+
+ui -> logic : execute(commandText)
+activate logic
+
+logic --> ui : commandResult
+deactivate logic
+
+opt command is valid
+    ui -> logic : addCommand(commandText)
+    activate logic
+
+    logic -> commandHistory : addCommand(commandText)
+    activate commandHistory
+
+    commandHistory --> logic
+    deactivate commandHistory
+
+    logic --> ui
+    deactivate logic
+end
+
+ui --> user : display result
+deactivate ui
+
+@enduml
