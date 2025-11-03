@@ -3,7 +3,6 @@
 skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
 participant "p1:StrAttrContainsKeyword" as StrAttrContainsKeyword LOGIC_COLOR
 participant "p2:StrAttrContainsKeyword" as StrAttrContainsKeyword2 LOGIC_COLOR
@@ -16,13 +15,9 @@ participant "m:Model" as Model MODEL_COLOR
 end box
 
 
--> AddressBookParser : parseCommand("find n/Al% David t/volunteer")
-activate AddressBookParser
-
 create FindCommandParser
-AddressBookParser -> FindCommandParser
 
-AddressBookParser -> FindCommandParser : parse("n/Al% David t/volunteer")
+-> FindCommandParser : parse("n/Al% David t/volunteer")
 activate FindCommandParser
 
 create StrAttrContainsKeyword
@@ -41,14 +36,9 @@ activate FindCommand
 FindCommand -> FindCommandParser : f
 deactivate FindCommand
 
-FindCommandParser --> AddressBookParser : f
+[<-- FindCommandParser: f
 deactivate FindCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-FindCommandParser -[hidden]-> AddressBookParser
 destroy FindCommandParser
-
-[<--AddressBookParser: f
-deactivate AddressBookParser
 
 -> FindCommand : execute(m)
 activate FindCommand
