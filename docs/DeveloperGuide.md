@@ -333,9 +333,9 @@ Segregates ghost from low-level logic items, such as supplier, and other command
 suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
 <img src="images/AutoComplete-sequence.png" width="850" />
-<img src="images/AutoComplete activity diagram main.png" width="850" />
-<img src="images/AutoComplete parser activity diagram.png" width="850" />
-<img src="images/AutoComplete class diagram.png" width="850" />
+<img src="images/AutoComplete-activity-diagram-main.png" width="550" />
+<img src="images/Autocomplete-parser-activity-diagram.png" width="850" />
+<img src="images/Autocomplete-class-diagram.png" width="350" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -677,7 +677,7 @@ testers are expected to do more *exploratory* testing.
    2. Launch CareLink. <br>
    Expected: The contact list will be cleared.
    3. Fix it by removing one of the invalid values such as one of the tags.
-   
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -749,9 +749,9 @@ the CLI. We plan to have a keyboard shortcut to access the CLI.
 5. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
 avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
 6. **Find command does not have a default filter option**: We plan to allow the find function to have a default search e.g `find KEYWORDS...` which will search the keyword across all attributes
-7. **Allow closest and sort command to be additive**: Currently, the sort command and closest command override each other's order. We plan to make proximity-based sorting be additive with sorting based on other attributes, 
+7. **Allow closest and sort command to be additive**: Currently, the sort command and closest command override each other's order. We plan to make proximity-based sorting be additive with sorting based on other attributes,
 so users can sort by proximity, then by name, for example.
-8. **Make some parameters optional for add**: Attributes like email and address could be made optional, with a UI that shows it was intentionally left empty. 
-This would better suit real-world use cases where not all information may be available at the time of addition. 
+8. **Make some parameters optional for add**: Attributes like email and address could be made optional, with a UI that shows it was intentionally left empty.
+This would better suit real-world use cases where not all information may be available at the time of addition.
 9. **Allow multiple phone numbers**: In real life, people may have multiple phone numbers (e.g. personal, office).
 This would allow users to store more complete contact information, so they can reach the contact through a secondary number in an emergency.
