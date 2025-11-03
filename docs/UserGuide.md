@@ -81,11 +81,11 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
 CareLink requires **Java 17 or above** to run.
 
-* If **Java 17 or above** is not installed, please follow the specific installation instructions mentioned [here](https://se-education.org/guides/tutorials/javaInstallation.html) to avoid version issues
+* If **Java 17 or above** is not installed, please follow the specific installation instructions mentioned [here](https://se-education.org/guides/tutorials/javaInstallation.html) to avoid version issues.
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Follow the guide that fits your computer's operating system**<br>
+**:information_source: Follow the guide that fits your computer's operating system.**<br>
 
 </div>
 
