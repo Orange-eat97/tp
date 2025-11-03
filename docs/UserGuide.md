@@ -127,7 +127,15 @@ Some useful examples for volunteer admin staff:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the Address Book.
+
+   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to the Address Book.
+
+   * `find n/Tim% John` : Filters contacts whose name starts with Tim or contains the full word John
+
+   * `sort p/` : Sorts contacts by their phone number
+
+   * `closest 3` : Sorts volunteers/beneficiaries according to how close their region is to the region of the 3rd contact shown in the list. If the 3rd contact is a volunteer, the list will only show beneficiaries and vice versa.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
