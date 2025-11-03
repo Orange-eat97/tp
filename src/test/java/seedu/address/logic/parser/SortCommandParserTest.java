@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.person.Person;
 
@@ -31,14 +32,14 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_duplicatePrefixes_throwsParseException() {
-        assertParseFailure(parser, PREFIX_NAME + " " + PREFIX_NAME, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                SortCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_NAME + " " + PREFIX_NAME,
+                Messages.getErrorMessageForDuplicatePrefixes(new Prefix[]{PREFIX_NAME, PREFIX_NAME}));
 
     }
 
     @Test
     public void parse_valueAfterPrefix_throwsParseException() {
-        assertParseFailure(parser, PREFIX_NAME + "123" + " "
+        assertParseFailure(parser, " " + PREFIX_NAME + "123" + " "
                 + PREFIX_ADDRESS + "456", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SortCommand.MESSAGE_USAGE));
     }
