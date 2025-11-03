@@ -30,6 +30,20 @@ public class SortCommandParserTest {
     }
 
     @Test
+    public void parse_duplicatePrefixes_throwsParseException() {
+        assertParseFailure(parser, PREFIX_NAME + " " + PREFIX_NAME, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+    }
+
+    @Test
+    public void parse_valueAfterPrefix_throwsParseException() {
+        assertParseFailure(parser, PREFIX_NAME + "123" + " "
+                + PREFIX_ADDRESS + "456", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validPrefixArgs_returnsSortCommand() {
         Comparator<Person> comparator = Comparator.comparing(Person.NAME_STR_GETTER, NATURAL_ORDER_COMPARATOR);
         List<Prefix> prefixList = new ArrayList<>();
