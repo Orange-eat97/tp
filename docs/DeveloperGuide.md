@@ -333,9 +333,9 @@ Segregates ghost from low-level logic items, such as supplier, and other command
 suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
 <img src="images/AutoComplete-sequence.png" width="850" />
-<img src="images/AutoComplete-activity-diagram-main.png" width="850" />
+<img src="images/AutoComplete-activity-diagram-main.png" width="550" />
 <img src="images/Autocomplete-parser-activity-diagram.png" width="850" />
-<img src="images/Autocomplete-class-diagram.png" width="850" />
+<img src="images/Autocomplete-class-diagram.png" width="350" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
