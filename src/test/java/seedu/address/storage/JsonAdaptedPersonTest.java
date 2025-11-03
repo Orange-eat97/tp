@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BENEFICIARY;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -29,7 +30,6 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_REGION = BENSON.getRegion().toString();
-    private static final String BENEFICIARY_TAG = "beneficiary";
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -117,7 +117,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_volunteerAndBeneficiaryTags_throwsIllegalValueException() {
         //VALID_TAGS already has volunteer tag
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(BENEFICIARY_TAG));
+        invalidTags.add(new JsonAdaptedTag(VALID_TAG_BENEFICIARY));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REGION, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);
