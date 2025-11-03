@@ -287,15 +287,15 @@ Deletes one or more specified contacts from Carelink.
 **Examples:**
 * `list` followed by `delete 2`
 <br>![result for 'list'](images/listBeforeDelete.png)
-Lists all contacts.
+After `list`, lists all contacts.
 <br>![result for 'delete 2'](images/afterDeleteTwo.png)
-Deletes the second person in the displayed contact list. <br>
+After `delete 2`, deletes the second person in the displayed contact list. <br>
 
 * `find n/alice` followed by `delete 1 2`
 <br>![result for 'find n/alice'](images/findAlice.png)
-Filters contacts whose name contains full word `Alice`.
+After `find n/alice`, filters contacts whose name contains full word `Alice`.
 <br>![result for 'delete 1 2'](images/deleteFirstTwo.png)
-Deletes the first two contacts in the results of the `find` command.
+After `delete 1 2`, deletes the first two contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
