@@ -25,7 +25,7 @@ public class StrAttrContainsKeywordsTest {
         StrAttrContainsKeywords firstPredicate = new StrAttrContainsKeywords(
                 firstPredicateKeywordSet, Person.NAME_STR_GETTER);
         StrAttrContainsKeywords secondPredicate = new StrAttrContainsKeywords(
-                secondPredicateKeywordSet, Person.PHONE_STR_GETTER);
+                secondPredicateKeywordSet, Person.PHONE_UNSPACED_STR_GETTER);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
