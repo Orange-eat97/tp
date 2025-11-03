@@ -364,7 +364,7 @@ You can use this to quickly identify or filter volunteers and beneficiaries base
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Prefix keyword searches are not supported for addresses.
 </div>
-<br>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` does not follow any specific order.
 </div>
@@ -383,7 +383,7 @@ CareLink found no results found as no volunteers have the full words `ale` in th
 * `find n/david ber% r/serangoon` <br>
     ![result for 'find n/david ber% r/serangoon'](images/findDavidBerniceSerangoonResult.png)
 Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` who stay in Serangoon.
-<br>
+<br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
@@ -509,7 +509,7 @@ Typing the letter 'd' in an attempt to type the `delete` command will prompt aut
 
 For each entry in the display list, CareLink helps you quickly copy and paste details like Phone, Email and Address.
 
-**Examples:**
+**Example:**
 * Copying details from the display list <br>
 ![Example of copying](images/ClipboardButtonScreenshot.png) <br>
 Hover your mouse over the attribute you want to copy to reveal the 📋 button that allows copying the data.
