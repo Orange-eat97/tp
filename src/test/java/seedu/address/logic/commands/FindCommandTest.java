@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.KeywordMatch;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -73,10 +75,40 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_singleKeyword_onePersonFound() {
+        // keyword is full word
+        Map<Prefix, Set<KeywordMatch>> noPrefixMap = Map.of(
+                PREFIX_NAME, Set.of(new KeywordMatch("Elle", false))
+        );
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 1) + prepareDescription(noPrefixMap);
+        StrAttrContainsKeywords predicate = preparePredicate("Elle");
+        FindCommand command = new FindCommand(predicate, noPrefixMap);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ELLE), model.getFilteredPersonList());
+
+        // keyword is prefix of word
+        Map<Prefix, Set<KeywordMatch>> prefixMap = Map.of(
+                PREFIX_NAME, Set.of(new KeywordMatch("El", true))
+        );
+        expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 1) + prepareDescription(prefixMap);
+        predicate = preparePredicate("El%");
+        command = new FindCommand(predicate, prefixMap);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ELLE), model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 3);
+        Map<Prefix, Set<KeywordMatch>> keywordMap = Map.of(
+                PREFIX_NAME, Set.of(new KeywordMatch("Kurz", false),
+                        new KeywordMatch("Elle", false),
+                        new KeywordMatch("Kunz", false))
+        );
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 3) + prepareDescription(keywordMap);
         StrAttrContainsKeywords predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate, new HashMap<>());
+        FindCommand command = new FindCommand(predicate, keywordMap);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
@@ -92,12 +124,44 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate with only word match.
+     * Parses {@code userInput} into a {@code StrAttrContainsKeywords} predicate with word and prefix match.
      */
     private StrAttrContainsKeywords preparePredicate(String userInput) {
         Set<KeywordMatch> keywordMatches = Arrays.stream(userInput.split("\\s+"))
-            .map(keyword -> new KeywordMatch(keyword, false))
+            .map(keyword -> {
+                if (keyword.endsWith("%")) {
+                    return new KeywordMatch(keyword.substring(0, keyword.length() - 1), true);
+                } else {
+                    return new KeywordMatch(keyword, false);
+                }
+            })
             .collect(Collectors.toSet());
         return new StrAttrContainsKeywords(keywordMatches, Person.NAME_STR_GETTER);
+    }
+
+    /**
+     * Prepares description string from {@code Map<Prefix, Set<KeywordMatch>>}.
+     */
+    private String prepareDescription(Map<Prefix, Set<KeywordMatch>> prefixMatches) {
+        Map<Prefix, String> PREFIX_LABELS = Map.of(
+                PREFIX_NAME, "name",
+                PREFIX_ADDRESS, "address",
+                PREFIX_PHONE, "phone number",
+                PREFIX_REGION, "region",
+                PREFIX_EMAIL, "email",
+                PREFIX_TAG, "tag"
+        );
+        if (prefixMatches.isEmpty()) {
+            return "";
+        }
+        return "• " + prefixMatches.entrySet().stream()
+                .map(
+                        entry -> {
+                            String keywords = entry.getValue().stream()
+                                    .map(String::valueOf)
+                                    .collect(Collectors.joining(" "));
+                            return PREFIX_LABELS.get(entry.getKey()) + ": " + keywords;
+                        })
+                .collect(Collectors.joining("\n• "));
     }
 }
