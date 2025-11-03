@@ -204,7 +204,7 @@ Simply click the `Copy URL` button to copy the link and paste it in your web bro
 
 ### Adding a contact: `add`
 
-Adds a contact to the address book.
+Adds a contact to Carelink.
 
 **Format:**<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
@@ -232,7 +232,7 @@ will add Betsy Crowe to the list and set her attributes to the given attributes
 
 ### Editing a contact : `edit`
 
-Edits an existing contact in the address book.
+Edits an existing contact in Carelink.
 
 **Format:**<br>
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
@@ -267,7 +267,7 @@ Edits the name of the 2nd contact to be `Betsy Crower`
 ------
 ### Deleting a contact : `delete`
 
-Deletes one or more specified contacts from the address book.
+Deletes one or more specified contacts from Carelink.
 
 **Format:**<br>
 `delete INDEX [MORE_INDEXES]...`
@@ -302,12 +302,12 @@ Running `find n/alice` displays all contacts named 'Alice'
 
 ### Clearing all entries : `clear`
 
-Deletes all contacts in the address book.
+Deletes all contacts in Carelink.
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:** <br>
-* This command will permanently delete **all** contacts in the address book.
+* This command will permanently delete **all** contacts in Carelink.
 * Please think carefully before executing this **irreversible** action.
 * No extra input is needed.
 </div>
@@ -329,7 +329,7 @@ Deletes all contacts in the address book.
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in Carelink.
 
 **Format:**<br>
 `list`
@@ -534,7 +534,7 @@ CareLink data is saved in the hard disk automatically after any command that cha
 
 ### Editing the data file
 
-CareLink data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CareLink data are saved automatically as a JSON file `[JAR file location]/data/carelink.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, CareLink will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
