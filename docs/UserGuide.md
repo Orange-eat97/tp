@@ -363,7 +363,7 @@ You can use this to quickly identify or filter volunteers and beneficiaries base
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Prefix keyword searches are not supported for addresses.
 </div>
-
+<br>
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use [sort](#sorting-persons-sort) to rank the filtered contacts since `find` does not follow any specific order.
 </div>
@@ -512,7 +512,7 @@ For each entry in the display list, CareLink helps you quickly copy and paste de
 
 **Examples:**
 * Copying details from the display list <br>
-![Example of copying](images/ClipboardButtonScreenshot.png)
+![Example of copying](images/ClipboardButtonScreenshot.png) <br>
 Hover your mouse over the attribute you want to copy to reveal the 📋 button that allows copying the data.
 
 <br><br>
