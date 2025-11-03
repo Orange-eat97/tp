@@ -80,4 +80,15 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Returns true if there are no values after prefixes
+     * @param prefixes
+     * @throws ParseException
+     */
+    public boolean verifyNoValueAfterPrefixes(Prefix... prefixes) {
+        return Stream.of(prefixes).distinct().map(prefix -> this.getAllValues(prefix))
+                .flatMap(x -> x.stream())
+                .filter(x -> !x.isEmpty()).count() < 1;
+    }
 }
