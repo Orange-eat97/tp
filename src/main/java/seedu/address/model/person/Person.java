@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.StringUtil.removeAllWhitespace;
+import static seedu.address.commons.util.StringUtil.standardiseName;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,7 +20,8 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
     public static final Function<Person, String> NAME_STR_GETTER = person -> person.getName().fullName;
-    public static final Function<Person, String> PHONE_STR_GETTER = person -> person.getPhone().value;
+    public static final Function<Person, String> PHONE_UNSPACED_STR_GETTER =
+            person -> removeAllWhitespace(person.getPhone().value);
     public static final Function<Person, String> EMAIL_STR_GETTER = person -> person.getEmail().value;
     public static final Function<Person, String> ADDRESS_STR_GETTER = person -> person.getAddress().value;
     public static final Function<Person, String> TAG_STR_GETTER =
@@ -78,7 +81,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name and phone number.
+     * Returns true if both persons have the same name (ignoring special characters) and phone number (ignoring spaces).
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -87,8 +90,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getName().equals(getName());
+                && removeAllWhitespace(otherPerson.getPhone().value).equals(removeAllWhitespace(getPhone().value))
+                && standardiseName(otherPerson.getName().fullName).equals(standardiseName(getName().fullName));
     }
 
     /**

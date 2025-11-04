@@ -70,7 +70,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 0);
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 0) + FindCommand.FIND_RESET;
         StrAttrContainsKeywords predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate, new HashMap<>());
         expectedModel.updateFilteredPersonList(predicate);

@@ -70,6 +70,16 @@ public class AutoCompleteParserTest {
     }
 
     /**
+     * EP = text has command + !special character + !ends with space = hide
+     */
+    @Test
+    public void command_afterInvalidcharacter_hide() {
+        String text = "add #";
+        int caret = text.length();
+        assertArrayEquals(hide(), AutoCompleteParser.command(text, caret));
+    }
+
+    /**
      * EP = text has edit + has index + ends with space = show param
      */
     @Test

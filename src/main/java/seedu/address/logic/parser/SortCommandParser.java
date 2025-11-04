@@ -39,6 +39,11 @@ public class SortCommandParser implements Parser<SortCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
+        if (!argMultimap.verifyNoValueAfterPrefixes(
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REGION, PREFIX_TAG)) {
+            throw new ParseException((String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE)));
+        }
+
         argMultimap.verifyNoDuplicatePrefixesFor(
                 PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REGION, PREFIX_TAG);
 
@@ -69,7 +74,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         case "n/":
             return Person.NAME_STR_GETTER;
         case "p/":
-            return Person.PHONE_STR_GETTER;
+            return Person.PHONE_UNSPACED_STR_GETTER;
         case "e/":
             return Person.EMAIL_STR_GETTER;
         case "t/":

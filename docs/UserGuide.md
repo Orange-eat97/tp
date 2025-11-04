@@ -4,19 +4,19 @@ title: User Guide
 ---
 
 CareLink helps Non-Governmental Organisations (NGOs) deliver social assistance efficiently by
-connecting beneficiaries to volunteers as quickly as possible. 🤝
+connecting beneficiaries to volunteers as quickly as possible.
 
 NGOs often serve a large number of beneficiaries with a limited pool of volunteers,
 making it challenging to respond promptly to those in need.
 
-By consolidating beneficiary and volunteer data into a single, streamlined system 📚, CareLink enables dispatchers to:
+By consolidating beneficiary and volunteer data into a single, streamlined system, CareLink enables dispatchers to:
 
-* 📝 create and update records for beneficiaries and volunteers
-* 🔍 access information quickly using **optimized find and sort commands**
-* 📍 automatically identify the **closest available volunteer**
-* 📈 reduce errors and delays caused by manual lookups or outdated records
+* create and update records for beneficiaries and volunteers
+* access information quickly using **optimized find and sort commands**
+* automatically identify the **closest available volunteer**
+* reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records. 💙
+In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records.
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
     - [Viewing help : `help`](#viewing-help--help)
 
-    - <a href="#contacts-management">Contacts Management</a>
+    - <a href="#contact-management">Contact Management</a>
 
       - [Adding a contact: `add`](#adding-a-contact-add)
 
@@ -81,11 +81,11 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
 CareLink requires **Java 17 or above** to run.
 
-* If **Java 17 or above** is not installed, please follow the specific installation instructions mentioned [here](https://se-education.org/guides/tutorials/javaInstallation.html) to avoid version issues
+* If **Java 17 or above** is not installed, please follow the specific installation instructions mentioned [here](https://se-education.org/guides/tutorials/javaInstallation.html) to avoid version issues.
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Follow the guide that fits your computer's operating system**<br>
+**:information_source: Follow the guide that fits your computer's operating system.**<br>
 
 </div>
 
@@ -100,13 +100,13 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 
 #### 4️⃣ Launch CareLink
 
-1.  Open your **Command Prompt** for Windows / **Terminal** for Mac
+1.  Open your **Command Prompt** for Windows / **Terminal** for Mac/Linux
 
 2.  Navigate to your CareLink Home folder:
 
     `cd path/to/home_folder`
 
-    For example, if CareLink Home folder is `C:/usr/folder/CareLink` and the terminal is pointing to `C:/usr`, run the command `cd folder/CareLink`.
+    For example, if CareLink Home folder is `C:/usr/Downloads/CareLink`, run the command `cd C:/usr/Downloads/CareLink`.
 
     Your terminal should now show you are inside that folder.
 
@@ -121,23 +121,31 @@ About 10 seconds later, the CareLink interface will greet you with sample volunt
 
 #### 5️⃣ Try Out Some Commands
 
-In the command box at the bottom, type a command and hit **Enter** to execute.
+In the command box at the top left, type a command and hit **Enter** to execute.
 
 Some useful examples for volunteer admin staff:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/yishun t/volunteer` : Adds a volunteer named `John Doe` to the CareLink.
+
+   * `add n/Timothy Tan p/87766512 e/timtan@example.com a/Haig street, block 654, #04-08 r/serangoon t/beneficiary` : Adds a beneficiary named `Timothy Tan` to CareLink.
+
+   * `find n/Tim% John` : Filters contacts whose name starts with `Tim` or contains the full word `John`
+
+   * `sort p/` : Sorts contacts by their phone number
+
+   * `closest 3` : Sorts volunteers/beneficiaries according to how close their region is to the region of the 3rd contact shown in the list. If the 3rd contact is a volunteer, the list will only show beneficiaries and vice versa.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all contacts. You can use this once you are ready to add your own data.
 
    * `exit` : Exits the app.
 
 #### 6️⃣ Learn More
 
-Details of every feature and command can be found in the [Features](#features) section below. You will soon explore assigning roles, tracking participation, and keeping volunteer info updated effortlessly!
+Details of every feature and command can be found in the [Features](#features) section below. You will soon explore assigning roles, tracking participation, and keeping volunteer and beneficiary info updated effortlessly!
 
 -----
 
@@ -150,7 +158,7 @@ Details of every feature and command can be found in the [Features](#features) s
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the attributes to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a attribute which can be used as `add n/John Doe`, `n/` is its attribute prefix.
+  e.g. in `add n/NAME`, `NAME` is an attribute which can be used as `add n/John Doe`, `n/` is its attribute prefix.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -174,12 +182,12 @@ Details of every feature and command can be found in the [Features](#features) s
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access CareLink's help page.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `help`
 
-**📘 Example:**
+**Example:**
 * `help`<br>![help message](images/helpMessage.png)
 
 Simply click the `Copy URL` button to copy the link and paste it in your web browser of choice
@@ -191,30 +199,30 @@ Simply click the `Copy URL` button to copy the link and paste it in your web bro
 
 ------
 
-## Contacts Management
+## Contact Management
 -----
 
 ### Adding a contact: `add`
 
-Adds a contact to the address book.
+Adds a contact to CareLink.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/REGION t/volunteer|beneficiary [t/TAG]…​`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
-* Attributes must follow [Valid Attributes](#valid-attributes)
-* A contact can have any number of tags, but must have a tag that is either volunteer or beneficiary
-* A contact's attributes can be edited via `edit` later on, however all attributes must first be provided
+* Attributes must follow [Valid Attributes](#valid-attributes).
+* A contact can have multiple tags, which must include a tag that is either one of `volunteer` or `beneficiary` (not both).
+* A contact's attributes can be edited via [edit](#editing-a-contact--edit) later on, however all attributes must first be provided.
 
 </div>
 
-**📘 Examples:**
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer`
-will add John Doe to the list and set his attributes to the given attributes
-* `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior`
-will add Betsy Crowe to the list and set her attributes to the given attributes
+**Examples:**
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/woodlands t/volunteer` <br>
+Adds John Doe to the list and set his attributes to the given attributes.
+* `add n/Betsy Crowe e/betsycrowe@example.com a/24 Mandai Garden street r/yishun p/1234567 t/beneficiary t/senior` <br>
+Adds Betsy Crowe to the list and set her attributes to the given attributes.
 
 <br><br>
 
@@ -224,27 +232,33 @@ will add Betsy Crowe to the list and set her attributes to the given attributes
 
 ### Editing a contact : `edit`
 
-Edits an existing contact in the address book.
+Edits an existing contact in CareLink.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
-* The index is affected by `find` and `sort`
+* The index is affected by `find` and `sort`.
 * At least one of the optional fields must be provided.
-* Attributes must follow [Valid Attributes](#valid-attributes)
-* If tags are edited, must include a tag indicating volunteer or beneficiary.
+* Attributes must follow [Valid Attributes](#valid-attributes).
+* If tags are edited, must include a tag indicating `volunteer` or `beneficiary` (not both).
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-
 </div>
 
-**📘 Examples:**
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower` Edits the name of the 2nd contact to be `Betsy Crower`
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Caution:**
+When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+</div>
+
+**Examples:**
+*  `edit 1 p/91234567 e/johndoe@example.com` <br>
+Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower` <br>
+Edits the name of the 2nd contact to be `Betsy Crower`.
 
 <br><br>
 
@@ -253,27 +267,35 @@ Edits an existing contact in the address book.
 ------
 ### Deleting a contact : `delete`
 
-Deletes one or more specified contacts from the address book.
+Deletes one or more specified contacts from CareLink.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `delete INDEX [MORE_INDEXES]...`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
 * Each index refers to the index number shown in the displayed contact list.
-* A minimum of one index must be specified
+* A minimum of one index must be specified.
 * Each index must be a **whole number greater than 0,** e.g. 1, 2, 3, …​
-* The order of the indexes do not matter e.g. `delete 1 2` and `delete 2 1` will both delete the first two contacts
-* Spaces must be used to separate indexes e.g. `delete 12` will delete the 12th contact instead of the first two
-contacts
+* The order of the indexes do not matter.
+* Spaces must be used to separate indexes.
+* Duplicate indexes will be ignored.
 </div>
 
 
-**📘 Examples:**
-* `list` followed by `delete 2` deletes the 2nd contact in the address book.
-* `find n/Betsy` followed by `delete 1 2` deletes the 1st and 2nd contacts in the results of the `find` command.
+**Examples:**
+* `list` followed by `delete 2`
+<br>![result for 'list'](images/listBeforeDelete.png)
+After `list`, lists all contacts.
+<br>![result for 'delete 2'](images/afterDeleteTwo.png)
+After `delete 2`, deletes the second person in the displayed contact list. <br>
 
+* `find n/alice` followed by `delete 1 2`
+<br>![result for 'find n/alice'](images/findAlice.png)
+After `find n/alice`, filters contacts whose name contains full word `Alice`.
+<br>![result for 'delete 1 2'](images/deleteFirstTwo.png)
+After `delete 1 2`, deletes the first two contacts in the results of the `find` command.
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
@@ -282,21 +304,21 @@ contacts
 
 ### Clearing all entries : `clear`
 
-Deletes all contacts in the address book.
+Deletes all contacts in CareLink.
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:** <br>
-* This command will permanently delete **all** contacts in the address book.
+* This command will permanently delete **all** contacts in CareLink.
 * Please think carefully before executing this **irreversible** action.
-* No extra input is needed
+* No extra input is needed.
 </div>
 
-**✏️ Format:**<br>
+**Format:**<br>
 `clear`
 
-**📘 Example:**
-* `clear` deletes all contacts in CareLink.
+**Example:**
+* `clear` <br> Deletes all contacts in CareLink.
 
 <br><br>
 
@@ -309,15 +331,15 @@ Deletes all contacts in the address book.
 
 ### Listing all contacts : `list`
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in CareLink.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `list`
 
-**📘 Example:**
-* `list`<br>![result for 'find alex david'](images/list-success-screenshot.png)
-Displays all volunteers and beneficiaries' contact details in the address book. At the panel below the command box,
-you can see the total number of contacts.
+**Example:**
+* `list`
+<br>![result for 'find alex david'](images/list-success-screenshot.png)
+Displays all contact details. At the panel below the command box, you can see the total number of contacts.
 
 <br><br>
 
@@ -328,38 +350,50 @@ you can see the total number of contacts.
 ### Locating contacts: `find`
 
 Filters contacts whose fields match the keywords.
+You can use this to quickly identify or filter volunteers and beneficiaries based on their attributes.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:** <br>
-* The search is <u>case-insensitive</u> e.g `n/hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `n/Hans Bo` will match `Bo Hans`.
- Multiple keywords per field are allowed. e.g. `n/Hans Bo` will match `Hans Lee` and `Bo Bae`.
 * Keywords can be:
-  * full words e.g. `n/Alex`
-  * prefixes e.g. `n/Al%` where `%` indicates a prefix
-* If keyword is a full word, only full words will be matched.
-  * e.g. `n/Han` will not match `Hans`, `p/94628739` will not match `9462 8739`.
-* If keyword is a prefix, any prefix of attribute can be matched.
-  * e.g. `n/Han%` can match `Hans` and `Bo Hans`.
+  * full words: `n/Alex`
+  * prefixes: `n/Al%` using `%` to indicate a prefix keyword
+* If keyword is a full word, that attribute will only match full words.
+  * `n/Han` will not match name `Hans`, `r/BukitTimah` will not match region `Bukit Timah`.
+* If keyword is a prefix, that attribute will match any word containing the prefix.
+  * `n/Han%` can match name `Hans` and `Bo Hans`.
+* Keywords are <u>case-insensitive</u>.
+* The order of the keywords does not matter.
+* Multiple keywords per field are allowed.
 
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Prefix keyword searches are not supported for addresses.
+</div>
 
-**📘 Examples:**
-* `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
-At the panel below the command box, you can see the total number of contacts.
-<br><br>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use [sort](#sorting-contacts-sort) to rank the filtered contacts since `find` does not follow any specific order.
+</div>
 
-* `find n/irfan bernice t/volunteer` returns `Bernice Lee` and `Irfan Ibrahim`, who are both `volunteers` <br>
-    ![result for 'find irfan bernice t/volunteer'](images/findIrfanBerniceResult.png)
-Displays all volunteers and beneficiaries' contact details named Alex and David in the address book.
-At the panel below the command box, you can see the total number of contacts.
+
+**Examples:**
+* `find n/aleX iRfAn t/volunteer`
+<br>![result for 'find n/aleX iRfAn t/volunteer'](images/findAlexIrfanResult.png)
+Uses only full-word keywords to search for volunteers named `Alex` or `Irfan`.
+<br>
+
+* `find n/ale` <br>
+CareLink found no results found as no volunteers have the full words `ale` in their names (in the sample data).
+<br>
+
+* `find n/david ber% r/serangoon` <br>
+    ![result for 'find n/david ber% r/serangoon'](images/findDavidBerniceSerangoonResult.png)
+Uses a mix of prefix and full-word keywords to find `David Li` and `Bernice Yu` who stay in Serangoon.
+
 <br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
@@ -368,9 +402,9 @@ At the panel below the command box, you can see the total number of contacts.
 
 ### Sorting contacts: `sort`
 
-Sorts contacts by the fields in the order of the attribute prefixes
+Sorts contacts by the fields in the order of the attribute prefixes.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `sort [n/] [p/] [e/] [a/] [t/]`
 
 <div markdown="block" class="alert alert-info">
@@ -383,10 +417,15 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 </div>
 
-**📘 Examples:**
-* `sort n/` will return all contacts sorted by their names in alphabetical order
-* `sort n/ p/` will return all contacts sorted by name then phone number
-* `sort p/ n/` will return all contacts sorted by phone number then name
+**Examples:**
+* `sort n/`
+<br>![Before sorting by name](images/sort-by-name-before-screenshot.png)
+Before sorting by names.
+<br>![After sorting by name](images/sort-by-name-screenshot.png)
+Sorts contacts by their names in alphabetical order.
+
+* `sort n/ p/` <br> Sorts contacts by name then phone number.
+* `sort p/ n/` <br> Sorts contacts by phone number then name.
 
 <br><br>
 
@@ -398,26 +437,25 @@ Sorts contacts by the fields in the order of the attribute prefixes
 
 Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified stakeholder is a volunteer, the list will only show beneficiaries and vice versa.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `closest INDEX`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
-* Overrides existing sort order
-* Overrides existing find filters
+* Overrides existing sort order.
+* Overrides existing find filters.
 
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use [find](#locating-persons-find) and [sort](#sorting-persons-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
+Use [find](#locating-contacts-find) and [sort](#sorting-contacts-sort) to narrow down the beneficiary you want, then use closest to find volunteers close to the beneficiary.
 
 This allows easy selection of volunteers to dispatch.
 </div>
 
-**🎯 Expected Outcome:**
-* Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the identified beneficiary/volunteer by the index provided.
-  * e.g. `closest 1` when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands
+**Example:**
+* `closest 1` <br> Displays all volunteers/beneficiaries sorted according to how close their region is to the region of the 1st contact in displayed list. (e.g.  when beneficiary at index 1 has region Woodlands, will return all volunteers sorted by how close their region is to Woodlands)
 
 <br><br>
 
@@ -428,29 +466,32 @@ This allows easy selection of volunteers to dispatch.
 ## Advanced Features
 -----
 
-### Cycling between commands
+### Command History
 
 Cycles between commands in the command history.
 
-**⌨ Usage:**<br>
-* Press `⬆ UP Key`: Goes to the previous command in history
+**Usage:**<br>
+* Press `⬆ UP Key`: Cycles to more recent commands.
 
-* Press `⬇ DOWN Key`: Goes to the next command in history
+* Press `⬇ DOWN Key`: Cycles to older commands.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Important Note:**
-* When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up
-* If you are at the most recent command, pressing the `⬇ UP Key` will retrieve the oldest command
-* Likewise, if you are at the oldest command, pressing the `⬇ DOWN Key` will retrieve the most recent command
+* When you first press the `⬆ UP Key` or `⬇ DOWN Key`, the most recent command will show up.
+* If you are at the most recent command (the top most command), pressing the `⬆ UP Key` will retrieve the oldest command.
+* Likewise, if you are at the oldest command (the bottom most command), pressing the `⬇ DOWN Key` will retrieve the
+most recent command.
+* Only the 5 most recent commands will be displayed in the command history.
 
 </div>
 
-**📘 Example:**
+**Example:**
 * Command History List <br> ![Command History List](images/CommandHistoryList.png)
   <br>
-  The current command in the command history is prefixed with a `*`.
-  <br><br>
+  After pressing either the `⬆ UP Key` or the `⬇ DOWN Key` for the first time since a valid command was executed, the command history list is rendered in the result display. The current command in the command history is prefixed with a `*` and is typed out in the command box.
+
+<br><br>
 
 [▲ Back to Table of Contents](#table-of-contents)
 
@@ -460,14 +501,14 @@ Cycles between commands in the command history.
 
 Provides suggestions to autocomplete your input text. Autocompletes command words and attribute prefixes like `n/`.
 
-**⌨ Usage:**<br>
+**Usage:**<br>
 * Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
 </div>
 
-**📘 Examples:**
+**Example:**
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
 Typing the letter 'd' in an attempt to type the `delete` command will prompt autocomplete to suggest 'elete'. Pressing
 `Tab` autocompletes the command rendering 'delete' in the command box.
@@ -480,12 +521,12 @@ Typing the letter 'd' in an attempt to type the `delete` command will prompt aut
 
 ### Copying data via Clipboard button
 
-For each entry in the display list, users can copy and paste details like Phone, Email and Address using the clipboard button that appears on hover.
+For each entry in the display list, CareLink helps you quickly copy and paste details like Phone, Email and Address.
 
-**📘 Examples:**
+**Example:**
 * Copying details from the display list <br>
-![Example of copying](images/ClipboardButtonScreenshot.png)
-Hovering your mouse over the attribute you want to copy, reveals the Clipboard button that allows copying the data.
+![Example of copying](images/ClipboardButtonScreenshot.png) <br>
+Hover your mouse over the attribute you want to copy to reveal the 📋 button that allows copying the data.
 
 <br><br>
 
@@ -495,11 +536,11 @@ Hovering your mouse over the attribute you want to copy, reveals the Clipboard b
 
 ### Saving the data
 
-CareLink data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CareLink data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-CareLink data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CareLink data are saved automatically as a JSON file `[JAR file location]/data/carelink.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, CareLink will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -522,7 +563,7 @@ _Details coming soon ..._
 
 Exits the program.
 
-**✏️ Format:**<br>
+**Format:**<br>
 `exit`
 
 
@@ -559,15 +600,15 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
 
 * `999`
-* `98765432`
-* `65123456`
+* `9876 5432`
+* `65 1234 5600`
 * `1800123`
 
 ### 🌍 Region
 
 Regions must be a valid region (listed below):
 
-<details>
+<details markdown="1">
 <summary>Click to view all regions</summary>
 
 * Woodlands
@@ -622,7 +663,7 @@ Address can be any non-blank string.
 
 ### 🏷️ Tags
 
-Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
+Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary` (not both).
 
 <br><br>
 
@@ -636,10 +677,10 @@ Tags are alphanumeric, at least one tag must be `volunteer` or `beneficiary`.
 Data is only stored locally, saved automatically whenever commands that modify data are executed.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file (`addressbook.json`) it creates with the original data file.
+**A**: Install the app in the other computer and overwrite the empty data file (`carelink.json`) it creates with the original data file.
 If the data folder does not exist yet, you can simply copy over the entire `data` folder from your previous CareLink home folder.
 
-**Q**: What do I do if the command box says "Unknown command"?<br>
+**Q**: What do I do if I get an error message which says "Unknown command"?<br>
 **A**: This means that the command you entered is not recognized by the application. Please ensure that you have typed the command correctly according to the formats specified in this user guide. You can type `help` to view the help window for reference.
 
 <br><br>
@@ -648,7 +689,7 @@ If the data folder does not exist yet, you can simply copy over the entire `data
 
 ------
 
-## :warning:Known issues
+## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
@@ -667,7 +708,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX [MORE_INDEXES]...`<br> e.g., `delete 1 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REGION] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find [prefix/KEYWORDS]...`<br> e.g., `find n/James p/92813321`
+**Find** | `find [prefix/KEYWORDS]...`<br> e.g., `find n/Al% p/92813321`
 **Sort** | `sort [prefix/]...` <br> e.g., `sort n/ p/`
 **Closest** | `closest INDEX` <br> e.g., `closest 3`
 **List** | `list`

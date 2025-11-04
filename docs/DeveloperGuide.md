@@ -172,7 +172,10 @@ How the `FindCommand` works:
 5. The collective list of predicates is passed to `ChainedPredicate`, which acts like an `AND` logic operator.
 This is the final predicate used to filter persons.
 
-Below is a given sequence diagram for the flow of find command. 
+You can use the activity diagram below to understand the logic flow of FindCommand parsing.
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+Use the below given sequence diagram for how it is implemented and interacts with `Model`.
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
@@ -208,17 +211,28 @@ Below is a given sequence diagram showing how `SortCommandParser` constructs the
 
 #### Current Implementation
 Command history tracks all commands entered during the current session and allows users to navigate through previously
-entered commands using the UP and DOWN arrow keys. The command history is managed by the `CommandHistory` class and accessed
+entered commands using the `UP` and `DOWN` arrow keys. The command history is managed by the `CommandHistory` class and accessed
 through the `Logic` component.
 
-How `CommandHistory` works:
-1. The MainWindow class listens for an UP or DOWN key press
-2. Depending on which key is pressed, the getNextCommand or getPreviousCommand method is called by Logic
-3. After MainWindow has received the corresponding command, Logic then retrieves the full command history through getCommandHistory
-4. The Key press event is then consumed within MainWindow
+How adding commands to `CommandHistory` works:
+1. The `CommandBox` class listens for an `ENTER` key press
+2. The `MainWindow#executeCommand` method is called
+3. If the command entered was valid, the command text is passed to `Logic#addCommand`
+4. `Logic#addCommand` in turn calls `CommandHistory#addCommand` and the command is added to the command history
+
+Below is a given sequence diagram illustrating how commands are added to the command history:
+
+![CommandExecutionSequenceDiagram](images/CommandExecutionSequenceDiagram.png)
+
+How the `CommandHistory` navigation works:
+1. The MainWindow class listens for an `UP` or `DOWN` key press
+2. Depending on which key is pressed, the `getNextCommand` or `getPreviousCommand` method is called by `Logic`
+3. After `MainWindow` has received the corresponding command, `Logic` then retrieves the full command history through
+`getCommandHistory`
+4. The Key press event is then consumed within `MainWindow`
 
 Below is a given sequence diagram illustrating how the command history navigation is
-executed through the Logic component.
+executed through the Logic component:
 
 ![CommandHistorySequenceDiagram](images/CommandHistorySequenceDiagram.png)
 
@@ -310,21 +324,18 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Command History
-<img src="images/CommandHistorySequenceDiagram.png" width="850" />
-
 ### Autocomplete
 Autocomplete consists of three classes:
 1. ghost (UI): interacts with commandTextField, manages showing and hiding of suggestion under commandBox.
-2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display. 
-Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa. 
+2. autoCompleteParser(interface): interface for ghost to obtain suggestion, and substrings of suggestions to display.
+Segregates ghost from low-level logic items, such as supplier, and other command items, and vice versa.
 3. autoCompleteSupplier(logic): logic class that interacts with the other logic classes, such as commands, to produce
 suggestions for ghost to use. It is only associated with the interface to keep minimum knowledge of the UI.
 
 <img src="images/AutoComplete-sequence.png" width="850" />
-<img src="images/AutoComplete activity diagram main.png" width="850" />
-<img src="images/AutoComplete parser activity diagram.png" width="850" />
-<img src="images/AutoComplete class diagram.png" width="850" />
+<img src="images/AutoComplete-activity-diagram-main.png" width="550" />
+<img src="images/Autocomplete-parser-activity-diagram.png" width="850" />
+<img src="images/Autocomplete-class-diagram.png" width="350" />
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -572,7 +583,7 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+
 
 ### Deleting a person
 
@@ -592,7 +603,7 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+
 
 ### Finding a person
 1. Finding a person while all persons are being shown
@@ -606,7 +617,7 @@ testers are expected to do more *exploratory* testing.
    4. Test case: `find n/`<br>
     Expected: The list does not change. Error details shown in the status message. Status bar remains the same.
    5. Other find commands to try: `find p/PHONE_KEYWORDS`, `find a/ADDRESS_KEYWORDS`, `...`(where ..._KEYWORDS are the respective inputs for the attribute)
-2. _{ more test cases …​ }_
+
 
 
 ### Sorting the list
@@ -646,15 +657,27 @@ testers are expected to do more *exploratory* testing.
    5. Enter a new command `find n/John` and press **enter** to execute it. Press ↑ **Up**. <br>
    Expected: `find n/John` appears in the CLI. Pointer in command history points to `find n/John`.
 
-2. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Prerequisites: Ensure the data folder exists but the data file `data/addressbook.json` is missing.
+   2. Launch CareLink. <br>
+   Expected: A new data file should be created when changes are made.
 
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data file
+   1. Prerequisites: Ensure the data file is corrupted by opening `data/addressbook.json` and modifying it contain invalid
+   JSON format. <br>
+   2. Launch CareLink. <br>
+   Expected: The contact list will be cleared.
+3. Dealing with invalid input
+   1. Prerequisites: Ensure the data file contains invalid input such as giving someone both
+    beneficiary and volunteer tags.
+   2. Launch CareLink. <br>
+   Expected: The contact list will be cleared.
+   3. Fix it by removing one of the invalid values such as one of the tags.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -726,4 +749,9 @@ the CLI. We plan to have a keyboard shortcut to access the CLI.
 5. **Unable to add 2 people of the same name**: We have disabled the feature of adding 2 people of the same name to
 avoid duplicate contacts. We plan to do duplicate checks based on phone and email.
 6. **Find command does not have a default filter option**: We plan to allow the find function to have a default search e.g `find KEYWORDS...` which will search the keyword across all attributes
-7. **Allow closest and sort command to be additive**: Currently, the closest command performs a sort, so it overrides the previous sort status, we plan to allow sorting by a specific region.
+7. **Allow closest and sort command to be additive**: Currently, the sort command and closest command override each other's order. We plan to make proximity-based sorting be additive with sorting based on other attributes,
+so users can sort by proximity, then by name, for example.
+8. **Make some parameters optional for add**: Attributes like email and address could be made optional, with a UI that shows it was intentionally left empty.
+This would better suit real-world use cases where not all information may be available at the time of addition.
+9. **Allow multiple phone numbers**: In real life, people may have multiple phone numbers (e.g. personal, office).
+This would allow users to store more complete contact information, so they can reach the contact through a secondary number in an emergency.

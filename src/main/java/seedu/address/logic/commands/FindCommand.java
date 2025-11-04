@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Keyword matching is case insensitive. Prefix matching is supported for all attributes except address.
  */
 public class FindCommand extends Command {
 
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose specified fields contain "
             + "any of the specified case-insensitive keywords for each field, "
-            + "matching either full words or optionally prefixes.\n"
+            + "matching either a full word or optionally, the prefix of a word.\n\n"
             + "To match prefix, add % to the end of keyword. Example: Al% matches Alex Lee and Tan Aloysius. "
             + "NOTE: Prefix matching is NOT supported for address attribute. \n"
             + "Displays matching persons in a numbered list.\n"
@@ -46,6 +46,7 @@ public class FindCommand extends Command {
             + PREFIX_TAG + "benef%";
     public static final String FIND_SUCCESS_OVERVIEW =
             "Listed %1$d persons matching the following attribute keywords\n";
+    public static final String FIND_RESET = "\nUse `list` command to show all persons again!";
     public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
     private static final Map<Prefix, String> PREFIX_LABELS = Map.of(
             PREFIX_NAME, "name",
@@ -109,7 +110,7 @@ public class FindCommand extends Command {
         model.updateDisplayList(predicate);
         String overview = String.format(FIND_SUCCESS_OVERVIEW, model.getDisplayList().size());
         return new CommandResult(
-                overview + description, false, false,
+                overview + description + FIND_RESET, false, false,
                 null, statusText);
     }
 

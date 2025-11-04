@@ -6,7 +6,7 @@ title: CareLink
 [![Java CI](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-W13-1/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/github/AY2526S1-CS2103T-W13-1/tp/graph/badge.svg?token=086BE9RVL0)](https://codecov.io/github/AY2526S1-CS2103T-W13-1/tp)
 
-![Ui](docs/images/Ui.png)
+![Ui](images/Ui.png)
 
 **CareLink** is a **record management application** built for **NGOs** to efficiently maintain information about their **beneficiaries** and **volunteers**. Designed as a **single-user desktop application**, CareLink emphasizes **speed and productivity** through a **Command Line Interface (CLI)** optimized for quick typing and minimal mouse use.
 
