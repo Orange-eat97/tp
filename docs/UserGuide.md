@@ -117,15 +117,14 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 <br>
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
 
-![Ui](images/Ui.png) 
-<br>
-![Ui Layout](images/ui-layout.png)
+![Ui](images/Ui.png) <br>
 The UI is laid out as shown with each section corresponding to these functions:
-
 * Command Box: User inputs commands here.
 * Result Display: Command execution messages like success and error messages are displayed here.
 * Status Display: Save file path, sort and find status are displayed here.
 * Display List: Shows all contacts after find filters and sorting.
+<br>
+![Ui Layout](images/ui-layout.png)
 
 #### 5️⃣ Try Out Some Commands
 
