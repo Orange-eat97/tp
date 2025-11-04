@@ -45,7 +45,9 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book. Note that "
+            + "two persons are considered the same if they have the same name (case-insensitive) and phone number. "
+            + "Spaces in phone numbers are ignored for internal use.";
     public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
 
     private final Person toAdd;
