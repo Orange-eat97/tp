@@ -55,7 +55,9 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book. Note that "
+            + "two persons are considered the same if they have the same name (case-insensitive) and phone number. "
+            + "Spaces in phone numbers are ignored for internal use.";
     public static final List<String> PARAMS = List.of("n/", "p/", "e/", "a/", "r/", "t/");
 
     private final Index index;

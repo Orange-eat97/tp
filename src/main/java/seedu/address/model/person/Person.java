@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.StringUtil.normalizeInnerSpaces;
 import static seedu.address.commons.util.StringUtil.removeAllWhitespace;
-import static seedu.address.commons.util.StringUtil.standardiseName;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -91,7 +91,8 @@ public class Person {
 
         return otherPerson != null
                 && removeAllWhitespace(otherPerson.getPhone().value).equals(removeAllWhitespace(getPhone().value))
-                && standardiseName(otherPerson.getName().fullName).equals(standardiseName(getName().fullName));
+                && normalizeInnerSpaces(otherPerson.getName().fullName.toLowerCase())
+                .equals(normalizeInnerSpaces(getName().fullName.toLowerCase()));
     }
 
     /**

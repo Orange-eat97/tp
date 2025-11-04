@@ -281,33 +281,13 @@ public class StringUtilTest {
     }
 
     @Test
-    public void standardiseName_null_returnsNull() {
-        assertEquals(null, StringUtil.standardiseName(null));
-    }
-
-    @Test
-    public void standardiseName_allUpperCase_returnsLowerCase() {
-        assertEquals("john doe", StringUtil.standardiseName("JOHN DOE"));
-    }
-
-    @Test
-    public void standardiseName_includeSpecialChars_returnsLowerCase() {
-        assertEquals("john doe", StringUtil.standardiseName("john'- doe"));
-    }
-
-    @Test
-    public void standardiseName_upperCaseWithSpecialChars_returnsLowerCase() {
-        assertEquals("john doe", StringUtil.standardiseName("JOHN'- DOE"));
-    }
-
-    @Test
     public void removeAllWhiteSpace_null_returnsNull() {
         assertEquals(null, StringUtil.removeAllWhitespace(null));
     }
 
     @Test
     public void removeAllWhiteSpace_noChange_returnsSameString() {
-        assertEquals("12345678", StringUtil.standardiseName("12345678"));
+        assertEquals("12345678", StringUtil.normalizeInnerSpaces("12345678"));
     }
 
     @Test
