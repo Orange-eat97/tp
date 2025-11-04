@@ -117,7 +117,8 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 <br>
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
 
-![Ui](images/Ui.png)
+![Ui](images/Ui.png) 
+<br>
 ![Ui Layout](images/ui-layout.png)
 The UI is laid out as shown with each section corresponding to these functions:
 
