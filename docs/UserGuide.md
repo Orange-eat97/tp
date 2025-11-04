@@ -605,8 +605,8 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 
 ### 📞 Phone Number
 
-Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
-
+Digits only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
+Any spaces in your input will automatically be removed.
 * `999`
 * `9876 5432`
 * `65 1234 5600`
