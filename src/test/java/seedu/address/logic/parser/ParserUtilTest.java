@@ -268,4 +268,13 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%", PREFIX_EMAIL));
         assertThrows(ParseException.class, () -> ParserUtil.parseKeywords("%%", PREFIX_EMAIL));
     }
+
+    @Test
+    public void parseKeyword_addressWithPrefixSymbol_returnsNonPrefixKeywordSet() throws Exception {
+        Set<KeywordMatch> actualKeywordSet = ParserUtil.parseKeywords(
+                "Test%", CliSyntax.PREFIX_ADDRESS);
+        Set<KeywordMatch> expectedKeywordSet = Set.of(
+                new KeywordMatch("Test%", false));
+        assertEquals(expectedKeywordSet, actualKeywordSet);
+    }
 }

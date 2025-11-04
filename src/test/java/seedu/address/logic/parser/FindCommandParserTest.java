@@ -51,6 +51,14 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_preamblePresent_throwsParseException() {
+        // any non-empty preamble should cause invalid command format
+        String inputWithPreamble = "unexpectedPreamble " + PHONE_DESC_AMY;
+        assertParseFailure(parser, inputWithPreamble,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_invalidValue_failure() {
         // single invalid attribute keyword
         assertParseFailure(parser, INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
@@ -76,8 +84,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validNameArgs_returnsFindCommand() {
-
+    public void parse_validArgsWithSpaces_returnsFindCommand() {
         Set<KeywordMatch> keywordMatches = List.of("Alice", "Bob").stream()
                 .map(keyword -> new KeywordMatch(keyword, false))
                 .collect(Collectors.toSet());
@@ -91,5 +98,40 @@ public class FindCommandParserTest {
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " " + PREFIX_NAME + " \n Alice \n \t Bob  \t", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_validPrefixes_returnsFindCommand() {
+        Set<KeywordMatch> nameKeywordMatches = List.of("Ali", "Bo").stream()
+                .map(keyword -> new KeywordMatch(keyword, true))
+                .collect(Collectors.toSet());
+        Set<KeywordMatch> phoneKeywordMatches = List.of("123", "678").stream()
+                .map(keyword -> new KeywordMatch(keyword, true))
+                .collect(Collectors.toSet());
+
+        HashMap<Prefix, Set<KeywordMatch>> prefixMatches = new HashMap<>();
+        prefixMatches.put(PREFIX_NAME, nameKeywordMatches);
+
+        // only name prefixes provided
+        FindCommand expectedFindCommand = new FindCommand(
+                new ChainedPredicate(List.of(
+                        new StrAttrContainsKeywords(nameKeywordMatches, Person.NAME_STR_GETTER)
+                    )),
+                prefixMatches);
+        String userInput = " " + PREFIX_NAME + "Ali% Bo%";
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+
+        // name and phone prefixes provided
+        prefixMatches.put(PREFIX_PHONE, phoneKeywordMatches);
+        expectedFindCommand = new FindCommand(
+                new ChainedPredicate(List.of(
+                        new StrAttrContainsKeywords(nameKeywordMatches, Person.NAME_STR_GETTER),
+                        new StrAttrContainsKeywords(phoneKeywordMatches, Person.PHONE_UNSPACED_STR_GETTER)
+                    )),
+                prefixMatches);
+
+        userInput += " " + PREFIX_PHONE + "123% 678%";
+
+        assertParseSuccess(parser, userInput, expectedFindCommand);
     }
 }
