@@ -126,7 +126,7 @@ public class FindCommandParserTest {
         expectedFindCommand = new FindCommand(
                 new ChainedPredicate(List.of(
                         new StrAttrContainsKeywords(nameKeywordMatches, Person.NAME_STR_GETTER),
-                        new StrAttrContainsKeywords(phoneKeywordMatches, Person.PHONE_STR_GETTER)
+                        new StrAttrContainsKeywords(phoneKeywordMatches, Person.PHONE_UNSPACED_STR_GETTER)
                     )),
                 prefixMatches);
 

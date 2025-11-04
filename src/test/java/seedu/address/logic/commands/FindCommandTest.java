@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.FindCommand.FIND_RESET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -70,7 +71,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 0) + FindCommand.FIND_RESET;
+        String expectedMessage = String.format(FindCommand.FIND_SUCCESS_OVERVIEW, 0) + FIND_RESET;
         StrAttrContainsKeywords predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate, new HashMap<>());
         expectedModel.updateFilteredPersonList(predicate);
@@ -166,6 +167,6 @@ public class FindCommandTest {
                                     .collect(Collectors.joining(" "));
                             return prefixLabels.get(entry.getKey()) + ": " + keywords;
                         })
-                .collect(Collectors.joining("\n• "));
+                .collect(Collectors.joining("\n• ")) + FIND_RESET;
     }
 }
