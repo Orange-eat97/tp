@@ -9,14 +9,14 @@ connecting beneficiaries to volunteers as quickly as possible.
 NGOs often serve a large number of beneficiaries with a limited pool of volunteers,
 making it challenging to respond promptly to those in need.
 
-By consolidating beneficiary and volunteer data into a single, streamlined system, CareLink enables dispatchers to:
+By consolidating beneficiary and volunteer data into a single, streamlined system, CareLink enables coordinators to:
 
 * create and update records for beneficiaries and volunteers
 * access information quickly using **optimized find and sort commands**
 * automatically identify the **closest available volunteer**
 * reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records.
+In short, CareLink helps coordinators quickly access and update beneficiary and volunteer records.
 
 ## Table of Contents
 
@@ -50,7 +50,7 @@ In short, CareLink helps dispatchers quickly access and update beneficiary and v
 
     - <a href="#advanced-features">Advanced Features</a>
 
-      - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
+      - [Command History : `UP_Key DOWN_Key`](#command-history)
 
       - [Autocomplete : `TAB_Key`](#autocomplete)
 
@@ -117,7 +117,14 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 <br>
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
 
-![Ui](images/Ui.png)
+![Ui](images/Ui.png) <br>
+The UI is laid out as shown with each section corresponding to these functions:
+* Command Box: User inputs commands here.
+* Result Display: Command execution messages like success and error messages are displayed here.
+* Status Display: Save file path, sort and find status are displayed here.
+* Display List: Shows all contacts after find filters and sorting.
+<br>
+![Ui Layout](images/ui-layout.png)
 
 #### 5️⃣ Try Out Some Commands
 
@@ -339,7 +346,7 @@ Shows a list of all contacts in CareLink.
 **Example:**
 * `list`
 <br>![result for 'find alex david'](images/list-success-screenshot.png)
-Displays all contact details. At the panel below the command box, you can see the total number of contacts.
+Displays all contact details. At the result display, you can see the total number of contacts.
 
 <br><br>
 
@@ -435,7 +442,7 @@ Sorts contacts by their names in alphabetical order.
 
 ### Searching for closest contact: `closest`
 
-Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified stakeholder is a volunteer, the list will only show beneficiaries and vice versa.
+Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified contact is of a volunteer, the list will only show beneficiaries and vice versa.
 
 **Format:**<br>
 `closest INDEX`
@@ -499,14 +506,15 @@ most recent command.
 
 ### Autocomplete
 
-Provides suggestions to autocomplete your input text. Autocompletes command words and attribute prefixes like `n/`.
+Autocompletes command words like `add` and attribute prefixes like `n/`.
 
 **Usage:**<br>
 * Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+For `edit` command, autocomplete hides suggestion until an index is provided.
 </div>
+
 
 **Example:**
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
@@ -578,6 +586,7 @@ Exits the program.
 
 Names can only contain alphanumeric characters, hyphens, and apostrophes, must not be blank, must not exceed 50 characters, and names cannot be purely numeric.
 
+
 * `Alice Tan`
 * `John'O'Doe`
 * `Li Wei`
@@ -598,6 +607,7 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 ### 📞 Phone Number
 
 Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
+Spaces are purely for cosmetic purposes.
 
 * `999`
 * `9876 5432`
