@@ -346,7 +346,7 @@ Shows a list of all contacts in CareLink.
 **Example:**
 * `list`
 <br>![result for 'find alex david'](images/list-success-screenshot.png)
-Displays all contact details. At the panel below the command box, you can see the total number of contacts.
+Displays all contact details. At the result display, you can see the total number of contacts.
 
 <br><br>
 
