@@ -9,14 +9,14 @@ connecting beneficiaries to volunteers as quickly as possible.
 NGOs often serve a large number of beneficiaries with a limited pool of volunteers,
 making it challenging to respond promptly to those in need.
 
-By consolidating beneficiary and volunteer data into a single, streamlined system, CareLink enables dispatchers to:
+By consolidating beneficiary and volunteer data into a single, streamlined system, CareLink enables coordinators to:
 
 * create and update records for beneficiaries and volunteers
 * access information quickly using **optimized find and sort commands**
 * automatically identify the **closest available volunteer**
 * reduce errors and delays caused by manual lookups or outdated records
 
-In short, CareLink helps dispatchers quickly access and update beneficiary and volunteer records.
+In short, CareLink helps coordinators quickly access and update beneficiary and volunteer records.
 
 ## Table of Contents
 
@@ -118,6 +118,13 @@ You get to choose the location. Treat it as your _CareLink Home Folder_.
 About 10 seconds later, the CareLink interface will greet you with sample volunteer and beneficiary data so you can explore comfortably.
 
 ![Ui](images/Ui.png)
+![Ui Layout](images/ui-layout.png)
+The UI is laid out as shown with each section corresponding to these functions:
+
+* Command Box: User inputs commands here.
+* Result Display: Command execution messages like success and error messages are displayed here.
+* Status Display: Save file path, sort and find status are displayed here.
+* Display List: Shows all contacts after find filters and sorting.
 
 #### 5️⃣ Try Out Some Commands
 
@@ -435,7 +442,7 @@ Sorts contacts by their names in alphabetical order.
 
 ### Searching for closest contact: `closest`
 
-Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified stakeholder is a volunteer, the list will only show beneficiaries and vice versa.
+Sorts volunteers/beneficiaries according to how close their region is to the region of the identified beneficiary/volunteer by the index provided. If the identified contact is of a volunteer, the list will only show beneficiaries and vice versa.
 
 **Format:**<br>
 `closest INDEX`
@@ -499,14 +506,15 @@ most recent command.
 
 ### Autocomplete
 
-Provides suggestions to autocomplete your input text. Autocompletes command words and attribute prefixes like `n/`.
+Autocompletes command words like `add` and attribute prefixes like `n/`.
 
 **Usage:**<br>
 * Press `⇥ Tab`: Autocomplete with the suggestion that appears below command box.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Press **Tab** to complete the prefix and start typing an attribute. When you finish it, press **Space** and the next attribute prefix will be suggested automatically.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+For `edit` command, autocomplete hides suggestion until an index is provided.
 </div>
+
 
 **Example:**
 * Autocomplete of command `delete` <br> ![result for autoComplete](images/autoComplete-success.png)
