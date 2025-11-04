@@ -21,7 +21,7 @@ public class Name {
     * - Must contain at least one letter (not purely digits)
     * - Length 1–50 characters
     */
-    public static final String VALIDATION_REGEX = "^(?=.*[A-Za-z])[\\p{Alnum}][\\p{Alnum}'\\- ]{0,49}$";
+    public static final String VALIDATION_REGEX = "^(?=.*[A-Za-z])[\\p{Alnum}][\\p{Alnum}'\\s-]{0,49}$";
 
     /*
     * Prefixes:
@@ -30,7 +30,7 @@ public class Name {
     * - No spaces
     * - Length 1–50 characters
     */
-    public static final String PREFIX_VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum}'\\-]{0,49}$";
+    public static final String PREFIX_VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum}'-]{0,49}$";
 
     public final String fullName;
 
