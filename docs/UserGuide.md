@@ -50,7 +50,7 @@ In short, CareLink helps coordinators quickly access and update beneficiary and 
 
     - <a href="#advanced-features">Advanced Features</a>
 
-      - [Cycling between commands : `UP_Key DOWN_Key`](#cycling-between-commands)
+      - [Command History : `UP_Key DOWN_Key`](#command-history)
 
       - [Autocomplete : `TAB_Key`](#autocomplete)
 
@@ -586,6 +586,7 @@ Exits the program.
 
 Names can only contain alphanumeric characters, hyphens, and apostrophes, must not be blank, must not exceed 50 characters, and names cannot be purely numeric.
 
+
 * `Alice Tan`
 * `John'O'Doe`
 * `Li Wei`
@@ -605,8 +606,9 @@ Emails must follow: `local-part@domain`, allowed special chars in local part (`+
 
 ### 📞 Phone Number
 
-Digits only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
-Any spaces in your input will automatically be removed.
+Digits and spaces only, must start and end with digits, have at least 3 digits, and must not exceed 50 characters.
+Spaces are purely for cosmetic purposes.
+
 * `999`
 * `9876 5432`
 * `65 1234 5600`
