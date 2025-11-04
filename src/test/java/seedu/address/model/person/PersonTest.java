@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB_SPECIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB_SPACED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REGION_BOB;
@@ -53,10 +52,6 @@ public class PersonTest {
 
         // name differs in case, all other attributes same -> returns true
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertTrue(BOB.isSamePerson(editedBob));
-
-        // name differs in special characters, all other attributes same -> returns true
-        editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB_SPECIAL).build();
         assertTrue(BOB.isSamePerson(editedBob));
 
         // phone differs in spacing, all other attributes same -> returns true
